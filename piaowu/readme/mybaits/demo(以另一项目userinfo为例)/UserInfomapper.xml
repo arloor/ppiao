@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.colorfulword.smallbluewhale.dao.UserInfoDao">
+    <resultMap id="userInfoMap" type="com.colorfulword.smallbluewhale.domain.UserInfo">
+        <id property="userInfoId" column="user_info_id"/>
+        <result property="userNumber" column="user_number"/>
+        <result property="fullName" column="full_name"/>
+        <result property="sex" column="sex"/>
+        <result property="mobile" column="mobile"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="email" column="email"/>
+        <result property="qq" column="qq"/>
+        <result property="grade" column="grade"/>
+        <association property="schoolBuilding" javaType="com.colorfulword.smallbluewhale.domain.SchoolBuilding">
+            <id property="schoolBuildingId" column="school_building_id"/>
+            <result property="campus" column="campus"/>
+            <result property="area" column="area"/>
+            <result property="building" column="building"/>
+        </association>
+        <association property="schoolDorm" javaType="com.colorfulword.smallbluewhale.domain.SchoolDorm">
+            <id property="schoolDormId" column="schoole_dorm_id"/>
+            <result property="schoolDormName" column="schoole_dorm_name"/>
+            <result property="schoolBuildingId" column="schoole_dorm_building_id"/>
+        </association>
+        <association property="schoolStudyInfo" javaType="com.colorfulword.smallbluewhale.domain.SchoolStudyInfo">
+            <id property="studyInfoId" column="school_study_info_id"/>
+            <result property="campus" column="campus"/>
+            <result property="department" column="department"/>
+        </association>
+    </resultMap>
+
+    <select id="list" resultMap="userInfoMap">
+        select user_info.*,school_building.*,schoole_dorm.*,school_study_info.*
+        FROM user_info
+         LEFT JOIN school_building on user_info.school_building_id=school_building.school_building_id
+        LEFT JOIN schoole_dorm on user_info.school_dorm_id=schoole_dorm.schoole_dorm_id
+        LEFT JOIN school_study_info on user_info.school_study_id=school_study_info.school_study_info_id
+    </select>
+
+    <insert id="insert" parameterType="com.colorfulword.smallbluewhale.domain.UserInfo">
+        INSERT INTO user_info (user_number,
+        full_name,
+        sex,
+        mobile,
+        head_pic,
+        email,
+        qq,
+        school_building_id,
+        school_dorm_id,
+        school_study_id,
+        grade)
+        VALUES (#{userNumber},
+        #{fullName},
+        #{sex},
+        #{mobile},
+        #{headPic},
+        #{email},
+        #{qq},
+        #{schoolBuildingId},
+        #{schoolDormId},
+        #{schoolStudyId},
+        #{grade})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM user_info
+        WHERE user_info_id=#{userInfoId}
+    </delete>
+
+    <update id="update">
+        UPDATE user_info SET
+        user_number=#{userNumber},
+        full_name=#{fullName},
+        sex=#{sex},
+        mobile=#{mobile},
+        head_pic=#{headPic},
+        email=#{email},
+        qq=#{qq},
+        school_building_id=#{schoolBuildingId},
+        school_dorm_id=#{schoolDormId},
+        school_study_id=#{schoolStudyId},
+        grade=#{grade}
+        WHERE user_info_id=#{userInfoId}
+    </update>
+
+    <select id="get" resultMap="userInfoMap">
+        select user_info.*,school_building.*,schoole_dorm.*,school_study_info.*
+        FROM user_info
+        LEFT JOIN school_building on user_info.school_building_id=school_building.school_building_id
+        LEFT JOIN schoole_dorm on user_info.school_dorm_id=schoole_dorm.schoole_dorm_id
+        LEFT JOIN school_study_info on user_info.school_study_id=school_study_info.school_study_info_id
+        WHERE user_info_id=#{userInfoId}
+    </select>
+
+    <select id="getByUserNumber" resultMap="userInfoMap">
+        select user_info.*,school_building.*,schoole_dorm.*,school_study_info.*
+        from user_info
+         LEFT JOIN school_building on user_info.school_building_id=school_building.school_building_id
+        LEFT JOIN schoole_dorm on user_info.school_dorm_id=schoole_dorm.schoole_dorm_id
+        LEFT JOIN school_study_info on user_info.school_study_id=school_study_info.school_study_info_id
+        where user_number= #{userNumber}
+    </select>
+
+    <select id="getByFullName" resultMap="userInfoMap">
+        select user_info.*,school_building.*,schoole_dorm.*,school_study_info.*
+        from user_info
+         LEFT JOIN school_building on user_info.school_building_id=school_building.school_building_id
+        LEFT JOIN schoole_dorm on user_info.school_dorm_id=schoole_dorm.schoole_dorm_id
+        LEFT JOIN school_study_info on user_info.school_study_id=school_study_info.school_study_info_id
+        where full_name=#{fullName}
+    </select>
+
+    <select id="getBySchoolBuildingId" resultMap="userInfoMap">
+        select user_info.*,school_building.*,schoole_dorm.*,school_study_info.*
+        from user_info
+         LEFT JOIN school_building on user_info.school_building_id=school_building.school_building_id
+        LEFT JOIN schoole_dorm on user_info.school_dorm_id=schoole_dorm.schoole_dorm_id
+        LEFT JOIN school_study_info on user_info.school_study_id=school_study_info.school_study_info_id
+        where user_info.school_building_id=#{schoolBuildingId}
+    </select>
+
+    <select id="getBySchoolDormId" resultMap="userInfoMap">
+        select user_info.*,school_building.*,schoole_dorm.*,school_study_info.*
+        from user_info
+         LEFT JOIN school_building on user_info.school_building_id=school_building.school_building_id
+        LEFT JOIN schoole_dorm on user_info.school_dorm_id=schoole_dorm.schoole_dorm_id
+        LEFT JOIN school_study_info on user_info.school_study_id=school_study_info.school_study_info_id
+        where user_info.school_dorm_id=#{schoolDormId}
+    </select>
+
+    <select id="getBySchoolGrade" resultMap="userInfoMap">
+        select user_info.*,school_building.*,schoole_dorm.*,school_study_info.*
+        from user_info
+         LEFT JOIN school_building on user_info.school_building_id=school_building.school_building_id
+        LEFT JOIN schoole_dorm on user_info.school_dorm_id=schoole_dorm.schoole_dorm_id
+        LEFT JOIN school_study_info on user_info.school_study_id=school_study_info.school_study_info_id
+        where user_info.school_study_id=#{0}
+        and user_info.grade=#{1}
+    </select>
+
+</mapper>

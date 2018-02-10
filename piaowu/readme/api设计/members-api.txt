@@ -1,0 +1,57 @@
+用户：
+
+1.注册：
+post /members/signup
+email=
+uname=(英文不可更改)
+passwd=
+paykey=(支付密码)
+pin=(邮箱验证码)
+pinindex=（验证码码序号）
+
+2.修改用户信息：
+post /members/update/:uname/
+passwd=
+paykey=
+
+
+3.使用优惠券兑换积分
+post /members/forticket/:uname/
+ticketname=
+
+4.会员资格取消
+post /members/cancel/:uname/
+passwd=
+pin=(邮箱验证码)
+pinindex=（验证码码序号）
+
+5.订票
+post /members/book/:uname
+placeid=:placeid
+eventid=:eventid
+type=座位类型
+action=选座/不选座
+num=
+zuo=_id_id_id_id_的格式
+
+6.发送验证码
+get /members/mail/:uname
+发送随机验证码及验证码序号并将用户表中的pin更新
+
+7.支付
+post /member/pay/:uname
+paykey=
+memberticketid=(用户优惠卷id)
+
+
+8.退订
+get /members/disbook/:uname
+orderid=
+
+9.查看个人信息
+get /members/view/:uname
+
+
+10.查看个人订单信息
+get /members/vieworder/:uname
+

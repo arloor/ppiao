@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arloor.piaowu.dao.MembersDao">
+    <resultMap id="membersMap" type="com.arloor.piaowu.domain.Member">
+        <id property="uname" column="uname"/>
+        <result property="email" column="email"/>
+        <result property="passwd" column="passwd"/>
+        <result property="paykey" column="paykey"/>
+        <result property="role" column="role"/>
+        <result property="balance" column="balance"/>
+        <result property="bonus" column="bonus"/>
+        <result property="paynum" column="paynum"/>
+        <result property="timesign" column="timesign"/>
+        <result property="timecancel" column="timecancel"/>
+        <result property="pin" column="pin"/>
+        <result property="pinindex" column="pinindex"/>
+    </resultMap>
+    <select id="searchByUname" resultType="com.arloor.piaowu.domain.Member">
+        SELECT * FROM members WHERE uname =#{uname}
+    </select>
+</mapper>
