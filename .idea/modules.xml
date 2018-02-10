@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/piaowu/piaowu.iml" filepath="$PROJECT_DIR$/piaowu/piaowu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/piaowu_front_react/piaowu_front_react.iml" filepath="$PROJECT_DIR$/piaowu_front_react/piaowu_front_react.iml" />
     </modules>
   </component>
 </project>
