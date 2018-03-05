@@ -24,7 +24,11 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/api/**"); //暂时去除api访问的限制;
         web.ignoring().antMatchers("/404.html");
-        //以下是忽略由npm run build生成的静态资源
+
+        //忽略bootsstrap静态资源
+        web.ignoring().antMatchers("/bootstrap/**");
+        web.ignoring().antMatchers("/image/**");
+//        以下是忽略由npm run build生成的静态资源
 //        web.ignoring().antMatchers("/static/**");
 //        web.ignoring().antMatchers("/asset-manifest.json");
 //        web.ignoring().antMatchers("/favicon.ico");
@@ -37,7 +41,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
+                .antMatchers("/", "/home","/signup").permitAll()
                 .antMatchers("/a").hasRole("MEMBER")
 //                .antMatchers("/a").permitAll()
                 .anyRequest().authenticated() //任何请求,登录后可以访问

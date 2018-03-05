@@ -37,4 +37,6 @@ public class MemberController {
     public Member searcha(String uname){
         return membersDao.searchByUname("arloor");
     }
+
+
 }

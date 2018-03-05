@@ -35,7 +35,7 @@ num=
 zuo=_id_id_id_id_的格式
 
 6.发送验证码
-get /members/mail/:uname
+get /members/mail/pin/:uname
 发送随机验证码及验证码序号并将用户表中的pin更新
 
 7.支付
