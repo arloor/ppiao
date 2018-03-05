@@ -25,11 +25,11 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/api/**"); //暂时去除api访问的限制;
         web.ignoring().antMatchers("/404.html");
         //以下是忽略由npm run build生成的静态资源
-        web.ignoring().antMatchers("/static/**");
-        web.ignoring().antMatchers("/asset-manifest.json");
-        web.ignoring().antMatchers("/favicon.ico");
-        web.ignoring().antMatchers("/manifest.json");
-        web.ignoring().antMatchers("/service-worker.js");
+//        web.ignoring().antMatchers("/static/**");
+//        web.ignoring().antMatchers("/asset-manifest.json");
+//        web.ignoring().antMatchers("/favicon.ico");
+//        web.ignoring().antMatchers("/manifest.json");
+//        web.ignoring().antMatchers("/service-worker.js");
     }
 
     @Override
