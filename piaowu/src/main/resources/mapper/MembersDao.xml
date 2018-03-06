@@ -15,6 +15,15 @@
         <result property="pin" column="pin"/>
         <result property="pinindex" column="pinindex"/>
     </resultMap>
+    <insert id="insertEmptyMember">
+        INSERT INTO members(uname) VALUE (#{uname});
+    </insert>
+    <update id="updatePinByUname">
+        UPDATE members SET pin=#{arg1},pinindex=pinindex+1 where uname=#{arg0};
+    </update>
+    <update id="updateSignMemberByUname">
+        UPDATE members SET email=#{arg1},passwd=#{arg2},paykey=#{arg3} where uname=#{arg0};
+    </update>
     <select id="searchByUname" resultType="com.arloor.piaowu.domain.Member">
         SELECT * FROM members WHERE uname =#{uname}
     </select>

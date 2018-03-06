@@ -24,6 +24,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/api/**"); //暂时去除api访问的限制;
         web.ignoring().antMatchers("/404.html");
+        web.ignoring().antMatchers("/error");
 
         //忽略bootsstrap静态资源
         web.ignoring().antMatchers("/bootstrap/**");

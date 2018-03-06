@@ -13,4 +13,9 @@ public class PiaowuApplicationTests {
 	public void contextLoads() {
 	}
 
+	@Test
+	public void testUpdatePin(){
+
+	}
+
 }

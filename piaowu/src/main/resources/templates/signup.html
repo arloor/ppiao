@@ -36,7 +36,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="/login">购票 <span class="sr-only">(current)</span></a></li>
-                <li><a href="/signup">注册</a></li>
+                <li><a href="/signup">会员注册</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -85,7 +85,7 @@
             <form>
                 <div class="form-group">
                     <label for="uname">用户名</label>
-                    <input type="email" class="form-control" id="uname" placeholder="用户名">
+                    <input type="text" class="form-control" id="uname" placeholder="用户名">
                 </div>
                 <div class="form-group">
                     <label for="email">邮箱</label>
@@ -95,26 +95,30 @@
                     <label for="passwd">密码</label>
                     <input type="password" class="form-control" id="passwd" placeholder="密码">
                 </div>
+                <div class="form-group">
+                    <label for="paykey">支付密码</label>
+                    <input type="password" class="form-control" id="paykey" placeholder="支付密码（推荐使用6位数字）">
+                </div>
             <div class="form-group">
                 <label for="pin">验证码</label>
+                <button class="btn btn-default" id="forPinButton">发送邮箱验证码</button>
                 <input type="text" class="form-control" id="pin" placeholder="验证码">
             </div>
             <div class="form-group">
-                <button class="btn btn-default" id="forPinButton">发送邮箱验证码</button>
                 <label for="pinindex">验证码序号</label>
                 <input type="text" class="form-control" id="pinindex" placeholder="验证码序号">
             </div>
-                <div class="form-group">
-                    <label for="exampleInputFile">头像</label>
-                    <input type="file" id="exampleInputFile">
-                    <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox">用户
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-default">注册</button>
+                <!--<div class="form-group">-->
+                    <!--<label for="exampleInputFile">头像</label>-->
+                    <!--<input type="file" id="exampleInputFile">-->
+                    <!--<p class="help-block">Example block-level help text here.</p>-->
+                <!--</div>-->
+                <!--<div class="checkbox">-->
+                    <!--<label>-->
+                        <!--<input type="checkbox">用户-->
+                    <!--</label>-->
+                <!--</div>-->
+                <button type="submit" id="submit" class="btn btn-default">注册</button>
             </form>
             <img src="image/pig.png" class="img-responsive">
         </div>
@@ -126,10 +130,50 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
 <script>
-    var unameText=document.getElementById("uname");
+
+
     var forPinButton=document.getElementById("forPinButton");
-    forPinButton.onclick=function(){alert("/api/members/mail/pin/"+unameText.value)};
-    //todo:ajax
+    forPinButton.onclick=function(){
+        var unameInput=document.getElementById("uname");
+        var emailInput=document.getElementById("email");
+        var req=new XMLHttpRequest();
+        var link="/api/members/mail/pin/"+unameInput.value+"?email="+emailInput.value;
+        req.open("GET",link,true);
+        req.send();
+        req.onreadystatechange=function () {
+            if (req.readyState == 4 && this.status == 200) {
+                if (req.responseText == "true")
+                    alert("验证码已发送");
+            }
+        }
+        return false;
+    };
+
+    var submitButton=document.getElementById("submit");
+    submitButton.onclick=function () {
+        var uname=document.getElementById("uname").value;
+        var email=document.getElementById("email").value;
+        var passwd=document.getElementById("passwd").value;
+        var paykey=document.getElementById("paykey").value;
+        var pin=document.getElementById("pin").value;
+        var pinindex=document.getElementById("pinindex").value;
+
+        var req=new XMLHttpRequest();
+        var link="/api/members/signup?uname="+uname+"&email="+email+"&passwd="+passwd+"&paykey="+paykey+"&pin="+pin+"&pinindex="+pinindex;
+        // alert(link);
+        ///api/members/signup?uname=pig&email=admin@arloor.com&passwd=123456&paykey=123456&pin=33672&pinindex=1
+        req.open("GET",link,true);
+        req.send();
+        req.onreadystatechange=function () {
+            if (req.readyState == 4 && this.status == 200) {
+                if (req.responseText == "true") {
+                    alert("注册成功\n即将回到首页");
+                    window.location.href="/";
+                }
+            }
+        }
+        return false;
+    }
 </script>
 </body>
 </html>
