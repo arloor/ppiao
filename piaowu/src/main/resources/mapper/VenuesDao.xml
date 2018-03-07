@@ -21,6 +21,6 @@
         SELECT * FROM venues WHERE vid=#{arg0};
     </select>
     <select id="getSeatsTypes" resultType="java.lang.String">
-        SELECT stype FROM halls WHERE vname=#{arg0} and hname=#{arg1};
+        SELECT stype FROM halls WHERE vname=#{vname} and hname=#{hname};
     </select>
 </mapper>
