@@ -26,6 +26,7 @@ public class VenusController {
         try{
             venuesDao.insertNewVenues(vname,vpasswd,vaddr,info);
         }catch (Exception e){
+            e.printStackTrace();
             return "false";
         }
         String[] entitys=seats.split(",");
@@ -38,6 +39,7 @@ public class VenusController {
         try{
             venuesDao.updateBySql(sql);
         }catch (Exception e){
+            e.printStackTrace();
             return "false";
         }
         Venues venues=venuesDao.searchVenuesByVname(vname);

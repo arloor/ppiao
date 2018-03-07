@@ -9,15 +9,14 @@ import java.util.List;
 @Mapper
 public interface VenuesDao {
 
-     void insertNewVenues(String vname,String vpasswd,String vaddr,String info);
+     void insertNewVenues(@Param("vname") String vname,@Param("vpasswd")String vpasswd,@Param("vaddr") String vaddr,@Param("info") String info);
 
-     void insertSeatsInfoByVname(String sql);
 
     void updateBySql(@Param("paramSQL")String sql);
 
-    Venues searchVenuesByVname(String vname);
+    Venues searchVenuesByVname(@Param("vname") String vname);
 
-    Venues searchVenuesByVid(int vid);
+    Venues searchVenuesByVid(@Param("vid") int vid);
 
-    List<String> getSeatsTypes(String vname,String hname);
+    List<String> getSeatsTypes(@Param("vname") String vname,@Param("hname") String hname);
 }

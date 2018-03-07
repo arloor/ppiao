@@ -2,14 +2,15 @@ package com.arloor.piaowu.dao;
 
 import com.arloor.piaowu.domain.Member;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MembersDao {
-    Member searchByUname(String uname);
+    Member searchByUname(@Param("uname") String uname);
 
-    boolean updatePinByUname(String uname,int pin);
+    boolean updatePinByUname(@Param("uname") String uname,@Param("pin") int pin);
 
-    void insertEmptyMember(String uname);
+    void insertEmptyMember(@Param("uname") String uname);
 
-    void updateSignMemberByUname(String uname,String email,String passwd,String paykey);
+    void updateSignMemberByUname(@Param("uname") String uname,@Param("email") String email,@Param("passwd") String passwd,@Param("paykey") String paykey);
 }

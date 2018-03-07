@@ -126,7 +126,6 @@
         var info=document.getElementById("info").value;
 
         var link="/api/venues/signup?vname="+vname+"&vpasswd="+vpasswd+"&vaddr="+vaddr+"&seats="+seats+"&info="+info;
-        // alert(link);
         var req=new XMLHttpRequest();
         req.open("GET",link,true);
         req.send();

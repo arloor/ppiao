@@ -19,10 +19,10 @@
         INSERT INTO members(uname) VALUE (#{uname});
     </insert>
     <update id="updatePinByUname">
-        UPDATE members SET pin=#{arg1},pinindex=pinindex+1 where uname=#{arg0};
+        UPDATE members SET pin=#{pin},pinindex=pinindex+1 where uname=#{uname};
     </update>
     <update id="updateSignMemberByUname">
-        UPDATE members SET email=#{arg1},passwd=#{arg2},paykey=#{arg3} where uname=#{arg0};
+        UPDATE members SET email=#{uname},passwd=#{passwd},paykey=#{paykey} where uname=#{uname};
     </update>
     <select id="searchByUname" resultType="com.arloor.piaowu.domain.Member">
         SELECT * FROM members WHERE uname =#{uname}

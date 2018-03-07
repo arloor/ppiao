@@ -6,19 +6,16 @@
     </resultMap>
 
     <insert id="insertNewVenues">
-        INSERT INTO venues(vname, vpasswd, vaddr, vinfo) VALUE (#{arg0},#{arg1},#{arg2},#{arg3});
-    </insert>
-    <insert id="insertSeatsInfoByVname">
-        INSERT INTO halls(vname, hname, stype, rownum, colnum) VALUES (),();
+        INSERT INTO venues(vname, vpasswd, vaddr, vinfo) VALUE (#{vname},#{vpasswd},#{vaddr},#{info});
     </insert>
     <update id="updateBySql">
         ${paramSQL}
     </update>
     <select id="searchVenuesByVname" resultType="com.arloor.piaowu.domain.Venues">
-        SELECT * FROM venues WHERE vname=#{arg0};
+        SELECT * FROM venues WHERE vname=#{vname};
     </select>
     <select id="searchVenuesByVid" resultType="com.arloor.piaowu.domain.Venues">
-        SELECT * FROM venues WHERE vid=#{arg0};
+        SELECT * FROM venues WHERE vid=#{vid};
     </select>
     <select id="getSeatsTypes" resultType="java.lang.String">
         SELECT stype FROM halls WHERE vname=#{vname} and hname=#{hname};
