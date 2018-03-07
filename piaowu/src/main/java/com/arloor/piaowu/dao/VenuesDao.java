@@ -4,6 +4,8 @@ import com.arloor.piaowu.domain.Venues;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface VenuesDao {
 
@@ -16,4 +18,6 @@ public interface VenuesDao {
     Venues searchVenuesByVname(String vname);
 
     Venues searchVenuesByVid(int vid);
+
+    List<String> getSeatsTypes(String vname,String hname);
 }

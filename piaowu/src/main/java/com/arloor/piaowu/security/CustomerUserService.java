@@ -42,7 +42,7 @@ public class CustomerUserService implements UserDetailsService {
         if(venues!=null){
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(venues.getRole()));
-            User user=new User(s,"{noop}"+venues.getVpasswd(),authorities);
+            User user=new User(venues.getVname(),"{noop}"+venues.getVpasswd(),authorities);
             return user;
         }
 

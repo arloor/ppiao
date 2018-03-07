@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.arloor.piaowu.dao.VenuesDao">
+    <resultMap id="seattypes" type="string">
+        <collection property="stypes" javaType="ArrayList"  column="stype" ofType="string" select="getSeatsTypes" />
+    </resultMap>
+
     <insert id="insertNewVenues">
         INSERT INTO venues(vname, vpasswd, vaddr, vinfo) VALUE (#{arg0},#{arg1},#{arg2},#{arg3});
     </insert>
@@ -15,5 +19,8 @@
     </select>
     <select id="searchVenuesByVid" resultType="com.arloor.piaowu.domain.Venues">
         SELECT * FROM venues WHERE vid=#{arg0};
+    </select>
+    <select id="getSeatsTypes" resultType="java.lang.String">
+        SELECT stype FROM halls WHERE vname=#{arg0} and hname=#{arg1};
     </select>
 </mapper>

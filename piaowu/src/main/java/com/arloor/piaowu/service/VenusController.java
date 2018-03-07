@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/venues")
 public class VenusController {
@@ -42,5 +44,29 @@ public class VenusController {
         long vid=venues.getVid();
         String vidStr=String.format("%7d", vid).replace(" ", "0");
         return vidStr;
+    }
+
+    @RequestMapping("/seatstypes")
+    public List<String> getSeatsTypes(
+            @RequestParam String vname,
+            @RequestParam String hname
+    ){
+//        return null;
+        return venuesDao.getSeatsTypes(vname,hname);
+    }
+
+    @RequestMapping("createplan")
+    public boolean createPlan(
+            @RequestParam String vname,
+            @RequestParam String pname,
+            @RequestParam String phname,
+            @RequestParam String pdate,
+            @RequestParam String ptime,
+            @RequestParam String ptype,
+            @RequestParam String pinfo,
+            @RequestParam String sprice
+    ){
+        //todo:完成在plays中插入以及创建seats表的操作
+        return false;
     }
 }
