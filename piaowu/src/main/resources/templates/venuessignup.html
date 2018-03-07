@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>飘麦网--在线购票</title>
+    <title>飘麦网--场馆入驻</title>
 
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -82,14 +82,30 @@
         <br>
         <br>
         <div class="col-lg-6 col-lg-offset-3" style="background: #5bc0de;text-align: center">
-            <h1>也许是最好的票务网站</h1>
-            <h2>10家大型场馆</h2>
-            <h3>日均100<span style="font-weight: bolder">赛事、演唱会、电影</span></h3>
-            <hr/>
-            <h1>Maybe the best booking website</h1>
-            <h2>10 giant Venues</h2>
-            <h3>100<span style="font-weight: bolder">赛事、演唱会、电影</span> perday</h3>
-            <hr/>
+
+            <form>
+                <div class="form-group">
+                    <label for="vname">场馆名称</label>
+                    <input type="text" class="form-control" id="vname" placeholder="场馆名称（不作为登陆依据）">
+                </div>
+                <div class="form-group">
+                    <label for="vpasswd">场馆登陆密码</label>
+                    <input type="password" class="form-control" id="vpasswd" placeholder="场馆登陆密码">
+                </div>
+                <div class="form-group">
+                    <label for="vaddr">场馆地址</label>
+                    <input type="text" class="form-control" id="vaddr" placeholder="场馆地址">
+                </div>
+                <div class="form-group">
+                    <label for="seats">座位情况</label>
+                    <input type="text" class="form-control" id="seats" placeholder="例如杜比厅-A-10-10,杜比厅-B-10-10,鸟巢体育馆-内场-10-10（厅-座位类型-行数-列数，厅-座位类型-行数-列数 符号均为英文符号）">
+                </div>
+                <div class="form-group">
+                    <label for="info">场馆简介</label>
+                    <input type="text" class="form-control" id="info" placeholder="场馆简介">
+                </div>
+                <button type="submit" id="submit" class="btn btn-default">确认入驻</button>
+            </form>
             <img src="image/pig.png" class="img-responsive">
         </div>
     </div>
@@ -99,5 +115,33 @@
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
+<script>
+    var submitButton=document.getElementById("submit");
+    submitButton.onclick=function () {
+        var vname=document.getElementById("vname").value;
+        var vpasswd=document.getElementById("vpasswd").value;
+        var vaddr=document.getElementById("vaddr").value;
+        var seats=document.getElementById("seats").value;
+        var info=document.getElementById("info").value;
+
+        var link="/api/venues/signup?vname="+vname+"&vpasswd="+vpasswd+"&vaddr="+vaddr+"&seats="+seats+"&info="+info;
+        // alert(link);
+        var req=new XMLHttpRequest();
+        req.open("GET",link,true);
+        req.send();
+        req.onreadystatechange=function () {
+            if (req.readyState == 4 && this.status == 200) {
+                if (req.responseText == "false") {
+                    alert("入驻失败，可能是此名称的场馆以存在");
+                }
+                else{
+                    alert("入驻成功，待经理审核\r\n本场馆的id为\r\n"+req.responseText+"\r\n请妥善保存");
+                    window.location.href="/";
+                }
+            }
+        };
+        return false;
+    }
+</script>
 </body>
 </html>

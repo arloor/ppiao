@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.arloor.piaowu.dao.VenuesDao">
+    <insert id="insertNewVenues">
+        INSERT INTO venues(vname, vpasswd, vaddr, vinfo) VALUE (#{arg0},#{arg1},#{arg2},#{arg3});
+    </insert>
+    <insert id="insertSeatsInfoByVname">
+        INSERT INTO halls(vname, hname, stype, rownum, colnum) VALUES (),();
+    </insert>
+    <update id="updateBySql">
+        ${paramSQL}
+    </update>
+    <select id="searchVenuesByVname" resultType="com.arloor.piaowu.domain.Venues">
+        SELECT * FROM venues WHERE vname=#{arg0};
+    </select>
+    <select id="searchVenuesByVid" resultType="com.arloor.piaowu.domain.Venues">
+        SELECT * FROM venues WHERE vid=#{arg0};
+    </select>
+</mapper>

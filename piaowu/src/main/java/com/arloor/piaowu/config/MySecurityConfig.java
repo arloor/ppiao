@@ -42,7 +42,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.authorizeRequests()
-                .antMatchers("/", "/home","/signup").permitAll()
+                .antMatchers("/", "/home","/signup","/venuessignup").permitAll()
                 .antMatchers("/a").hasRole("MEMBER")
 //                .antMatchers("/a").permitAll()
                 .anyRequest().authenticated() //任何请求,登录后可以访问

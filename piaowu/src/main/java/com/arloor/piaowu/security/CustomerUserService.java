@@ -2,7 +2,9 @@ package com.arloor.piaowu.security;
 
 
 import com.arloor.piaowu.dao.MembersDao;
+import com.arloor.piaowu.dao.VenuesDao;
 import com.arloor.piaowu.domain.Member;
+import com.arloor.piaowu.domain.Venues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,13 +26,27 @@ public class CustomerUserService implements UserDetailsService {
 
     @Autowired
     MembersDao membersDao;
+    @Autowired
+    VenuesDao venuesDao;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Member member=membersDao.searchByUname(s);
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(member.getRole()));
-        User user=new User(member.getUname(),"{noop}"+member.getPasswd(),authorities);
-        return user;
+        if(member!=null){
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority(member.getRole()));
+            User user=new User(member.getUname(),"{noop}"+member.getPasswd(),authorities);
+            return user;
+        }
+        Venues venues=venuesDao.searchVenuesByVid(Integer.parseInt(s));
+        if(venues!=null){
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority(venues.getRole()));
+            User user=new User(s,"{noop}"+venues.getVpasswd(),authorities);
+            return user;
+        }
+
+        return null;
+
     }
 }
