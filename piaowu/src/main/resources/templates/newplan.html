@@ -92,7 +92,9 @@
                 </div>
                 <div class="form-group">
                     <label for="phname">演出厅名</label>
-                    <input type="text" class="form-control" id="phname" placeholder="演出厅名（如杜比厅）">
+                    <select class="form-control" id="phname">
+
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="pdate">演出日期</label>
@@ -148,6 +150,25 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script>
+    
+    window.onload=function (ev) {
+        var vname=document.getElementById("vname").innerText;
+        var link="/api/venus/halls?vname="+vname;
+        var req=new XMLHttpRequest();
+        req.open("GET",link,true);
+        req.send();
+        req.onreadystatechange=function () {
+            if (req.readyState == 4 && this.status == 200) {
+                var phnameSelect=document.getElementById("phname");
+                phnameSelect.innerHTML="";
+                var halls = eval(req.responseText);
+                for(var i=0;i<halls.length;i++){
+                    phnameSelect.innerHTML+="                        <option>"+halls[i]+"</option>\r\n";
+                }
+            }
+        };
+    };
+
     var phnameInput=document.getElementById("phname");
     phnameInput.onchange=function (ev) {
         var phnameInput=document.getElementById("phname");
@@ -159,7 +180,7 @@
         req.onreadystatechange=function () {
             if (req.readyState == 4 && this.status == 200) {
                 var pricediv=document.getElementById("pricediv");
-                pricediv.innerHTML+="";
+                pricediv.innerHTML="";
                 var stypes = eval(req.responseText);
                 for(var i=0;i<stypes.length;i++){
                     pricediv.innerHTML+="<div class=\"form-group\">\n" +
