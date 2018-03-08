@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="maipiaopiao@mysql.arloor.com">
+<dataSource name="maipiaopiao@mysql.moontell.cn">
   <database-model serializer="dbm" rdbms="MYSQL" format-version="4.7">
     <root id="1">
       <DefaultCasing>exact</DefaultCasing>
@@ -1112,94 +1112,93 @@ stype</ColNames>
 stype</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="256" parent="212" name="pid">
+    <column id="256" parent="212" name="pname">
       <Position>1</Position>
-      <Comment>演出计划id</Comment>
-      <DataType>int(20)|0</DataType>
+      <Comment>演出名</Comment>
+      <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="257" parent="212" name="vid">
+    <column id="257" parent="212" name="vname">
       <Position>2</Position>
       <Comment>演出所在的场馆</Comment>
-      <DataType>int(7)|0</DataType>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="258" parent="212" name="hid">
+    <column id="258" parent="212" name="hname">
       <Position>3</Position>
       <Comment>演出所在的厅</Comment>
       <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="212" name="pname">
+    <column id="259" parent="212" name="ptime">
       <Position>4</Position>
-      <Comment>演出名</Comment>
       <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="212" name="ptime">
+    <column id="260" parent="212" name="ptype">
       <Position>5</Position>
-      <DataType>varchar(255)|0</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="261" parent="212" name="ptype">
-      <Position>6</Position>
       <Comment>演出类型</Comment>
       <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="262" parent="212" name="pinfo">
-      <Position>7</Position>
+    <column id="261" parent="212" name="pinfo">
+      <Position>6</Position>
       <Comment>演出的描述</Comment>
       <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="263" parent="212" name="PRIMARY">
+    <key id="262" parent="212" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>pid</ColNames>
+      <ColNames>pname</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="264" parent="213" name="ticketname">
+    <column id="263" parent="213" name="ticketname">
       <Position>1</Position>
       <Comment>优惠券名</Comment>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="265" parent="213" name="type">
+    <column id="264" parent="213" name="type">
       <Position>2</Position>
       <Comment>优惠券类型：根据此值确定param,,的含义</Comment>
       <DataType>int(11)|0</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="266" parent="213" name="param0">
+    <column id="265" parent="213" name="param0">
       <Position>3</Position>
       <DataType>varchar(10)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="267" parent="213" name="param1">
+    <column id="266" parent="213" name="param1">
       <Position>4</Position>
       <DataType>varchar(10)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="268" parent="213" name="param2">
+    <column id="267" parent="213" name="param2">
       <Position>5</Position>
       <DataType>varchar(10)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="269" parent="213" name="left">
+    <column id="268" parent="213" name="left">
       <Position>6</Position>
       <Comment>剩余数量</Comment>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="270" parent="213" name="PRIMARY">
+    <key id="269" parent="213" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ticketname</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="271" parent="214" name="vid">
+    <column id="270" parent="214" name="vid">
       <Position>1</Position>
       <Comment>7位识别码，登陆依据</Comment>
       <DataType>int(7)|0</DataType>
@@ -1207,52 +1206,52 @@ stype</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="272" parent="214" name="vname">
+    <column id="271" parent="214" name="vname">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="273" parent="214" name="vpasswd">
+    <column id="272" parent="214" name="vpasswd">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="274" parent="214" name="vaddr">
+    <column id="273" parent="214" name="vaddr">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="275" parent="214" name="vstatus">
+    <column id="274" parent="214" name="vstatus">
       <Position>5</Position>
       <Comment>场馆的状态：valid-通过审核、有效 sign-刚注册、待审核 tocheck-修改信息后待审核</Comment>
       <DataType>varchar(255)|0</DataType>
       <DefaultExpression>&apos;sign&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="276" parent="214" name="vinfo">
+    <column id="275" parent="214" name="vinfo">
       <Position>6</Position>
       <Comment>场馆简介</Comment>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="277" parent="214" name="role">
+    <column id="276" parent="214" name="role">
       <Position>7</Position>
       <Comment>用于spring security的字段</Comment>
       <DataType>varchar(255)|0</DataType>
       <DefaultExpression>&apos;ROLE_VENUES&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="278" parent="214" name="venues_vid_uindex">
+    <index id="277" parent="214" name="venues_vid_uindex">
       <ColNames>vid</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="279" parent="214" name="PRIMARY">
+    <key id="278" parent="214" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>vname</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="280" parent="214" name="venues_vid_uindex">
+    <key id="279" parent="214" name="venues_vid_uindex">
       <ColNames>vid</ColNames>
       <UnderlyingIndexName>venues_vid_uindex</UnderlyingIndexName>
     </key>
