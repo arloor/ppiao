@@ -150,27 +150,7 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script>
-    
-    window.onload=function (ev) {
-        var vname=document.getElementById("vname").innerText;
-        var link="/api/venus/halls?vname="+vname;
-        var req=new XMLHttpRequest();
-        req.open("GET",link,true);
-        req.send();
-        req.onreadystatechange=function () {
-            if (req.readyState == 4 && this.status == 200) {
-                var phnameSelect=document.getElementById("phname");
-                phnameSelect.innerHTML="";
-                var halls = eval(req.responseText);
-                for(var i=0;i<halls.length;i++){
-                    phnameSelect.innerHTML+="                        <option>"+halls[i]+"</option>\r\n";
-                }
-            }
-        };
-    };
-
-    var phnameInput=document.getElementById("phname");
-    phnameInput.onchange=function (ev) {
+    function  phanmeChanged() {
         var phnameInput=document.getElementById("phname");
         var vname=document.getElementById("vname").innerText;
         var link="/api/venues/seatstypes?vname="+vname+"&hname="+phnameInput.value;
@@ -184,16 +164,45 @@
                 var stypes = eval(req.responseText);
                 for(var i=0;i<stypes.length;i++){
                     pricediv.innerHTML+="<div class=\"form-group\">\n" +
-                    "                        <label for=\""+stypes[i]+"\" class=\"col-sm-2 control-label\">"+stypes[i]+"座位价格</label>\n" +
-                    "                        <div class=\"col-sm-10\">\n" +
-                    "                        <input type=\"text\" class=\"form-control price\" id=\""+stypes[i]+"\" placeholder="+stypes[i]+"座位价格>\n" +
-                    "                        </div>\n" +
-                    "                        </div>";
+                        "                        <label for=\""+stypes[i]+"\" class=\"col-sm-2 control-label\">"+stypes[i]+"座位价格</label>\n" +
+                        "                        <div class=\"col-sm-10\">\n" +
+                        "                        <input type=\"text\" class=\"form-control price\" id=\""+stypes[i]+"\" placeholder="+stypes[i]+"座位价格>\n" +
+                        "                        </div>\n" +
+                        "                        </div>";
                 }
             }
         };
+        // alert("change do");
         return false;
     }
+    
+    window.onload=function (ev) {
+        var vname=document.getElementById("vname").innerText;
+        var link="/api/venues/halls?vname="+vname;
+        var req=new XMLHttpRequest();
+        req.open("GET",link,true);
+        req.send();
+        req.onreadystatechange=function () {
+            if (req.readyState == 4 && this.status == 200) {
+                var phnameSelect=document.getElementById("phname");
+                phnameSelect.innerHTML="";
+                var halls = eval(req.responseText);
+                phnameSelect.innerHTML+="                        <option>未选定</option>\r\n";
+                for(var i=0;i<halls.length;i++){
+                    phnameSelect.innerHTML+="                        <option>"+halls[i]+"</option>\r\n";
+                }
+                // phnameInput.value=halls[0];
+            }
+        };
+
+        phanmeChanged();
+
+
+    };
+
+    var phnameInput=document.getElementById("phname");
+    phnameInput.onchange=phanmeChanged;
+
 
     var submitButton =document.getElementById("submit");
     submitButton.onclick=function (ev) {

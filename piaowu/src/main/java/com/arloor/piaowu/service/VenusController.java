@@ -57,7 +57,7 @@ public class VenusController {
         return venuesDao.getSeatsTypes(vname,hname);
     }
 
-    @RequestMapping("createplan")
+    @RequestMapping("/createplan")
     public boolean createPlan(
             @RequestParam String vname,
             @RequestParam String pname,
@@ -69,6 +69,24 @@ public class VenusController {
             @RequestParam String sprice
     ){
         //todo:完成在plays中插入以及创建seats表的操作
+        venuesDao.insertNewPlan(pname,vname,phname,pdate,ptime,ptype,pinfo);
+        String[] priceEntitys=sprice.split(",");
+        String insertSeatPriceSql="insert INTO  pfares(pname, stype, fares) VALUES ";
+        for (String priceEntity:priceEntitys
+             ) {
+            insertSeatPriceSql+="('"+pname+"','"+priceEntity.split("-")[0]+"',"+priceEntity.split("-")[1]+"),";
+        }
+        insertSeatPriceSql=insertSeatPriceSql.substring(0,insertSeatPriceSql.length()-1);
+        venuesDao.updateBySql(insertSeatPriceSql);
+        //todo:邪恶的悦悦！太坏了！
+//        String createSeatTableForPlay="create t"
+//        venuesDao.createSeatTableForPlay()
+//        venuesDao.insertPlaySeatPrice();
         return false;
+    }
+
+    @RequestMapping("/halls")
+    public List<String> getHallsByVname(String vname){
+        return venuesDao.getHallsByVname(vname);
     }
 }

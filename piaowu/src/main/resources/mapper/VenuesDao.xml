@@ -3,6 +3,7 @@
 <mapper namespace="com.arloor.piaowu.dao.VenuesDao">
     <resultMap id="seattypes" type="string">
         <collection property="stypes" javaType="ArrayList"  column="stype" ofType="string" select="getSeatsTypes" />
+        <collection property="halllist" javaType="ArrayList" column="hname" ofType="string" select="getHallsByVname"/>
     </resultMap>
 
     <insert id="insertNewVenues">
@@ -20,4 +21,11 @@
     <select id="getSeatsTypes" resultType="java.lang.String">
         SELECT stype FROM halls WHERE vname=#{vname} and hname=#{hname};
     </select>
+    <select id="getHallsByVname" resultType="java.lang.String">
+        SELECT DISTINCT hname FROM halls WHERE vname=#{vname};
+    </select>
+
+    <insert id="insertNewPlan">
+        INSERT INTO plays(pname, vname, hname, pdate, ptime, ptype, pinfo) VALUE (#{pname},#{vname},#{hname},#{pdate},#{ptime},#{ptype},#{pinfo});
+    </insert>
 </mapper>
