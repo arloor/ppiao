@@ -24,8 +24,11 @@
     <select id="getHallsByVname" resultType="java.lang.String">
         SELECT DISTINCT hname FROM halls WHERE vname=#{vname};
     </select>
+    <select id="searchSeatInfo" resultType="com.arloor.piaowu.domain.Halls">
+        SELECT * FROM halls WHERE vname=#{vname} and hname=#{hname};
+    </select>
 
     <insert id="insertNewPlan">
-        INSERT INTO plays(pname, vname, hname, pdate, ptime, ptype, pinfo) VALUE (#{pname},#{vname},#{hname},#{pdate},#{ptime},#{ptype},#{pinfo});
+        INSERT INTO plays(pname, vname, hname, pdate, ptime, ptype, pinfo) VALUE (#{pname},#{vname},#{phname},#{pdate},#{ptime},#{ptype},#{pinfo});
     </insert>
 </mapper>
