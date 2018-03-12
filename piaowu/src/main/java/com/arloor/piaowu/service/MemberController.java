@@ -3,6 +3,7 @@ package com.arloor.piaowu.service;
 import com.arloor.piaowu.dao.MembersDao;
 import com.arloor.piaowu.dao.PlayDao;
 import com.arloor.piaowu.domain.Member;
+import com.arloor.piaowu.domain.Memberticket;
 import com.arloor.piaowu.domain.Play;
 import com.arloor.piaowu.model.PinInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,4 +102,8 @@ public class MemberController {
         return playDao.viewPlayInfo(pname);
     }
 
+    @RequestMapping("/showtickets")
+    public  List<Memberticket> showtickets(@RequestParam String uname){
+        return membersDao.getMemberTicket(uname);
+    }
 }

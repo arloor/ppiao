@@ -8,7 +8,10 @@ public class Memberticket {
   private String ticketname;
   private long used;
   private java.sql.Timestamp gettime;
-  private java.sql.Timestamp usetime;
+  private String type;
+  private String param0;
+  private String param1;
+  private String param2;
 
 
   public long getTicketid() {
@@ -55,13 +58,35 @@ public class Memberticket {
     this.gettime = gettime;
   }
 
-
-  public java.sql.Timestamp getUsetime() {
-    return usetime;
+  public String getType() {
+    return type;
   }
 
-  public void setUsetime(java.sql.Timestamp usetime) {
-    this.usetime = usetime;
+  public void setType(String type) {
+    this.type = type;
   }
 
+  public String getParam0() {
+    return param0;
+  }
+
+  public void setParam0(String param0) {
+    this.param0 = param0;
+  }
+
+  public String getParam1() {
+    return param1;
+  }
+
+  public void setParam1(String param1) {
+    this.param1 = param1;
+  }
+
+  public String getParam2() {
+    return param2;
+  }
+
+  public void setParam2(String param2) {
+    this.param2 = param2;
+  }
 }

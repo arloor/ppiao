@@ -27,4 +27,7 @@
     <select id="searchByUname" resultType="com.arloor.piaowu.domain.Member">
         SELECT * FROM members WHERE uname =#{uname}
     </select>
+    <select id="getMemberTicket" resultType="com.arloor.piaowu.domain.Memberticket">
+        SELECT * FROM memberticket LEFT JOIN ticket on memberticket.ticketname=ticket.ticketname WHERE uname=#{uname} and used=0;
+    </select>
 </mapper>

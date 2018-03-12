@@ -1071,6 +1071,7 @@ stype</ColNames>
       <Position>4</Position>
       <Comment>0未使用</Comment>
       <DataType>int(11)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="251" parent="210" name="gettime">
@@ -1080,137 +1081,133 @@ stype</ColNames>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="252" parent="210" name="usetime">
-      <Position>6</Position>
-      <DataType>timestamp|0</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0000-00-00 00:00:00&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="253" parent="210" name="PRIMARY">
+    <key id="252" parent="210" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ticketid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="254" parent="211" name="pname">
+    <column id="253" parent="211" name="pname">
       <Position>1</Position>
       <Comment>演出id</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="255" parent="211" name="stype">
+    <column id="254" parent="211" name="stype">
       <Position>2</Position>
       <Comment>座位类型</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="256" parent="211" name="fares">
+    <column id="255" parent="211" name="fares">
       <Position>3</Position>
       <Comment>价格</Comment>
       <DataType>decimal(10,2)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="257" parent="211" name="PRIMARY">
+    <key id="256" parent="211" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>pname
 stype</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="258" parent="212" name="pname">
+    <column id="257" parent="212" name="pname">
       <Position>1</Position>
       <Comment>演出名</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="212" name="vname">
+    <column id="258" parent="212" name="vname">
       <Position>2</Position>
       <Comment>演出所在的场馆</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="212" name="hname">
+    <column id="259" parent="212" name="hname">
       <Position>3</Position>
       <Comment>演出所在的厅</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="261" parent="212" name="pdate">
+    <column id="260" parent="212" name="pdate">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="262" parent="212" name="ptime">
+    <column id="261" parent="212" name="ptime">
       <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="263" parent="212" name="ptype">
+    <column id="262" parent="212" name="ptype">
       <Position>6</Position>
       <Comment>演出类型</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="264" parent="212" name="pinfo">
+    <column id="263" parent="212" name="pinfo">
       <Position>7</Position>
       <Comment>演出的描述</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="265" parent="212" name="PRIMARY">
+    <key id="264" parent="212" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>pname</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="266" parent="213" name="ticketname">
+    <column id="265" parent="213" name="ticketname">
       <Position>1</Position>
       <Comment>优惠券名</Comment>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="267" parent="213" name="type">
+    <column id="266" parent="213" name="type">
       <Position>2</Position>
-      <Comment>优惠券类型：根据此值确定param,,的含义</Comment>
-      <DataType>int(11)|0</DataType>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <Comment>优惠券类型 折扣 立减：根据此值确定param,,的含义</Comment>
+      <DataType>varchar(255)|0</DataType>
+      <DefaultExpression>&apos;折扣&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="268" parent="213" name="param0">
+    <column id="267" parent="213" name="param0">
       <Position>3</Position>
       <DataType>varchar(10)|0</DataType>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="269" parent="213" name="param1">
+    <column id="268" parent="213" name="param1">
       <Position>4</Position>
       <DataType>varchar(10)|0</DataType>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="270" parent="213" name="param2">
+    <column id="269" parent="213" name="param2">
       <Position>5</Position>
       <DataType>varchar(10)|0</DataType>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="271" parent="213" name="left">
+    <column id="270" parent="213" name="left">
       <Position>6</Position>
       <Comment>剩余数量</Comment>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="272" parent="213" name="PRIMARY">
+    <key id="271" parent="213" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ticketname</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="273" parent="214" name="vid">
+    <column id="272" parent="214" name="vid">
       <Position>1</Position>
       <Comment>7位识别码，登陆依据</Comment>
       <DataType>int(7)|0</DataType>
@@ -1218,90 +1215,90 @@ stype</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="274" parent="214" name="vname">
+    <column id="273" parent="214" name="vname">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="275" parent="214" name="vpasswd">
+    <column id="274" parent="214" name="vpasswd">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="276" parent="214" name="vaddr">
+    <column id="275" parent="214" name="vaddr">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="277" parent="214" name="vstatus">
+    <column id="276" parent="214" name="vstatus">
       <Position>5</Position>
       <Comment>场馆的状态：valid-通过审核、有效 sign-刚注册、待审核 tocheck-修改信息后待审核</Comment>
       <DataType>varchar(255)|0</DataType>
       <DefaultExpression>&apos;sign&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="278" parent="214" name="vinfo">
+    <column id="277" parent="214" name="vinfo">
       <Position>6</Position>
       <Comment>场馆简介</Comment>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="279" parent="214" name="role">
+    <column id="278" parent="214" name="role">
       <Position>7</Position>
       <Comment>用于spring security的字段</Comment>
       <DataType>varchar(255)|0</DataType>
       <DefaultExpression>&apos;ROLE_VENUES&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="280" parent="214" name="venues_vid_uindex">
+    <index id="279" parent="214" name="venues_vid_uindex">
       <ColNames>vid</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="281" parent="214" name="PRIMARY">
+    <key id="280" parent="214" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>vname</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="282" parent="214" name="venues_vid_uindex">
+    <key id="281" parent="214" name="venues_vid_uindex">
       <ColNames>vid</ColNames>
       <UnderlyingIndexName>venues_vid_uindex</UnderlyingIndexName>
     </key>
-    <column id="283" parent="215" name="pname">
+    <column id="282" parent="215" name="pname">
       <Position>1</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="215" name="stype">
+    <column id="283" parent="215" name="stype">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="215" name="row">
+    <column id="284" parent="215" name="row">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="286" parent="215" name="col">
+    <column id="285" parent="215" name="col">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="287" parent="215" name="orderid">
+    <column id="286" parent="215" name="orderid">
       <Position>5</Position>
       <DataType>int(20)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="288" parent="215" name="status">
+    <column id="287" parent="215" name="status">
       <Position>6</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="289" parent="215" name="PRIMARY">
+    <key id="288" parent="215" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>pname
 stype
@@ -1309,41 +1306,41 @@ row
 col</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="290" parent="216" name="pname">
+    <column id="289" parent="216" name="pname">
       <Position>1</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="291" parent="216" name="stype">
+    <column id="290" parent="216" name="stype">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="292" parent="216" name="row">
+    <column id="291" parent="216" name="row">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="293" parent="216" name="col">
+    <column id="292" parent="216" name="col">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="294" parent="216" name="orderid">
+    <column id="293" parent="216" name="orderid">
       <Position>5</Position>
       <DataType>int(20)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="295" parent="216" name="status">
+    <column id="294" parent="216" name="status">
       <Position>6</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="296" parent="216" name="PRIMARY">
+    <key id="295" parent="216" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>pname
 stype

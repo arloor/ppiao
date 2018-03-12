@@ -134,7 +134,7 @@
                 var phnameSelect=document.getElementById("phname");
                 phnameSelect.innerHTML="";
                 var halls = eval(req.responseText);
-                phnameSelect.innerHTML+="                        <option>未选定</option>\r\n";
+                phnameSelect.innerHTML+="                        <option style='display: none'>未选定</option>\r\n";
                 for(var i=0;i<halls.length;i++){
                     phnameSelect.innerHTML+="                        <option>"+halls[i]+"</option>\r\n";
                 }
