@@ -137,6 +137,9 @@ public class MemberController {
         //并更新用户的balance 积分  优惠券等
         //邮件通知用户下单成功
         String result="结果占位";
+        if(Integer.parseInt(seatnum)>20){
+            return "单个订单座位不能超过20";
+        }
         if(membersDao.checkMemberPaykey(uname,paykey)!=1){
             result= "支付密码错误，下单失败";
             return result;
