@@ -179,9 +179,8 @@ public class MemberController {
                 String[] seatEntris=seats.split(",");
                 String updateSeatsSql="";
                 List<String> whereClauses=new ArrayList<>();
-                for (String seat:seatEntris
-                     ) {
-                    whereClauses.add(" stype= \""+stype+"\" AND row="+seat.split("-")[0]+" AND col="+seat.split("-")[1]+" ");
+                for (int i=0;i<Integer.parseInt(seatnum)&&i<seatEntris.length;i++) {
+                    whereClauses.add(" stype= \""+stype+"\" AND row="+seatEntris[i].split("-")[0]+" AND col="+seatEntris[i].split("-")[1]+" ");
                 }
                 String whereParam=whereClauses.get(0);
                 for (int i = 1; i <whereClauses.size() ; i++) {
