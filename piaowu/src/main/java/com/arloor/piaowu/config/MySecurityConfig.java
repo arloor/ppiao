@@ -25,6 +25,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/api/**"); //暂时去除api访问的限制;
         web.ignoring().antMatchers("/404.html");
         web.ignoring().antMatchers("/error");
+        web.ignoring().antMatchers("/template");
 
         //忽略bootsstrap静态资源
         web.ignoring().antMatchers("/bootstrap/**");
