@@ -168,7 +168,7 @@
                html+= "                    </select>\n" +
                        "<div class=\"form-group\" style='display: none' id='seatschosendiv'>\n" +
                    "                    <label for=\"seatschosen\">选择的座位</label>\n" +
-                   "                    <input type=\"text\" class=\"form-control\" id=\"seatschosen\" placeholder=\"请先点击“显示可选座位” 可以直接从左侧复制 比如 3-3,3-4,3-5,3-6\">\n" +
+                   "                    <input type=\"text\" class=\"form-control\" id=\"seatschosen\" placeholder=\"请先点击“显示可选座位” 可以直接从左侧复制 比如 3-3,3-4,3-5,3-6 如超过所输座位数量则取前面的\">\n" +
                    "                </div>"+
                     "                </div>\n" +
                     "                <div class=\"form-group\">\n" +
@@ -232,6 +232,9 @@
                 paySubmit.onclick=function (ev2) {
                     //todo:编写确认提交的js请求。
                     //要提交的信息：paykey uname pname state seatnum seatarranged charge pay ticketname seats paykey
+                    xmlhttp.open("POST","ajax_test.asp",true);
+                    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                    xmlhttp.send("fname=Bill&lname=Gates");
                 }
             }
         }

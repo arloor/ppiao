@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 50556
 File Encoding         : 65001
 
-Date: 2018-03-12 19:07:38
+Date: 2018-03-12 19:20:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -196,7 +196,7 @@ CREATE TABLE `至暗时刻_seats` (
 -- ----------------------------
 -- Records of 至暗时刻_seats
 -- ----------------------------
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '1', null, 'taken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '1', null, 'untaken');
 INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '2', null, 'untaken');
 INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '3', null, 'untaken');
 INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '4', null, 'untaken');
