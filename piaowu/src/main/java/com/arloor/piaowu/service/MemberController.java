@@ -1,6 +1,7 @@
 package com.arloor.piaowu.service;
 
 import com.arloor.piaowu.dao.MembersDao;
+import com.arloor.piaowu.dao.PlayDao;
 import com.arloor.piaowu.domain.Member;
 import com.arloor.piaowu.domain.Play;
 import com.arloor.piaowu.model.PinInfo;
@@ -20,6 +21,8 @@ import java.util.List;
 public class MemberController {
     @Autowired
     private MembersDao membersDao;
+    @Autowired
+    private PlayDao playDao;
     @Autowired
     JavaMailSender mailSender;
 
@@ -81,9 +84,20 @@ public class MemberController {
     @RequestMapping("/listplayslater")
     public List<Play> listPlays(){
         Calendar now=Calendar.getInstance();
+        //只显示30分钟后的
+        now.add(Calendar.MINUTE,30);
         int year=now.get(Calendar.YEAR);
         int month=now.get(Calendar.MONTH)+1;
-//        todo:完成下面的哦
-        return null;
+        int date=now.get(Calendar.DATE);
+        int hour=now.get(Calendar.HOUR_OF_DAY);
+        int minute=now.get(Calendar.MINUTE);
+        String pdate=String.format("\"%4d-%2d-%2d\"",year,month,date).replace(" ","0");
+        String ptime=String.format("\"%2d:%2d\"",hour,minute).replace(" ","0");
+        return playDao.listPlaysAfterSomeTime(pdate,ptime);
+    }
+
+    @RequestMapping("/viewplayinfo")
+    public List<Play> viewPlayInfo(@RequestParam String pname){
+        return playDao.viewPlayInfo(pname);
     }
 }

@@ -4,4 +4,7 @@
     <select id="listPlaysAfterSomeTime" resultType="com.arloor.piaowu.domain.Play">
         SELECT * FROM plays WHERE pdate > ${pdate} UNION SELECT * FROM plays WHERE pdate = ${pdate} AND ptime>${ptime};
     </select>
+    <select id="viewPlayInfo" resultType="com.arloor.piaowu.domain.Play">
+        SELECT * FROM plays WHERE pname=#{pname};
+    </select>
 </mapper>

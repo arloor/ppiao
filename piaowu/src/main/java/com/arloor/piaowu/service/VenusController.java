@@ -87,7 +87,6 @@ public class VenusController {
         }catch (Exception e){
             return false;
         }
-        //todo:邪恶的悦悦！太坏了！
         String createSeatTableForPlay="CREATE TABLE `"+pname+"_seats` (\n" +
                 "  `pname`  varchar(255) NOT NULL ,\n" +
                 "  `stype`  varchar(255) NOT NULL ,\n" +
