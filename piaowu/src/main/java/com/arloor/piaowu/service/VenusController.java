@@ -90,10 +90,10 @@ public class VenusController {
         String createSeatTableForPlay="CREATE TABLE `"+pname+"_seats` (\n" +
                 "  `pname`  varchar(255) NOT NULL ,\n" +
                 "  `stype`  varchar(255) NOT NULL ,\n" +
-                "  `row`  varchar(255) NOT NULL ,\n" +
-                "  `col`  varchar(255) NOT NULL ,\n" +
+                "  `row`  int(10) NOT NULL ,\n" +
+                "  `col`  int(10) NOT NULL ,\n" +
                 "  `orderid`  int(20) NULL ,\n" +
-                "  `status`  varchar(255) NULL ,\n" +
+                "  `status`  varchar(255) DEFAULT \"untaken\" NOT NULL ,\n" +
                 "  PRIMARY KEY (`pname`, `stype`, `row`, `col`)\n" +
                 ")\n" +
                 ";";

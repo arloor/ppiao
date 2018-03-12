@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 50556
 File Encoding         : 65001
 
-Date: 2018-03-12 10:07:41
+Date: 2018-03-12 19:07:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,14 +42,14 @@ DROP TABLE IF EXISTS `memberorder`;
 CREATE TABLE `memberorder` (
   `oid` int(20) NOT NULL AUTO_INCREMENT COMMENT '订单编号',
   `uname` varchar(20) DEFAULT NULL,
-  `pid` int(20) DEFAULT NULL COMMENT '活动id',
+  `pname` varchar(255) NOT NULL COMMENT '活动id',
   `state` varchar(20) DEFAULT NULL COMMENT '未支付、已支付、取消、完成',
   `seatnum` int(11) DEFAULT NULL COMMENT '订票的座位数量',
   `seatarranged` int(1) DEFAULT NULL COMMENT '是否安排了座位，安排为1，未安排为0',
   `booktime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `charge` int(11) DEFAULT NULL,
   `pay` int(11) DEFAULT NULL,
-  `ticketid` int(11) DEFAULT NULL COMMENT '使用的优惠券',
+  `ticketname` varchar(255) DEFAULT NULL COMMENT '使用的优惠券',
   PRIMARY KEY (`oid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='使用网站的订单';
 
@@ -90,15 +90,16 @@ CREATE TABLE `memberticket` (
   `ticketid` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户拥有的券的表示',
   `uname` varchar(20) DEFAULT NULL,
   `ticketname` varchar(20) DEFAULT NULL,
-  `used` int(11) DEFAULT NULL COMMENT '0未使用',
+  `used` int(11) DEFAULT '0' COMMENT '0未使用',
   `gettime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `usetime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`ticketid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户所有优惠券';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户所有优惠券';
 
 -- ----------------------------
 -- Records of memberticket
 -- ----------------------------
+INSERT INTO `memberticket` VALUES ('1', 'arloor', '3月新用户尊享', '0', '2018-03-12 05:20:32');
+INSERT INTO `memberticket` VALUES ('2', 'arloor', '3月积分兑换', '0', '2018-03-12 13:23:14');
 
 -- ----------------------------
 -- Table structure for pfares
@@ -114,9 +115,8 @@ CREATE TABLE `pfares` (
 -- ----------------------------
 -- Records of pfares
 -- ----------------------------
-INSERT INTO `pfares` VALUES ('复仇者联盟', 'A', '52.00');
-INSERT INTO `pfares` VALUES ('黑豹-漫威超级英雄电影', 'A座', '85.00');
-INSERT INTO `pfares` VALUES ('黑豹-漫威超级英雄电影', 'B座', '60.00');
+INSERT INTO `pfares` VALUES ('至暗时刻', 'A座', '50.00');
+INSERT INTO `pfares` VALUES ('至暗时刻', 'B座', '30.00');
 
 -- ----------------------------
 -- Table structure for plays
@@ -136,8 +136,7 @@ CREATE TABLE `plays` (
 -- ----------------------------
 -- Records of plays
 -- ----------------------------
-INSERT INTO `plays` VALUES ('复仇者联盟', '幸福蓝海国际影城', '1厅', '2018-03-29', '16:30', '电影', '复仇者联盟啊');
-INSERT INTO `plays` VALUES ('黑豹-漫威超级英雄电影', '幸福蓝海国际影城', '杜比厅', '2018-03-18', '12:25', '电影', '漫威黑人英雄！');
+INSERT INTO `plays` VALUES ('至暗时刻', '幸福蓝海国际影城', '杜比厅', '2018-03-25', '11:00', '电影', '至暗时刻的小老头');
 
 -- ----------------------------
 -- Table structure for ticket
@@ -145,10 +144,10 @@ INSERT INTO `plays` VALUES ('黑豹-漫威超级英雄电影', '幸福蓝海国�
 DROP TABLE IF EXISTS `ticket`;
 CREATE TABLE `ticket` (
   `ticketname` varchar(20) NOT NULL COMMENT '优惠券名',
-  `type` int(11) DEFAULT '0' COMMENT '优惠券类型：根据此值确定param,,的含义',
-  `param0` varchar(10) DEFAULT NULL,
-  `param1` varchar(10) DEFAULT NULL,
-  `param2` varchar(10) DEFAULT NULL,
+  `type` varchar(255) DEFAULT '折扣' COMMENT '优惠券类型 折扣 立减：根据此值确定param,,的含义',
+  `param0` varchar(10) DEFAULT '',
+  `param1` varchar(10) DEFAULT '',
+  `param2` varchar(10) DEFAULT '',
   `left` int(11) DEFAULT NULL COMMENT '剩余数量',
   PRIMARY KEY (`ticketname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='平台优惠券';
@@ -156,6 +155,8 @@ CREATE TABLE `ticket` (
 -- ----------------------------
 -- Records of ticket
 -- ----------------------------
+INSERT INTO `ticket` VALUES ('3月新用户尊享', '折扣', '300', '0.8', '', '49');
+INSERT INTO `ticket` VALUES ('3月积分兑换', '立减', '100', '5', '', '38');
 
 -- ----------------------------
 -- Table structure for venues
@@ -179,338 +180,220 @@ CREATE TABLE `venues` (
 INSERT INTO `venues` VALUES ('1', '幸福蓝海国际影城', '123456', '汉口路222号', 'valid', '暂无简介', 'ROLE_VENUES');
 
 -- ----------------------------
--- Table structure for 复仇者联盟_seats
+-- Table structure for 至暗时刻_seats
 -- ----------------------------
-DROP TABLE IF EXISTS `复仇者联盟_seats`;
-CREATE TABLE `复仇者联盟_seats` (
+DROP TABLE IF EXISTS `至暗时刻_seats`;
+CREATE TABLE `至暗时刻_seats` (
   `pname` varchar(255) NOT NULL,
   `stype` varchar(255) NOT NULL,
-  `row` varchar(255) NOT NULL,
-  `col` varchar(255) NOT NULL,
+  `row` int(10) NOT NULL,
+  `col` int(10) NOT NULL,
   `orderid` int(20) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'untaken',
   PRIMARY KEY (`pname`,`stype`,`row`,`col`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of 复仇者联盟_seats
+-- Records of 至暗时刻_seats
 -- ----------------------------
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '1', '1', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '1', '10', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '1', '2', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '1', '3', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '1', '4', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '1', '5', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '1', '6', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '1', '7', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '1', '8', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '1', '9', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '10', '1', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '10', '10', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '10', '2', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '10', '3', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '10', '4', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '10', '5', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '10', '6', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '10', '7', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '10', '8', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '10', '9', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '2', '1', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '2', '10', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '2', '2', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '2', '3', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '2', '4', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '2', '5', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '2', '6', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '2', '7', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '2', '8', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '2', '9', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '3', '1', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '3', '10', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '3', '2', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '3', '3', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '3', '4', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '3', '5', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '3', '6', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '3', '7', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '3', '8', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '3', '9', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '4', '1', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '4', '10', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '4', '2', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '4', '3', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '4', '4', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '4', '5', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '4', '6', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '4', '7', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '4', '8', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '4', '9', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '5', '1', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '5', '10', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '5', '2', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '5', '3', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '5', '4', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '5', '5', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '5', '6', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '5', '7', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '5', '8', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '5', '9', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '6', '1', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '6', '10', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '6', '2', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '6', '3', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '6', '4', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '6', '5', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '6', '6', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '6', '7', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '6', '8', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '6', '9', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '7', '1', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '7', '10', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '7', '2', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '7', '3', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '7', '4', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '7', '5', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '7', '6', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '7', '7', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '7', '8', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '7', '9', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '8', '1', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '8', '10', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '8', '2', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '8', '3', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '8', '4', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '8', '5', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '8', '6', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '8', '7', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '8', '8', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '8', '9', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '9', '1', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '9', '10', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '9', '2', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '9', '3', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '9', '4', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '9', '5', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '9', '6', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '9', '7', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '9', '8', null, null);
-INSERT INTO `复仇者联盟_seats` VALUES ('复仇者联盟', 'A', '9', '9', null, null);
-
--- ----------------------------
--- Table structure for 黑豹-漫威超级英雄电影_seats
--- ----------------------------
-DROP TABLE IF EXISTS `黑豹-漫威超级英雄电影_seats`;
-CREATE TABLE `黑豹-漫威超级英雄电影_seats` (
-  `pname` varchar(255) NOT NULL,
-  `stype` varchar(255) NOT NULL,
-  `row` varchar(255) NOT NULL,
-  `col` varchar(255) NOT NULL,
-  `orderid` int(20) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`pname`,`stype`,`row`,`col`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of 黑豹-漫威超级英雄电影_seats
--- ----------------------------
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '1', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '1', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '1', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '1', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '1', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '1', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '1', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '1', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '1', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '1', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '10', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '10', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '10', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '10', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '10', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '10', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '10', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '10', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '10', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '10', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '2', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '2', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '2', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '2', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '2', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '2', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '2', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '2', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '2', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '2', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '3', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '3', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '3', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '3', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '3', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '3', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '3', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '3', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '3', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '3', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '4', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '4', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '4', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '4', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '4', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '4', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '4', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '4', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '4', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '4', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '5', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '5', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '5', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '5', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '5', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '5', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '5', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '5', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '5', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '5', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '6', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '6', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '6', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '6', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '6', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '6', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '6', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '6', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '6', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '6', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '7', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '7', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '7', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '7', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '7', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '7', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '7', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '7', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '7', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '7', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '8', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '8', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '8', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '8', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '8', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '8', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '8', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '8', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '8', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '8', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '9', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '9', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '9', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '9', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '9', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '9', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '9', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '9', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '9', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'A座', '9', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '1', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '1', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '1', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '1', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '1', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '1', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '1', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '1', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '1', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '1', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '10', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '10', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '10', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '10', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '10', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '10', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '10', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '10', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '10', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '10', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '2', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '2', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '2', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '2', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '2', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '2', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '2', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '2', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '2', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '2', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '3', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '3', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '3', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '3', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '3', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '3', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '3', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '3', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '3', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '3', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '4', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '4', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '4', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '4', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '4', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '4', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '4', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '4', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '4', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '4', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '5', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '5', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '5', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '5', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '5', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '5', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '5', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '5', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '5', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '5', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '6', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '6', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '6', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '6', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '6', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '6', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '6', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '6', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '6', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '6', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '7', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '7', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '7', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '7', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '7', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '7', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '7', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '7', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '7', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '7', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '8', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '8', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '8', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '8', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '8', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '8', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '8', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '8', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '8', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '8', '9', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '9', '1', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '9', '10', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '9', '2', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '9', '3', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '9', '4', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '9', '5', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '9', '6', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '9', '7', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '9', '8', null, null);
-INSERT INTO `黑豹-漫威超级英雄电影_seats` VALUES ('黑豹-漫威超级英雄电影', 'B座', '9', '9', null, null);
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '1', null, 'taken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '1', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '2', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '2', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '2', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '2', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '2', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '2', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '2', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '2', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '2', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '2', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '3', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '3', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '3', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '3', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '3', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '3', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '3', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '3', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '3', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '3', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '4', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '4', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '4', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '4', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '4', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '4', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '4', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '4', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '4', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '4', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '5', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '5', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '5', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '5', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '5', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '5', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '5', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '5', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '5', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '5', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '6', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '6', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '6', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '6', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '6', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '6', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '6', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '6', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '6', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '6', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '7', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '7', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '7', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '7', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '7', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '7', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '7', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '7', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '7', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '7', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '8', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '8', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '8', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '8', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '8', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '8', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '8', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '8', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '8', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '8', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '9', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '9', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '9', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '9', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '9', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '9', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '9', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '9', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '9', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '9', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '10', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '10', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '10', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '10', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '10', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '10', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '10', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '10', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '10', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A座', '10', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '1', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '1', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '1', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '1', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '1', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '1', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '1', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '1', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '1', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '1', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '2', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '2', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '2', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '2', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '2', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '2', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '2', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '2', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '2', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '2', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '3', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '3', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '3', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '3', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '3', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '3', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '3', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '3', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '3', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '3', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '4', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '4', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '4', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '4', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '4', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '4', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '4', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '4', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '4', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '4', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '5', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '5', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '5', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '5', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '5', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '5', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '5', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '5', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '5', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '5', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '6', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '6', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '6', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '6', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '6', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '6', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '6', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '6', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '6', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '6', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '7', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '7', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '7', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '7', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '7', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '7', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '7', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '7', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '7', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '7', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '8', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '8', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '8', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '8', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '8', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '8', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '8', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '8', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '8', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '8', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '9', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '9', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '9', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '9', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '9', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '9', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '9', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '9', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '9', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '9', '10', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '10', '1', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '10', '2', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '10', '3', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '10', '4', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '10', '5', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '10', '6', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '10', '7', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '10', '8', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '10', '9', null, 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B座', '10', '10', null, 'untaken');
 SET FOREIGN_KEY_CHECKS=1;

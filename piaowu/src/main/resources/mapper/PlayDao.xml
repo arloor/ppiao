@@ -7,4 +7,8 @@
     <select id="viewPlayInfo" resultType="com.arloor.piaowu.domain.Play">
         SELECT * FROM plays  left join pfares on plays.pname=pfares.pname WHERE plays.pname=#{pname};
     </select>
+    <select id="leftSeats" resultType="com.arloor.piaowu.domain.Seat">
+        select *
+        from ${pname} where status="untaken" AND stype=#{stype} order by row,col;
+    </select>
 </mapper>

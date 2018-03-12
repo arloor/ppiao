@@ -1,6 +1,7 @@
 package com.arloor.piaowu.dao;
 
 import com.arloor.piaowu.domain.Play;
+import com.arloor.piaowu.domain.Seat;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,4 +14,6 @@ public interface PlayDao
     List<Play> listPlaysAfterSomeTime(@Param("pdate")String pdate,@Param("ptime") String ptime);
 
     List<Play> viewPlayInfo(@Param("pname")String pname);
+
+    List<Seat> leftSeats(@Param("pname") String pname,@Param("stype") String stype);
 }

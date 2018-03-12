@@ -5,6 +5,7 @@ import com.arloor.piaowu.dao.PlayDao;
 import com.arloor.piaowu.domain.Member;
 import com.arloor.piaowu.domain.Memberticket;
 import com.arloor.piaowu.domain.Play;
+import com.arloor.piaowu.domain.Seat;
 import com.arloor.piaowu.model.PinInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -105,5 +106,11 @@ public class MemberController {
     @RequestMapping("/showtickets")
     public  List<Memberticket> showtickets(@RequestParam String uname){
         return membersDao.getMemberTicket(uname);
+    }
+
+    @RequestMapping("/leftseats")
+    public List<Seat> leftSeats(@RequestParam String pname ,@RequestParam String stype){
+        pname=pname+"_seats";
+        return playDao.leftSeats(pname,stype);
     }
 }

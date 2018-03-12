@@ -26,14 +26,13 @@
 <!---->
 <div class="container-fluid" style="background: #5bc0de">
     <div class="row">
-        <h1 th:inline="text" style="text-align: center"><span id="uname">[[${#httpServletRequest.remoteUser}]]</span> 选座购票</h1>
+        <h1 th:inline="text" style="text-align: center"><span id="uname">[[${#httpServletRequest.remoteUser}]]</span> 购票</h1>
         <br>
         <br>
         <br>
 
         <div class="col-lg-3 " style="text-align: center" id="pinfodiv"></div>
         <div class="col-lg-5" style="text-align: center">
-            <!--发布计划部分-->
             <form>
                 <div class="form-group">
                     <label for="pname">选择演出</label>
@@ -53,32 +52,11 @@
                 </div>
             </form>
             <button type="submit" id="submit" class="btn btn-default">确认</button>
-            <!--发布计划部分结束-->
+            <div id="seatcanpick" style="display: none">
+
+            </div>
         </div>
         <div class="col-lg-4 " style="text-align: center" id="paydiv">
-
-            <!--<form>-->
-                <!--<div class="form-group">-->
-                    <!--<label for="ticket">使用优惠券</label>-->
-                    <!--<select class="form-control" id="ticket">-->
-                        <!--<option style="display: none">未选择优惠卷</option>-->
-                    <!--</select>-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                    <!--<label for="pickseat">是否选座</label>-->
-                    <!--<select class="form-control" id="pickseat">-->
-                        <!--<option selected>不选座</option>-->
-                        <!--<option>选座</option>-->
-                    <!--</select>-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                    <!--<label for="paykey">支付密码</label>-->
-                    <!--<input type="text" id="paykey">-->
-                <!--</div>-->
-                <!--<h3>优惠券描述</h3>-->
-                <!--<h3>售价共计 330元，实际需要支付 289元</h3>-->
-            <!--</form>-->
-            <!--<button type="submit" id="pay" class="btn btn-default">确认支付</button>-->
         </div>
         <br>
         <br>
@@ -153,6 +131,9 @@
         window.charge=seatfare*snum;
         window.topay=charge;
 
+        var seatcanpickDiv=document.getElementById("seatcanpick");
+        seatcanpickDiv.setAttribute("style","display:none");
+
         var uname=document.getElementById("uname").innerText;
         var link="/api/members/showtickets?uname="+uname;
         var req=new XMLHttpRequest();
@@ -181,10 +162,14 @@
                     "                    <label for=\"pickseat\">是否选座</label>\n" +
                     "                    <select class=\"form-control\" id=\"pickseat\">\n" +
                     "                        <option selected>不选座</option>\n" ;
-                if(snum<=20){
+                if(snum<=7){
                     html+="                        <option id='xuanzuo'>选座</option>\n";
                 }
                html+= "                    </select>\n" +
+                       "<div class=\"form-group\" style='display: none' id='seatschosendiv'>\n" +
+                   "                    <label for=\"seatschosen\">选择的座位</label>\n" +
+                   "                    <input type=\"text\" class=\"form-control\" id=\"seatschosen\" placeholder=\"请先点击“显示可选座位” 可以直接从左侧复制 比如 3-3,3-4,3-5,3-6\">\n" +
+                   "                </div>"+
                     "                </div>\n" +
                     "                <div class=\"form-group\">\n" +
                     "                    <label for=\"paykey\">支付密码</label>\n" +
@@ -192,6 +177,7 @@
                     "                </div>\n";
                 html+= "                <h3>售价共计 "+charge+"元，实际需要支付 <span id='topay'>"+charge+"</span>元</h3>\n" +
                     "            </form>\n" +
+                    "            <button type=\"submit\" id=\"pickseats\" class=\"btn btn-default\" style='display: none'>显示可选座位</button>"+
                     "            <button type=\"submit\" id=\"pay\" class=\"btn btn-default\">确认支付</button>";
 
                 paydiv.innerHTML=html;
@@ -201,9 +187,51 @@
                 var ticketUse=document.getElementById("ticket");
                 ticketUse.onchange=ticketChange;
 
+                var pickseatSelect=document.getElementById("pickseat");
+                pickseatSelect.onchange=function (ev2) {
+                    if(pickseatSelect.value=="选座"){
+                        document.getElementById("pickseats").setAttribute("style","");
+                        document.getElementById('seatschosendiv').setAttribute("style","");
+                    }else{
+                        document.getElementById("pickseats").setAttribute("style","display: none");
+                        document.getElementById("pickseatschosendivseats").setAttribute("style","display: none");
+                    }
+                }
+
+                var pickseatsButton=document.getElementById("pickseats");
+                pickseatsButton.onclick=function (ev2) {
+                    var seatcanpickDiv=document.getElementById("seatcanpick");
+                    seatcanpickDiv.setAttribute("style","");
+
+                    var link="/api/members/leftseats?pname="+document.getElementById("pname").value+"&stype="+document.getElementById("pseat").value;
+                    var req=new XMLHttpRequest();
+                    req.open("GET",link,true);
+                    req.send();
+
+                    req.onreadystatechange=function () {
+                        if (req.readyState == 4 && this.status == 200) {
+                            // alert(req.responseText);
+                            var seats=eval(req.responseText);
+                            var oldrow="";
+                            var html="<h3>可选座位如下";
+                            for(var i=0;i<seats.length;i++){
+                                if(oldrow!=seats[i].row){
+                                    html+="</h3><h3>";
+                                    oldrow=seats[i].row;
+                                }
+                                html+=seats[i].row+"-"+seats[i].col+",";
+                            }
+                            html+="</h3>";
+                            seatcanpickDiv.innerHTML=html;
+                        }
+                    }
+                }
+
+
                 var paySubmit=document.getElementById("pay");
                 paySubmit.onclick=function (ev2) {
                     //todo:编写确认提交的js请求。
+                    //要提交的信息：paykey uname pname state seatnum seatarranged charge pay ticketname seats paykey
                 }
             }
         }
