@@ -2,6 +2,7 @@ package com.arloor.piaowu.service;
 
 import com.arloor.piaowu.dao.MembersDao;
 import com.arloor.piaowu.domain.Member;
+import com.arloor.piaowu.domain.Play;
 import com.arloor.piaowu.model.PinInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -10,35 +11,20 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 @RestController
+@RequestMapping("/api/members")
 public class MemberController {
     @Autowired
     private MembersDao membersDao;
     @Autowired
     JavaMailSender mailSender;
-    @RequestMapping("/api/a")
-    public Member search(String uname){
-        Member member=membersDao.searchByUname("arloor");
-        SimpleMailMessage msg=new SimpleMailMessage();
-        msg.setFrom("18762832143@163.com");
-        msg.setSubject("测试发送邮件——");
-        msg.setTo(member.getEmail());
-        msg.setText(member.getUname()+" "+member.getEmail());
-        try{
-            this.mailSender.send(msg);
-        }
-        catch (MailException ex) {
-            // simply log it and go on...
-            System.err.println(ex.getMessage());
-        }
-        return membersDao.searchByUname("arloor");
-    }
-    @RequestMapping("/a")
-    public Member searcha(String uname){
-        return membersDao.searchByUname("arloor");
-    }
 
-    @RequestMapping("/api/members/mail/pin/{uname}")
+
+    @RequestMapping("/mail/pin/{uname}")
     public boolean updateAndSendPinByUname(@PathVariable String uname,@RequestParam(defaultValue = "null") String email){
         int pin=0;
         for (int i=0;i<6;i++) {
@@ -77,7 +63,7 @@ public class MemberController {
         return true;
     }
 
-    @RequestMapping("/api/members/signup")
+    @RequestMapping("/signup")
     public boolean newMember(@RequestParam String uname,
                              @RequestParam String email,
                              @RequestParam String passwd,
@@ -90,5 +76,14 @@ public class MemberController {
             membersDao.updateSignMemberByUname(uname,email,passwd,paykey);
             return true;
         }else return false;
+    }
+
+    @RequestMapping("/listplayslater")
+    public List<Play> listPlays(){
+        Calendar now=Calendar.getInstance();
+        int year=now.get(Calendar.YEAR);
+        int month=now.get(Calendar.MONTH)+1;
+//        todo:完成下面的哦
+        return null;
     }
 }
