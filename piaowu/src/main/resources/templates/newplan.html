@@ -219,9 +219,19 @@
             sprice+=prices[i].id+"-"+prices[i].value+",";
         }
 
-        var link="/api/venus/createplan?vname="+vname+"&pname="+pname+"&phname="+phname+"&pdate="+pdate+"&ptime="+ptime+"&ptype="+ptype+"&pinfo="+pinfo+"&sprice="+sprice;
+        var link="/api/venues/createplan?vname="+vname+"&pname="+pname+"&phname="+phname+"&pdate="+pdate+"&ptime="+ptime+"&ptype="+ptype+"&pinfo="+pinfo+"&sprice="+sprice;
         // /api/venus/createplan?vname=幸福蓝海国际影城&pname=电影&phname=杜比厅&pdate=2018-03-07&ptime=01:02&ptype=体育比赛&pinfo=无&sprice=A座-10,B座-100,
-        alert(link);
+
+        var req=new XMLHttpRequest();
+        req.open("GET",link,true);
+        req.send();
+        req.onreadystatechange=function () {
+            if (req.readyState == 4 && this.status == 200) {
+                if(req.responseText=="true"){
+                    alert("发布成功");
+                }
+            }
+        };
         return false;
     }
 

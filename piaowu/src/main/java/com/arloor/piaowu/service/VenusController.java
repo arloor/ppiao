@@ -1,6 +1,7 @@
 package com.arloor.piaowu.service;
 
 import com.arloor.piaowu.dao.VenuesDao;
+import com.arloor.piaowu.domain.Halls;
 import com.arloor.piaowu.domain.Venues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,8 +69,11 @@ public class VenusController {
             @RequestParam String pinfo,
             @RequestParam String sprice
     ){
-        //todo:完成在plays中插入以及创建seats表的操作
-        venuesDao.insertNewPlan(pname,vname,phname,pdate,ptime,ptype,pinfo);
+        try{
+            venuesDao.insertNewPlan(pname,vname,phname,pdate,ptime,ptype,pinfo);
+        }catch (Exception e){
+            return false;
+        }
         String[] priceEntitys=sprice.split(",");
         String insertSeatPriceSql="insert INTO  pfares(pname, stype, fares) VALUES ";
         for (String priceEntity:priceEntitys
@@ -77,12 +81,48 @@ public class VenusController {
             insertSeatPriceSql+="('"+pname+"','"+priceEntity.split("-")[0]+"',"+priceEntity.split("-")[1]+"),";
         }
         insertSeatPriceSql=insertSeatPriceSql.substring(0,insertSeatPriceSql.length()-1);
-        venuesDao.updateBySql(insertSeatPriceSql);
+
+        try{
+            venuesDao.updateBySql(insertSeatPriceSql);
+        }catch (Exception e){
+            return false;
+        }
         //todo:邪恶的悦悦！太坏了！
-//        String createSeatTableForPlay="create t"
-//        venuesDao.createSeatTableForPlay()
-//        venuesDao.insertPlaySeatPrice();
-        return false;
+        String createSeatTableForPlay="CREATE TABLE `"+pname+"_seats` (\n" +
+                "  `pname`  varchar(255) NOT NULL ,\n" +
+                "  `stype`  varchar(255) NOT NULL ,\n" +
+                "  `row`  varchar(255) NOT NULL ,\n" +
+                "  `col`  varchar(255) NOT NULL ,\n" +
+                "  `orderid`  int(20) NULL ,\n" +
+                "  `status`  varchar(255) NULL ,\n" +
+                "  PRIMARY KEY (`pname`, `stype`, `row`, `col`)\n" +
+                ")\n" +
+                ";";
+        try{
+            venuesDao.updateBySql(createSeatTableForPlay);
+        }catch (Exception e){
+            return false;
+        }
+
+
+        try{
+            List<Halls> halls=venuesDao.searchSeatInfo(vname,phname);
+            String insertIntoSeatsInfo="INSERT INTO `"+pname+"_seats`(pname, stype, row, col)VALUES ";
+            for (Halls hall:halls
+                    ) {
+                for (int i = 1; i <=hall.getRownum() ; i++) {
+                    for (int j = 1; j <=hall.getColnum(); j++) {
+                        insertIntoSeatsInfo+="('"+pname+"','"+hall.getStype()+"',"+i+","+j+"),";
+                    }
+                }
+            }
+            insertIntoSeatsInfo=insertIntoSeatsInfo.substring(0,insertIntoSeatsInfo.length()-1)+";";
+            venuesDao.updateBySql(insertIntoSeatsInfo);
+        }catch (Exception e){
+            return false;
+        }
+
+        return true;
     }
 
     @RequestMapping("/halls")

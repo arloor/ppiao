@@ -1,5 +1,6 @@
 package com.arloor.piaowu.dao;
 
+import com.arloor.piaowu.domain.Halls;
 import com.arloor.piaowu.domain.Venues;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,4 +25,6 @@ public interface VenuesDao {
     List<String> getHallsByVname(@Param("vname") String vname);
 
     void insertNewPlan(@Param("pname") String pname, @Param("vname") String vname, @Param("phname") String phname,@Param("pdate") String pdate,@Param("ptime") String ptime,@Param("ptype") String ptype,@Param("pinfo") String pinfo);
+
+    List<Halls> searchSeatInfo(@Param("vname") String vname,@Param("hname") String hname);
 }
