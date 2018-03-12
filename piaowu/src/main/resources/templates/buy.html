@@ -231,7 +231,18 @@
                 var paySubmit=document.getElementById("pay");
                 paySubmit.onclick=function (ev2) {
                     //todo:编写确认提交的js请求。
-                    //要提交的信息：paykey uname pname state seatnum seatarranged charge pay ticketname seats paykey
+                    //要提交的信息：paykey uname pname seatnum charge pay ticketname seats paykey
+
+                    var paykey=document.getElementById("paykey").value;
+                    var uname=document.getElementById("uname").innerText;
+                    var pname=document.getElementById("pname").value;
+                    var seatnum=document.getElementById('snum').value;
+                    var charge=window.charge;
+                    var pay=window.topay;
+                    var ticketname=document.getElementById("ticket").value;
+                    var seats=document.getElementById("seatschosen").value;
+                    var params="uname="+uname+"&paykey="+paykey+"&pname="+pname+"&seatnum="+seatnum+"&charge="+charge+"&pay="+pay+"&ticketname="+ticketname+"&seats="+seats;
+alert(params);
                     xmlhttp.open("POST","ajax_test.asp",true);
                     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
                     xmlhttp.send("fname=Bill&lname=Gates");
