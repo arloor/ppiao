@@ -1286,9 +1286,11 @@ stype</ColNames>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="215" name="orderid">
+    <column id="285" parent="215" name="uname">
       <Position>5</Position>
-      <DataType>int(20)|0</DataType>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;untaken&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="286" parent="215" name="status">

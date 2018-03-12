@@ -194,7 +194,8 @@
                         document.getElementById('seatschosendiv').setAttribute("style","");
                     }else{
                         document.getElementById("pickseats").setAttribute("style","display: none");
-                        document.getElementById("pickseatschosendivseats").setAttribute("style","display: none");
+                        document.getElementById("seatschosendiv").setAttribute("style","display: none");
+                        document.getElementById("seatcanpick").setAttribute("style","display: none");
                     }
                 }
 
@@ -225,6 +226,7 @@
                             seatcanpickDiv.innerHTML=html;
                         }
                     }
+                    return false;
                 }
 
 
@@ -236,19 +238,31 @@
                     var paykey=document.getElementById("paykey").value;
                     var uname=document.getElementById("uname").innerText;
                     var pname=document.getElementById("pname").value;
+                    var stype=document.getElementById('pseat').value;
                     var seatnum=document.getElementById('snum').value;
+                    var pickseat=document.getElementById('pickseat').value;
                     var charge=window.charge;
                     var pay=window.topay;
                     var ticketname=document.getElementById("ticket").value;
                     var seats=document.getElementById("seatschosen").value;
-                    var params="uname="+uname+"&paykey="+paykey+"&pname="+pname+"&seatnum="+seatnum+"&charge="+charge+"&pay="+pay+"&ticketname="+ticketname+"&seats="+seats;
-alert(params);
-                    xmlhttp.open("POST","ajax_test.asp",true);
+                    var params="uname="+uname+"&paykey="+paykey+"&pname="+pname+"&stype="+stype+"&seatnum="+seatnum+"&pickseat="+pickseat+"&charge="+charge+"&pay="+pay+"&ticketname="+ticketname+"&seats="+seats;
+                    // alert(params);
+
+                    var xmlhttp=new XMLHttpRequest();
+                    xmlhttp.open("POST","/api/members/order",true);
                     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-                    xmlhttp.send("fname=Bill&lname=Gates");
+                    xmlhttp.send(params);
+
+                    xmlhttp.onreadystatechange=function () {
+                        if (xmlhttp.readyState == 4 && this.status == 200) {
+                            alert(xmlhttp.responseText);
+                        }
+                    }
+                    return false;
                 }
             }
         }
+        return false;
     }
 
     function ticketChange(ev) {

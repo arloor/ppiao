@@ -18,4 +18,10 @@ public interface MembersDao {
     void updateSignMemberByUname(@Param("uname") String uname,@Param("email") String email,@Param("passwd") String passwd,@Param("paykey") String paykey);
 
     List<Memberticket> getMemberTicket(@Param("uname") String uname);
+
+    int checkMemberPaykey(@Param("uname")String uname,@Param("paykey") String paykey);
+
+    void useTicket(@Param("uname")String uname,@Param("ticketname")String ticketname);
+
+    void payAndGetJifen(@Param("uname") String uname,@Param("pay")String pay);
 }

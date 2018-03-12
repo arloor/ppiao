@@ -24,10 +24,19 @@
     <update id="updateSignMemberByUname">
         UPDATE members SET email=#{uname},passwd=#{passwd},paykey=#{paykey} where uname=#{uname};
     </update>
+    <update id="useTicket">
+        UPDATE memberticket SET used=1 WHERE uname=#{uname} and ticketname=#{ticketname};
+    </update>
+    <update id="payAndGetJifen">
+        UPDATE members SET balance=balance-#{pay},bonus=bonus+#{pay},paynum=paynum+#{pay} where uname=#{uname};
+    </update>
     <select id="searchByUname" resultType="com.arloor.piaowu.domain.Member">
         SELECT * FROM members WHERE uname =#{uname}
     </select>
     <select id="getMemberTicket" resultType="com.arloor.piaowu.domain.Memberticket">
         SELECT * FROM memberticket LEFT JOIN ticket on memberticket.ticketname=ticket.ticketname WHERE uname=#{uname} and used=0;
+    </select>
+    <select id="checkMemberPaykey" resultType="java.lang.Integer">
+        SELECT count(*) FROM members WHERE uname=#{uname} AND paykey=#{paykey};
     </select>
 </mapper>

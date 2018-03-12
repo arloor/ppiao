@@ -92,7 +92,7 @@ public class VenusController {
                 "  `stype`  varchar(255) NOT NULL ,\n" +
                 "  `row`  int(10) NOT NULL ,\n" +
                 "  `col`  int(10) NOT NULL ,\n" +
-                "  `orderid`  int(20) NULL ,\n" +
+                "  `uname`  varchar(255) DEFAULT \"untaken\" NOT NULL,\n" +
                 "  `status`  varchar(255) DEFAULT \"untaken\" NOT NULL ,\n" +
                 "  PRIMARY KEY (`pname`, `stype`, `row`, `col`)\n" +
                 ")\n" +
