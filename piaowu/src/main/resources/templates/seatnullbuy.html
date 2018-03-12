@@ -36,8 +36,18 @@
                 <div class="form-group">
                     <label for="pname">选择演出</label>
                     <select class="form-control" id="pname">
-                        <option>未选择</option>
+                        <option>演出未选择</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="pseat">选择座位</label>
+                    <select class="form-control" id="pseat">
+                        <option style="display: none">座位类型未选择</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="snum">座位数量</label>
+                    <input type="text" id="snum">
                 </div>
             </form>
             <button type="submit" id="submit" class="btn btn-default">确认发布</button>
@@ -83,7 +93,7 @@
             if (req.readyState == 4 && this.status == 200) {
                 // alert(req.responseText);
                 var pnameSelect=document.getElementById("pname");
-                pnameSelect.innerHTML="<option>未选择</option>\r\n";
+                pnameSelect.innerHTML="<option style='display: none'>演出未选择</option>\r\n";
                 var plays = eval(req.responseText);
                 for(var i=0;i<plays.length;i++){
                     pnameSelect.innerHTML+="                        <option>"+plays[i].pname+"</option>\r\n";
@@ -108,7 +118,17 @@
                     "<h3>演出日期： <span style='color: blueviolet'>"+playinfo[0].pdate+"</span></h3>\n"+
                     "<h3>演出时间： <span style='color: blueviolet'>"+playinfo[0].ptime+"</span></h3>\n"+
                     "<h3>演出类型： <span style='color: blueviolet'>"+playinfo[0].ptype+"</span></h3>\n"+
-                    "<h3>演出简介： <span style='color: blueviolet'>"+playinfo[0].pinfo+"</span></h3>\n";
+                    "<h3>演出简介： <span style='color: blueviolet'>"+playinfo[0].pinfo+"</span></h3>\n"+
+                    "<h3>座位价格</h3>\n";
+                var pseatSelect=document.getElementById("pseat");
+                pseatSelect.innerHTML="<option style='display: none'>座位类型未选择</option>\n";
+                for(var i=0;i<playinfo.length;i++){
+                    //座位价格在 id为stype的元素的text中。
+                    pinfodiv.innerHTML+="<h3>"+playinfo[i].stype+"—<span id=\""+playinfo[i].stype+"\">"+playinfo[i].fares+"</span></h3>"
+                    pseatSelect.innerHTML+="<option>"+playinfo[i].stype+"</option>\n";
+                }
+
+
             }
         };
         return false;

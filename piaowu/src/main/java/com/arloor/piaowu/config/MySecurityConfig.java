@@ -55,6 +55,6 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error")
                 .permitAll() //登录页面用户任意访问
                 .and()
-                .logout().permitAll(); //注销行为任意访问;
+                .logout().permitAll().logoutSuccessUrl("/").permitAll(); //注销行为任意访问;
     }
 }

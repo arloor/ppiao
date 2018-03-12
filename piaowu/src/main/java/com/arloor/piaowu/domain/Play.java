@@ -10,6 +10,9 @@ public class Play {
   private String ptime;
   private String ptype;
   private String pinfo;
+  private String stype;
+  private double fares;
+
 
 
   public String getPname() {
@@ -72,6 +75,23 @@ public class Play {
 
   public void setPinfo(String pinfo) {
     this.pinfo = pinfo;
+  }
+
+  public String getStype() {
+    return stype;
+  }
+
+  public void setStype(String stype) {
+    this.stype = stype;
+  }
+
+
+  public double getFares() {
+    return fares;
+  }
+
+  public void setFares(double fares) {
+    this.fares = fares;
   }
 
 }

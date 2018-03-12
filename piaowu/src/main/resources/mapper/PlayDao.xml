@@ -5,6 +5,6 @@
         SELECT * FROM plays WHERE pdate > ${pdate} UNION SELECT * FROM plays WHERE pdate = ${pdate} AND ptime>${ptime};
     </select>
     <select id="viewPlayInfo" resultType="com.arloor.piaowu.domain.Play">
-        SELECT * FROM plays WHERE pname=#{pname};
+        SELECT * FROM plays  left join pfares on plays.pname=pfares.pname WHERE plays.pname=#{pname};
     </select>
 </mapper>

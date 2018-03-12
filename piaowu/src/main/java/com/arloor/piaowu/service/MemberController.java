@@ -100,4 +100,5 @@ public class MemberController {
     public List<Play> viewPlayInfo(@RequestParam String pname){
         return playDao.viewPlayInfo(pname);
     }
+
 }
