@@ -7,19 +7,17 @@ import com.arloor.piaowu.domain.*;
 import com.arloor.piaowu.model.PinInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
-import org.springframework.mail.MailMessage;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/members")
-public class MemberController {
+public class MemberController{
     @Autowired
     private MembersDao membersDao;
     @Autowired
@@ -28,6 +26,7 @@ public class MemberController {
     private OrderDao orderDao;
     @Autowired
     JavaMailSender mailSender;
+
 
 
     @RequestMapping("/mail/pin/{uname}")
@@ -142,6 +141,7 @@ public class MemberController {
             return result;
         }else{
             //插入订单表
+
             Member member=membersDao.searchByUname(uname);
             int seatarranged=0;
             if(pickseat.equals("选座")&&seats.length()>0){
@@ -151,11 +151,21 @@ public class MemberController {
             if(member.getBalance()<Integer.parseInt(pay)){
                 status="未支付";
                 result= "余额不足，支付失败，请在订单管理中支付，超时将取消订单";
+                try {
+                    orderDao.insertOrder(uname,pname,status,seatnum,seatarranged,charge,pay,ticketname);
+                }catch (Exception e){
+                    return "您已经订购过本场演出，当前业务规则不允许多个订单";
+                }
             }else{
                 status="已支付";
                 result="下单成功，请在邮箱中查看订单详情。";
                 //更新积分等情况
                 membersDao.payAndGetJifen(uname,pay);
+                try {
+                    orderDao.insertOrder(uname,pname,status,seatnum,seatarranged,charge,pay,ticketname);
+                }catch (Exception e){
+                    return "您已经订购过本场演出，当前业务规则不允许多个订单";
+                }
                 //发送邮件
                 SimpleMailMessage msg=new SimpleMailMessage();
                 msg.setFrom("18762832143@163.com");
@@ -172,7 +182,7 @@ public class MemberController {
                     System.err.println(ex.getMessage());
                 }
             }
-            orderDao.insertOrder(uname,pname,status,seatnum,seatarranged,charge,pay,ticketname);
+
 
             //更新座位表
             if(seatarranged==1){
@@ -198,12 +208,6 @@ public class MemberController {
         return result;
     }
 
-    @RequestMapping("docancel")
-    public boolean docancel(@RequestParam String uname){
-        String sql="UPDATE members SET timecancel=current_timestamp WHERE uname=\""+uname+"\";";
-        membersDao.updateBySql(sql);
-        return true;
-    }
 
     @RequestMapping("/{uname}")
     public Member getMember(@PathVariable String uname){
@@ -212,15 +216,16 @@ public class MemberController {
 
     @RequestMapping("/update")
     public boolean update(@RequestBody Member member){
-        System.out.println(member);
         membersDao.updateMember(member);
         return true;
     }
 
-    @RequestMapping("/canelOrder")
-    public boolean cancelOrder(@RequestParam String uname ,@RequestParam String pname){
+    @RequestMapping("/canelorder")
+    public String cancelOrder(@RequestParam String uname ,@RequestParam String pname){
         //获取订单、订单是否支付 支付-退款、见积分 未支付-null 是否选座位 选了-删除订单作为表中的数据
         Memberorder memberorder=membersDao.getMemberOrder(uname,pname);
+        memberorder.setState("已取消");
+        orderDao.updateOrder(memberorder);
         Member member=membersDao.searchByUname(uname);
         if(memberorder.getState().equals("已支付")){
             member.setBalance(member.getBalance()+memberorder.getPay());
@@ -228,9 +233,36 @@ public class MemberController {
             member.setPaynum(member.getPaynum()-memberorder.getPay());
             membersDao.updateMember(member);
         }
-        //todo:是否选座位 选了-删除订单作为表中的数据
 
+        if(memberorder.getSeatarranged()==1){
+            String table=pname+"_seats";
+            orderDao.unTakenSeats(uname,pname,table);
+        }
+        return "<a href=\"http://piaomai.moontell.cn/ordermanage\">取消成功，返回</a>";
+    }
 
-        return true;
+    @RequestMapping("/listorders")
+    public List<Memberorder> listOrders(@RequestParam String uname){
+        return orderDao.selectOrders(uname);
+    }
+
+    @RequestMapping("/listordersbystate")
+    public List<Memberorder> listOrders(@RequestParam String uname,@RequestParam String state){
+        return orderDao.selectOrdersbyUnameState(uname,state);
+    }
+
+    @RequestMapping("/payorder")
+    public String payorder(@RequestParam String uname,@RequestParam String pname,@RequestParam String pay){
+        Member member=membersDao.searchByUname(uname);
+        long balance=member.getBalance();
+        long paylong =Long.parseLong(pay);
+        if(paylong>balance){
+            return "<h1>余额不足，请充值</h1><h2><a href=\"http://piaomai.moontell.cn/modifymember\">点击充值</a></h2><h2><a href=\"http://piaomai.moontell.cn/ordermanage\">点击返回</a></h2>";
+        }
+        membersDao.payAndGetJifen(uname,pay);
+        Memberorder memberorder=membersDao.getMemberOrder(uname,pname);
+        memberorder.setState("已支付");
+        orderDao.updateOrder(memberorder);
+        return "<a href=\"http://piaomai.moontell.cn/ordermanage\">支付成功，点击返回</a>";
     }
 }

@@ -1,9 +1,14 @@
 package com.arloor.piaowu.dao;
 
+import com.arloor.piaowu.domain.Memberorder;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 @Mapper
+
 public interface OrderDao {
     void insertOrder(@Param("uname") String uname,
                      @Param("pname")String pname,
@@ -16,4 +21,14 @@ public interface OrderDao {
                      );
 
     void updateBySql(@Param("sql")String sql);
+
+    void unTakenSeats(@Param("uname")String uname,@Param("pname") String pname ,@Param("table")String table);
+
+    List<Memberorder> selectOrdersbyUnameState(@Param("uname") String uname, @Param("status") String status);
+
+    List<Memberorder> selectOrders(@Param("uname")String uname);
+
+    List<Memberorder> selectOrdersbyStatus(@Param("status")String status);
+
+    void updateOrder(Memberorder memberorder);
 }

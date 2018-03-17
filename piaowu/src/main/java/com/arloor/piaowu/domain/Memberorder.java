@@ -3,7 +3,6 @@ package com.arloor.piaowu.domain;
 
 public class Memberorder {
 
-  private long oid;
   private String uname;
   private String pname;
   private String state;
@@ -13,15 +12,6 @@ public class Memberorder {
   private long charge;
   private long pay;
   private String ticketname;
-
-
-  public long getOid() {
-    return oid;
-  }
-
-  public void setOid(long oid) {
-    this.oid = oid;
-  }
 
 
   public String getUname() {

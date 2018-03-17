@@ -9,4 +9,19 @@
     <update id="updateBySql">
         ${sql}
     </update>
+    <update id="unTakenSeats">
+        UPDATE ${table} set uname="untaken" ,status="untaken" where uname=#{uname} and pname=#{pname};
+    </update>
+    <update id="updateOrder" parameterType="com.arloor.piaowu.domain.Memberorder">
+        UPDATE memberorder SET state=#{state} where uname=#{uname} and pname=#{pname};
+    </update>
+    <select id="selectOrdersbyUnameState" resultType="com.arloor.piaowu.domain.Memberorder">
+        SELECT * FROM memberorder WHERE uname=#{uname} and state=#{status} order by booktime DESC;
+    </select>
+    <select id="selectOrders" resultType="com.arloor.piaowu.domain.Memberorder">
+        SELECT * FROM memberorder WHERE uname=#{uname} order by state DESC,booktime DESC;
+    </select>
+    <select id="selectOrdersbyStatus" resultType="com.arloor.piaowu.domain.Memberorder">
+        SELECT * FROM memberorder WHERE state=#{status} order by booktime DESC;
+    </select>
 </mapper>

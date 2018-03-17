@@ -859,108 +859,105 @@
     <table id="215" parent="3" name="至暗时刻_seats">
       <Engine>InnoDB</Engine>
     </table>
-    <column id="216" parent="207" name="vname">
+    <table id="216" parent="3" name="黑豹_seats">
+      <Engine>InnoDB</Engine>
+    </table>
+    <column id="217" parent="207" name="vname">
       <Position>1</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="217" parent="207" name="hname">
+    <column id="218" parent="207" name="hname">
       <Position>2</Position>
       <Comment>厅 比如 杜比音响厅</Comment>
       <DataType>varchar(20)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="218" parent="207" name="stype">
+    <column id="219" parent="207" name="stype">
       <Position>3</Position>
       <Comment>座位类型，比如 A B，内场，外场</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="219" parent="207" name="rownum">
+    <column id="220" parent="207" name="rownum">
       <Position>4</Position>
       <Comment>排数</Comment>
       <DataType>int(7)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="220" parent="207" name="colnum">
+    <column id="221" parent="207" name="colnum">
       <Position>5</Position>
       <Comment>列数</Comment>
       <DataType>int(7) unsigned zerofill|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="221" parent="207" name="PRIMARY">
+    <key id="222" parent="207" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>vname
 hname
 stype</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="222" parent="208" name="oid">
-      <Position>1</Position>
-      <Comment>订单编号</Comment>
-      <DataType>int(20)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
     <column id="223" parent="208" name="uname">
-      <Position>2</Position>
+      <Position>1</Position>
       <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="224" parent="208" name="pname">
-      <Position>3</Position>
+      <Position>2</Position>
       <Comment>活动id</Comment>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="225" parent="208" name="state">
-      <Position>4</Position>
+      <Position>3</Position>
       <Comment>未支付、已支付、取消、完成</Comment>
       <DataType>varchar(20)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="226" parent="208" name="seatnum">
-      <Position>5</Position>
+      <Position>4</Position>
       <Comment>订票的座位数量</Comment>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="227" parent="208" name="seatarranged">
-      <Position>6</Position>
+      <Position>5</Position>
       <Comment>是否安排了座位，安排为1，未安排为0</Comment>
       <DataType>int(1)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="228" parent="208" name="booktime">
-      <Position>7</Position>
+      <Position>6</Position>
       <DataType>timestamp|0</DataType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="229" parent="208" name="charge">
-      <Position>8</Position>
+      <Position>7</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="230" parent="208" name="pay">
-      <Position>9</Position>
+      <Position>8</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="231" parent="208" name="ticketname">
-      <Position>10</Position>
+      <Position>9</Position>
       <Comment>使用的优惠券</Comment>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="232" parent="208" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>oid</ColNames>
+      <ColNames>uname
+pname</ColNames>
       <Primary>1</Primary>
     </key>
     <column id="233" parent="209" name="email">
@@ -1301,6 +1298,52 @@ stype</ColNames>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="287" parent="215" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>pname
+stype
+row
+col</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="288" parent="216" name="pname">
+      <Position>1</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="289" parent="216" name="stype">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="290" parent="216" name="row">
+      <Position>3</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="291" parent="216" name="col">
+      <Position>4</Position>
+      <DataType>int(10)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="292" parent="216" name="uname">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;untaken&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="293" parent="216" name="status">
+      <Position>6</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;untaken&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="294" parent="216" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>pname
 stype

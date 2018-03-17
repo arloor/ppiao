@@ -22,7 +22,7 @@
         UPDATE members SET pin=#{pin},pinindex=pinindex+1 where uname=#{uname};
     </update>
     <update id="updateSignMemberByUname">
-        UPDATE members SET email=#{uname},passwd=#{passwd},paykey=#{paykey} where uname=#{uname};
+        UPDATE members SET email=#{email},passwd=#{passwd},paykey=#{paykey} where uname=#{uname};
     </update>
     <update id="useTicket">
         UPDATE memberticket SET used=1 WHERE uname=#{uname} and ticketname=#{ticketname};
@@ -34,7 +34,7 @@
         ${paramSQL}
     </update>
     <update id="updateMember" parameterType="com.arloor.piaowu.domain.Member">
-        UPDATE members SET balance=#{balance},passwd=#{passwd},paykey=#{paykey},bonus=#{bnous},paynum=#{paynum} where uname=#{uname};
+        UPDATE members SET balance=#{balance},passwd=#{passwd},paykey=#{paykey},bonus=#{bonus},paynum=#{paynum} where uname=#{uname};
     </update>
     <select id="searchByUname" resultType="com.arloor.piaowu.domain.Member">
         SELECT * FROM members WHERE uname =#{uname}

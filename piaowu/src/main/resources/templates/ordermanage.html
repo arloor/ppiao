@@ -29,11 +29,82 @@
         <br>
         <br>
         <br>
+        <div  class="col-lg-6 col-lg-offset-3" style="background: #5bc0de;text-align: center">
+            <h3>已支付订单</h3>
+            <table class="table table-striped" >
+                <tr>
+                    <th>表演</th>
+                    <th>订单状态</th>
+                    <th>座位数</th>
+                    <th>座位已安排</th>
+                    <th>订票时间</th>
+                    <th>售价</th>
+                    <th>实际支付</th>
+                    <th>使用优惠券</th>
+                    <th>操作</th>
+                </tr>
+                <tbody id="paiedholder">
+                </tbody>
+
+            </table>
+        </div>
+        <div  class="col-lg-6 col-lg-offset-3" style="background: #5bc0de;text-align: center">
+            <h3>未支付订单</h3>
+            <table class="table table-striped" >
+                <tr>
+                    <th>表演</th>
+                    <th>订单状态</th>
+                    <th>座位数</th>
+                    <th>座位已安排</th>
+                    <th>订票时间</th>
+                    <th>售价</th>
+                    <th>实际支付</th>
+                    <th>使用优惠券</th>
+                    <th>操作</th>
+                </tr>
+                <tbody id="unpaiedholer">
+                </tbody>
+            </table>
+        </div>
+        <div  class="col-lg-6 col-lg-offset-3" style="background: #5bc0de;text-align: center">
+            <h3>已取消订单</h3>
+            <table class="table table-striped" >
+                <tr>
+                    <th>表演</th>
+                    <th>订单状态</th>
+                    <th>座位数</th>
+                    <th>座位已安排</th>
+                    <th>订票时间</th>
+                    <th>售价</th>
+                    <th>实际支付</th>
+                    <th>使用优惠券</th>
+                    <th>操作</th>
+                </tr>
+                <tbody id="canceledholder">
+                </tbody>
+            </table>
+        </div>
         <div class="col-lg-6 col-lg-offset-3" style="background: #5bc0de;text-align: center">
+            <h3>已完成订单</h3>
+            <table class="table table-striped" >
+                <tr>
+                    <th>表演</th>
+                    <th>订单状态</th>
+                    <th>座位数</th>
+                    <th>座位已安排</th>
+                    <th>订票时间</th>
+                    <th>售价</th>
+                    <th>实际支付</th>
+                    <th>使用优惠券</th>
+                    <th>操作</th>
+                </tr>
+                <tbody id="compeletedholder">
+                </tbody>
+            </table>
+        </div>
 
 
-
-
+        <div class="col-lg-6 col-lg-offset-3" style="background: #5bc0de;text-align: center">
             <h1>也许是最好的票务网站</h1>
             <h2>10家大型场馆</h2>
             <h3>日均100<span style="font-weight: bolder">赛事、演唱会、电影</span></h3>
@@ -51,5 +122,81 @@
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+    uname=document.getElementById("unamespan").innerText;
+
+    window.onload=function (ev) {
+        var req=new XMLHttpRequest();
+        link="/api/members/listorders?uname="+uname;
+        req.open("GET",link,true);
+        req.send();
+        var paiedholder=document.getElementById("paiedholder");
+        var unpaiedholer=document.getElementById("unpaiedholer");
+        var canceledholder=document.getElementById("canceledholder");
+        var compeletedholder=document.getElementById("compeletedholder");
+
+        req.onreadystatechange=function (ev2) {
+            if(req.readyState==4&&this.status==200){
+                var orders=eval("("+req.responseText+")");
+                for(var i=0;i<orders.length;i++){
+                    if(orders[i].state=="已支付"){
+                        paiedholder.innerHTML+="<tr>\n" +
+                            "                    <td>"+orders[i].pname+"</td>\n" +
+                            "                    <td>"+orders[i].state+"</td>\n" +
+                            "                    <td>"+orders[i].seatnum+"</td>\n" +
+                            "                    <td>"+orders[i].seatarranged+"</td>\n" +
+                            "                    <td>"+orders[i].booktime+"</td>\n" +
+                            "                    <td>"+orders[i].charge+"</td>\n" +
+                            "                    <td>"+orders[i].pay+"</td>\n" +
+                            "                    <td>"+orders[i].ticketname+"</td>\n" +
+                            "                    <td><a href='/api/members/canelorder?uname="+uname+"+&pname="+orders[i].pname+"'>取消订单</a></td>\n" +
+                            "                </tr>";
+                    }
+                    if(orders[i].state=="未支付"){
+                        unpaiedholer.innerHTML+="<tr>\n" +
+                            "                    <td>"+orders[i].pname+"</td>\n" +
+                            "                    <td>"+orders[i].state+"</td>\n" +
+                            "                    <td>"+orders[i].seatnum+"</td>\n" +
+                            "                    <td>"+orders[i].seatarranged+"</td>\n" +
+                            "                    <td>"+orders[i].booktime+"</td>\n" +
+                            "                    <td>"+orders[i].charge+"</td>\n" +
+                            "                    <td>"+orders[i].pay+"</td>\n" +
+                            "                    <td>"+orders[i].ticketname+"</td>\n" +
+                            "                    <td><a href='/api/members/payorder?uname="+uname+"&pname="+orders[i].pname+"+&pay="+orders[i].pay+"'>支付订单</a></td>\n" +
+                            "                </tr>";
+                    }
+                    if(orders[i].state=="已取消"){
+                        canceledholder.innerHTML+="<tr>\n" +
+                            "                    <td>"+orders[i].pname+"</td>\n" +
+                            "                    <td>"+orders[i].state+"</td>\n" +
+                            "                    <td>"+orders[i].seatnum+"</td>\n" +
+                            "                    <td>"+orders[i].seatarranged+"</td>\n" +
+                            "                    <td>"+orders[i].booktime+"</td>\n" +
+                            "                    <td>"+orders[i].charge+"</td>\n" +
+                            "                    <td>"+orders[i].pay+"</td>\n" +
+                            "                    <td>"+orders[i].ticketname+"</td>\n" +
+                            "                    <td></td>\n" +
+                            "                </tr>";
+                    }
+                    if(orders[i].state=="已完成"){
+                        compeletedholder.innerHTML+="<tr>\n" +
+                            "                    <td>"+orders[i].pname+"</td>\n" +
+                            "                    <td>"+orders[i].state+"</td>\n" +
+                            "                    <td>"+orders[i].seatnum+"</td>\n" +
+                            "                    <td>"+orders[i].seatarranged+"</td>\n" +
+                            "                    <td>"+orders[i].booktime+"</td>\n" +
+                            "                    <td>"+orders[i].charge+"</td>\n" +
+                            "                    <td>"+orders[i].pay+"</td>\n" +
+                            "                    <td>"+orders[i].ticketname+"</td>\n" +
+                            "                    <td><button><a href='/api/members/canelorder?uname="+uname+"+&pname="+orders[i].pname+"'>取消订单</a></button></td>\n" +
+                            "                </tr>";
+                    }
+                }
+            }
+        }
+    }
+
+
+</script>
 </body>
 </html>
