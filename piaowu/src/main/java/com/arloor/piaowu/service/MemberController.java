@@ -196,9 +196,27 @@ public class MemberController {
 
             //使用优惠券
             membersDao.useTicket(uname,ticketname);
-
         }
 
         return result;
+    }
+
+    @RequestMapping("docancel")
+    public boolean docancel(@RequestParam String uname){
+        String sql="UPDATE members SET timecancel=current_timestamp WHERE uname=\""+uname+"\";";
+        membersDao.updateBySql(sql);
+        return true;
+    }
+
+    @RequestMapping("/{uname}")
+    public Member getMember(@PathVariable String uname){
+        return membersDao.searchByUname(uname);
+    }
+
+    @RequestMapping("/update")
+    public boolean update(@RequestBody Member member){
+        System.out.println(member);
+        membersDao.updateMember(member);
+        return true;
     }
 }

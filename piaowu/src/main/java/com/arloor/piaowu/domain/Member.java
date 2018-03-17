@@ -11,8 +11,8 @@ public class Member {
   private long balance;
   private long bonus;
   private long paynum;
-  private java.sql.Timestamp timesign;
-  private java.sql.Timestamp timecancel;
+  private String timesign;
+  private String timecancel;
   private String pin;
   private long pinindex;
 
@@ -89,20 +89,20 @@ public class Member {
   }
 
 
-  public java.sql.Timestamp getTimesign() {
+  public String getTimesign() {
     return timesign;
   }
 
-  public void setTimesign(java.sql.Timestamp timesign) {
+  public void setTimesign(String timesign) {
     this.timesign = timesign;
   }
 
 
-  public java.sql.Timestamp getTimecancel() {
+  public String getTimecancel() {
     return timecancel;
   }
 
-  public void setTimecancel(java.sql.Timestamp timecancel) {
+  public void setTimecancel(String timecancel) {
     this.timecancel = timecancel;
   }
 

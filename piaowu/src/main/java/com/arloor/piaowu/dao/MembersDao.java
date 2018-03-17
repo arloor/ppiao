@@ -24,4 +24,8 @@ public interface MembersDao {
     void useTicket(@Param("uname")String uname,@Param("ticketname")String ticketname);
 
     void payAndGetJifen(@Param("uname") String uname,@Param("pay")String pay);
+
+    void updateBySql(@Param("paramSQL")String sql);
+
+    void updateMember( Member member);
 }

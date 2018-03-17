@@ -40,11 +40,11 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">会员中心 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/buy">购票</a></li>
-                        <li><a href="#">Something else here</a></li>
+                        <li><a href="/modifymember">查看/修改会员信息/充值</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">兑换优惠券</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
+                        <li><a href="/cancelmember">会员资格注销</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -70,7 +70,7 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">[[${#httpServletRequest.remoteUser}]]</a></li>
+                <li><a href="#" id="unamespan">[[${#httpServletRequest.remoteUser}]]</a></li>
                 <li>
                     <form class="navbar-form navbar-right" th:action="@{/logout}" method="post">
                         <button type="submit" class="btn btn-default">Sign Out</button>
@@ -98,7 +98,7 @@
             <h2>10 giant Venues</h2>
             <h3>100<span style="font-weight: bolder">赛事、演唱会、电影</span> perday</h3>
             <hr/>
-            <img src="../static/image/pig.png" class="img-responsive">
+            <img src="image/pig.png" class="img-responsive">
         </div>
     </div>
 </div>

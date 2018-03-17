@@ -32,13 +32,18 @@ public class CustomerUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Member member=membersDao.searchByUname(s);
-        if(member!=null){
+        if(member!=null&&member.getTimecancel()==null){
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(member.getRole()));
             User user=new User(member.getUname(),"{noop}"+member.getPasswd(),authorities);
             return user;
         }
-        Venues venues=venuesDao.searchVenuesByVid(Integer.parseInt(s));
+        Venues venues=null;
+        try {
+            venues = venuesDao.searchVenuesByVid(Integer.parseInt(s));
+        }catch (NumberFormatException e){
+            return null;
+        }
         if(venues!=null){
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(venues.getRole()));

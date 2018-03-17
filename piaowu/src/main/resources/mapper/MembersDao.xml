@@ -30,6 +30,12 @@
     <update id="payAndGetJifen">
         UPDATE members SET balance=balance-#{pay},bonus=bonus+#{pay},paynum=paynum+#{pay} where uname=#{uname};
     </update>
+    <update id="updateBySql">
+        ${paramSQL}
+    </update>
+    <update id="updateMember" parameterType="com.arloor.piaowu.domain.Member">
+        UPDATE members SET balance=#{balance},passwd=#{passwd},paykey=#{paykey} where uname=#{uname};
+    </update>
     <select id="searchByUname" resultType="com.arloor.piaowu.domain.Member">
         SELECT * FROM members WHERE uname =#{uname}
     </select>

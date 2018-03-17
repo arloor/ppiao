@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>飘麦网--修改会员信息</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body background="image/bk1.png">
+
+<!--导航栏开始-->
+<nav th:replace="components/components :: header"></nav>
+<!--导航栏结束-->
+
+<!---->
+<div class="container-fluid">
+    <div class="row">
+        <br>
+        <br>
+        <br>
+        <div class="col-lg-6 col-lg-offset-3" style="background: #5bc0de;text-align: center">
+            <form>
+                <div class="form-group">
+                    <label for="uname">用户名</label>
+                    <input type="text" class="form-control" id="uname" placeholder="用户名" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="email">邮箱</label>
+                    <input type="text" class="form-control" id="email" placeholder="邮箱" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="oldpasswd">旧密码</label>
+                    <input type="password" class="form-control" id="oldpasswd" placeholder="旧密码">
+                    <p class="help-block">不输入旧密码表示不修改密码</p>
+                </div>
+                <div class="form-group">
+                    <label for="newpasswd1">新密码</label>
+                    <input type="password" class="form-control" id="newpasswd1" placeholder="新密码">
+                </div>
+                <div class="form-group">
+                    <label for="newpasswd2">再次输入新密码</label>
+                    <input type="password" class="form-control" id="newpasswd2" placeholder="再次输入新密码">
+                </div>
+                <div class="form-group">
+                    <label for="paykey">支付密码</label>
+                    <input type="text" class="form-control" id="paykey" placeholder="支付密码">
+                </div>
+                <div class="form-group">
+                    <label for="balance">余额</label>
+                    <input type="text" class="form-control" id="balance" placeholder="余额" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="chongzhi">充值金额</label>
+                    <input type="text" class="form-control" id="chongzhi" placeholder="请输入充值金额">
+                </div>
+                <div class="form-group">
+                    <label for="bonus">积分</label>
+                    <input type="text" class="form-control" id="bonus" placeholder="积分" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="paynum">总消费金额</label>
+                    <input type="text" class="form-control" id="paynum" placeholder="总消费金额" disabled>
+                </div>
+
+                <button type="submit" class="btn btn-default" id="submit">Submit</button>
+            </form>
+            <img src="image/pig.png" class="img-responsive">
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+
+    window.onload=function (ev) {
+        var uname=document.getElementById("unamespan").innerText;
+        var link="/api/members/"+uname;
+        var req=new XMLHttpRequest();
+        req.open("GET",link,true);
+        req.send();
+
+        req.onreadystatechange=function () {
+            if (req.readyState == 4 && this.status == 200) {
+                window.member=eval ("(" + req.responseText + ")");
+                document.getElementById("uname").value=member.uname;
+                document.getElementById("email").value=member.email;
+                document.getElementById("balance").value=member.balance;
+                document.getElementById("bonus").value=member.bonus;
+                document.getElementById("paynum").value=member.paynum;
+            }
+        }
+    }
+
+    // var oldpasswdInput=document.getElementById("oldpasswd");
+    // oldpasswdInput.onchange=function (ev) {
+    //     var oldpasswd=document.getElementById("oldpasswd").value;
+    //     if(oldpasswd!=member.passwd){
+    //         alert("旧密码输入错误")
+    //     }
+    // }
+    //
+    // var newPasswd2Input=document.getElementById("newpasswd2");
+    // newPasswd2Input.onchange=function (ev) {
+    //     var newpasswd1=document.getElementById("newpasswd2").value;
+    //     var newpasswd2=document.getElementById("newpasswd2").value;
+    //     if(newpasswd1!=newpasswd2){
+    //         alert("两次密码输入不同");
+    //     }
+    // }
+
+    var submitButton=document.getElementById("submit");
+    submitButton.onclick=function (ev) {
+        var oldpasswd=document.getElementById("oldpasswd").value;
+        if(oldpasswd!=""&&oldpasswd!=member.passwd){
+            alert("旧密码输入错误")
+            return false;
+        }
+
+       if(oldpasswd!=""){
+           var newpasswd1=document.getElementById("newpasswd2").value;
+           var newpasswd2=document.getElementById("newpasswd2").value;
+           if(newpasswd1!=newpasswd2){
+               alert("两次密码输入不同");
+               return false;
+           }else member.passwd=newpasswd2;
+       }
+
+
+        var paykey=document.getElementById("paykey").value;
+        if(paykey!=""){
+            member.paykey=paykey;
+        }
+
+        var chongzhi=document.getElementById("chongzhi").value;
+        if(chongzhi!=""){
+            member.balance=parseInt(member.balance)+parseInt(chongzhi);
+        }
+
+        var req=new XMLHttpRequest();
+        var link="/api/members/update";
+        req.open("POST",link,true);
+        req.setRequestHeader("Content-type","application/json");
+        req.send(JSON.stringify(member));
+
+        req.onreadystatechange=function (ev2) {
+            if (req.readyState == 4 && this.status == 200){
+                if(req.responseText=="true"){
+                    alert("成功修改");
+                    window.location.href="/";
+                }else alert("修改失败");
+            }
+        }
+        return false;
+    }
+</script>
+</body>
+</html>
