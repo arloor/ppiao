@@ -3,16 +3,25 @@ package com.arloor.piaowu.domain;
 
 public class Memberorder {
 
+  private long oid;
   private String uname;
-  private long placeid;
-  private long eventid;
+  private String pname;
   private String state;
   private long seatnum;
-  private long seatarrange;
+  private long seatarranged;
   private java.sql.Timestamp booktime;
   private long charge;
   private long pay;
-  private long ticketid;
+  private String ticketname;
+
+
+  public long getOid() {
+    return oid;
+  }
+
+  public void setOid(long oid) {
+    this.oid = oid;
+  }
 
 
   public String getUname() {
@@ -24,21 +33,12 @@ public class Memberorder {
   }
 
 
-  public long getPlaceid() {
-    return placeid;
+  public String getPname() {
+    return pname;
   }
 
-  public void setPlaceid(long placeid) {
-    this.placeid = placeid;
-  }
-
-
-  public long getEventid() {
-    return eventid;
-  }
-
-  public void setEventid(long eventid) {
-    this.eventid = eventid;
+  public void setPname(String pname) {
+    this.pname = pname;
   }
 
 
@@ -60,12 +60,12 @@ public class Memberorder {
   }
 
 
-  public long getSeatarrange() {
-    return seatarrange;
+  public long getSeatarranged() {
+    return seatarranged;
   }
 
-  public void setSeatarrange(long seatarrange) {
-    this.seatarrange = seatarrange;
+  public void setSeatarranged(long seatarranged) {
+    this.seatarranged = seatarranged;
   }
 
 
@@ -96,12 +96,12 @@ public class Memberorder {
   }
 
 
-  public long getTicketid() {
-    return ticketid;
+  public String getTicketname() {
+    return ticketname;
   }
 
-  public void setTicketid(long ticketid) {
-    this.ticketid = ticketid;
+  public void setTicketname(String ticketname) {
+    this.ticketname = ticketname;
   }
 
 }

@@ -1,6 +1,7 @@
 package com.arloor.piaowu.dao;
 
 import com.arloor.piaowu.domain.Member;
+import com.arloor.piaowu.domain.Memberorder;
 import com.arloor.piaowu.domain.Memberticket;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -28,4 +29,6 @@ public interface MembersDao {
     void updateBySql(@Param("paramSQL")String sql);
 
     void updateMember( Member member);
+
+    Memberorder getMemberOrder(@Param("uname") String uname,@Param("pname") String pname);
 }

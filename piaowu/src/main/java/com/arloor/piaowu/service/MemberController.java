@@ -3,10 +3,7 @@ package com.arloor.piaowu.service;
 import com.arloor.piaowu.dao.MembersDao;
 import com.arloor.piaowu.dao.OrderDao;
 import com.arloor.piaowu.dao.PlayDao;
-import com.arloor.piaowu.domain.Member;
-import com.arloor.piaowu.domain.Memberticket;
-import com.arloor.piaowu.domain.Play;
-import com.arloor.piaowu.domain.Seat;
+import com.arloor.piaowu.domain.*;
 import com.arloor.piaowu.model.PinInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -217,6 +214,23 @@ public class MemberController {
     public boolean update(@RequestBody Member member){
         System.out.println(member);
         membersDao.updateMember(member);
+        return true;
+    }
+
+    @RequestMapping("/canelOrder")
+    public boolean cancelOrder(@RequestParam String uname ,@RequestParam String pname){
+        //获取订单、订单是否支付 支付-退款、见积分 未支付-null 是否选座位 选了-删除订单作为表中的数据
+        Memberorder memberorder=membersDao.getMemberOrder(uname,pname);
+        Member member=membersDao.searchByUname(uname);
+        if(memberorder.getState().equals("已支付")){
+            member.setBalance(member.getBalance()+memberorder.getPay());
+            member.setBonus(member.getBonus()-memberorder.getPay());
+            member.setPaynum(member.getPaynum()-memberorder.getPay());
+            membersDao.updateMember(member);
+        }
+        //todo:是否选座位 选了-删除订单作为表中的数据
+
+
         return true;
     }
 }

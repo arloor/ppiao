@@ -34,7 +34,7 @@
         ${paramSQL}
     </update>
     <update id="updateMember" parameterType="com.arloor.piaowu.domain.Member">
-        UPDATE members SET balance=#{balance},passwd=#{passwd},paykey=#{paykey} where uname=#{uname};
+        UPDATE members SET balance=#{balance},passwd=#{passwd},paykey=#{paykey},bonus=#{bnous},paynum=#{paynum} where uname=#{uname};
     </update>
     <select id="searchByUname" resultType="com.arloor.piaowu.domain.Member">
         SELECT * FROM members WHERE uname =#{uname}
@@ -44,5 +44,8 @@
     </select>
     <select id="checkMemberPaykey" resultType="java.lang.Integer">
         SELECT count(*) FROM members WHERE uname=#{uname} AND paykey=#{paykey};
+    </select>
+    <select id="getMemberOrder" resultType="com.arloor.piaowu.domain.Memberorder">
+        SELECT * FROM memberorder WHERE uname=#{uname} and pname=#{pname};
     </select>
 </mapper>
