@@ -155,8 +155,14 @@ public class MemberController{
             @RequestParam String ticketname,
             @RequestParam String seats
     ){
+        //如果非会员
         if(ismember.equals("false")){
-            return String.valueOf(guestorder(pname,stype,seatnum,pay,seats));
+            boolean result=guestorder(pname,stype,seatnum,pay,seats);
+            if(result){
+                return "购票成功";
+            }else{
+                return "购票失败";
+            }
         }
         //首先校验uname和paykey，查看是否正确，不正确返回：支付密码错误，下单失败
         //然后检验uname和balance，查看余额是否足够，不足够则返回：余额不足，支付失败，请在订单管理中支付。
