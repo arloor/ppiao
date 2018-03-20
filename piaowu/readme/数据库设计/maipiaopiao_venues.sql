@@ -1,0 +1,1 @@
+INSERT INTO maipiaopiao.venues (vid, vname, vpasswd, vaddr, vstatus, vinfo, role) VALUES (1, '幸福蓝海国际影城', '123456', '汉口路222号', 'valid', '暂无简介', 'ROLE_VENUES');

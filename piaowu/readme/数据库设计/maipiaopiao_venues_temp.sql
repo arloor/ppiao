@@ -1,0 +1,1 @@
+INSERT INTO maipiaopiao.venues_temp (vname, vpasswd, vaddr, vstatus, vinfo) VALUES ('幸福蓝海国际影城', '12345678', '汉口路222号哈哈哈哈哈哈', 'tocheck', '暂无简');

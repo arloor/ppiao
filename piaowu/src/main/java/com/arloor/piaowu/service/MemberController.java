@@ -114,8 +114,36 @@ public class MemberController{
         return playDao.leftSeats(pname,stype);
     }
 
+    private boolean guestorder(
+            String pname,
+            String stype,
+             String seatnum,
+             String pay,
+             String seats
+    ){
+        try{
+            String[] seatEntris=seats.split(",");
+            String updateSeatsSql="";
+            List<String> whereClauses=new ArrayList<>();
+            for (int i=0;i<Integer.parseInt(seatnum)&&i<seatEntris.length;i++) {
+                whereClauses.add(" stype= \""+stype+"\" AND row="+seatEntris[i].split("-")[0]+" AND col="+seatEntris[i].split("-")[1]+" ");
+            }
+            String whereParam=whereClauses.get(0);
+            for (int i = 1; i <whereClauses.size() ; i++) {
+                whereParam+=" OR "+whereClauses.get(i);
+            }
+
+            updateSeatsSql="UPDATE "+pname+"_seats SET uname=\"guestorder\",status=\"taken\" WHERE "+ whereParam+";";
+            orderDao.updateBySql(updateSeatsSql);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
     @RequestMapping("/order")
     public String order(
+            @RequestParam String ismember,
             @RequestParam String uname,
             @RequestParam String paykey,
             @RequestParam String pname,
@@ -127,6 +155,9 @@ public class MemberController{
             @RequestParam String ticketname,
             @RequestParam String seats
     ){
+        if(ismember.equals("false")){
+            return String.valueOf(guestorder(pname,stype,seatnum,pay,seats));
+        }
         //首先校验uname和paykey，查看是否正确，不正确返回：支付密码错误，下单失败
         //然后检验uname和balance，查看余额是否足够，不足够则返回：余额不足，支付失败，请在订单管理中支付。
         //余额足够，则，新增用户订单，根据seats和seatnum在seats表中更新状态。
@@ -143,6 +174,16 @@ public class MemberController{
             //插入订单表
 
             Member member=membersDao.searchByUname(uname);
+            long payNum=member.getPaynum();
+            if(payNum<=500){
+
+            }else if (payNum<1000){
+                pay=String.valueOf((long)(Long.parseLong(pay)*0.95));
+            }else if (payNum<2000){
+                pay=String.valueOf((long)(Long.parseLong(pay)*0.9));
+            }else if (payNum<4000){
+                pay=String.valueOf((long)(Long.parseLong(pay)*0.8));
+            }
             int seatarranged=0;
             if(pickseat.equals("选座")&&seats.length()>0){
                 seatarranged=1;
@@ -158,7 +199,7 @@ public class MemberController{
                 }
             }else{
                 status="已支付";
-                result="下单成功，请在邮箱中查看订单详情。";
+                result="下单成功，实际支付"+pay+"\r\n请在邮箱中查看订单详情";
                 //更新积分等情况
                 membersDao.payAndGetJifen(uname,pay);
                 try {
@@ -197,7 +238,7 @@ public class MemberController{
                     whereParam+=" OR "+whereClauses.get(i);
                 }
 
-                updateSeatsSql="UPDATE 至暗时刻_seats SET uname=\""+uname+"\",status=\"taken\" WHERE "+ whereParam+";";
+                updateSeatsSql="UPDATE "+pname+"_seats SET uname=\""+uname+"\",status=\"taken\" WHERE "+ whereParam+";";
                 orderDao.updateBySql(updateSeatsSql);
             }//更新座位表结束
 
@@ -264,5 +305,17 @@ public class MemberController{
         memberorder.setState("已支付");
         orderDao.updateOrder(memberorder);
         return "<a href=\"http://piaomai.moontell.cn/ordermanage\">支付成功，点击返回</a>";
+    }
+
+    @RequestMapping("/checkmember")
+    public boolean checkMember(@RequestParam String uname,@RequestParam String upasswd){
+        Member member= membersDao.searchByUname(uname);
+        if(member==null){
+            return false;
+        }else if(upasswd.equals(member.getPasswd())){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

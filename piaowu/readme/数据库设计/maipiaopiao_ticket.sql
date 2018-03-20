@@ -1,0 +1,2 @@
+INSERT INTO maipiaopiao.ticket (ticketname, type, param0, param1, param2, `left`) VALUES ('3月新用户尊享', '折扣', '300', '0.8', '', 49);
+INSERT INTO maipiaopiao.ticket (ticketname, type, param0, param1, param2, `left`) VALUES ('3月积分兑换', '立减', '100', '5', '', 38);

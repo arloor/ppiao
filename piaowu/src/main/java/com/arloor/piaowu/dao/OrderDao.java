@@ -31,4 +31,6 @@ public interface OrderDao {
     List<Memberorder> selectOrdersbyStatus(@Param("status")String status);
 
     void updateOrder(Memberorder memberorder);
+
+    void insertGuestOrder(@Param("pname") String pname,@Param("stype") String stype,@Param("seatnum") String seatnum,@Param("pay") String pay);
 }

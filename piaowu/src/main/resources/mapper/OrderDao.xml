@@ -24,4 +24,7 @@
     <select id="selectOrdersbyStatus" resultType="com.arloor.piaowu.domain.Memberorder">
         SELECT * FROM memberorder WHERE state=#{status} order by booktime DESC;
     </select>
+    <insert id="insertGuestOrder">
+        INSERT INTO guestorder(pname, seatstype, seatnum, pay) VALUE (#{pname},#{stype},#{seatnum},#{pay});
+    </insert>
 </mapper>

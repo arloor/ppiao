@@ -35,6 +35,24 @@
         <div class="col-lg-5" style="text-align: center">
             <form>
                 <div class="form-group">
+                    <label for="ismember">是否会员</label>
+                    <select class="form-control" id="ismember">
+                        <option>非会员</option>
+                        <option>会员</option>
+                    </select>
+                </div>
+                <div id="memberdiv" style="display: none">
+                    <div class="form-group">
+                        <label for="unameinput">用户名</label>
+                        <input type="text" class="form-control" id="unameinput" />
+                    </div>
+                    <div class="form-group">
+                        <label for="upasswdinput">密码</label>
+                        <input type="password" class="form-control" id="upasswdinput" />
+                    </div>
+                    <button type="submit" id="submitmember" class="btn btn-default">检查会员信息</button>
+                </div>
+                <div class="form-group">
                     <label for="pname">选择演出</label>
                     <select class="form-control" id="pname">
                         <option>演出未选择</option>
@@ -70,7 +88,7 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script>
     window.onload=function (ev) {
-
+        ismember="false";
         var link="/api/members/listplayslater";
         // alert(link);
         var req=new XMLHttpRequest();
@@ -88,6 +106,34 @@
             }
         };
     }
+
+    var ismemberselect=document.getElementById("ismember");
+    ismemberselect.onchange=function (ev) {
+        var memberdiv=document.getElementById("memberdiv");
+        if(ismemberselect.value=="会员"){
+            memberdiv.setAttribute("style","display:block");
+        }else {
+            memberdiv.setAttribute("style","display:none");
+        }
+    }
+    var submitmember=document.getElementById("submitmember");
+    submitmember.onclick=function (ev) {
+        var uname=document.getElementById("unameinput").value;
+        var upasswd=document.getElementById("upasswdinput").value;
+
+        var link="/api/members/checkmember?uname="+uname+"&upasswd="+upasswd;
+        var req=new XMLHttpRequest();
+        req.open("GET",link,true);
+        req.send();
+        req.onreadystatechange=function (ev2) {
+            if(req.readyState==4&&this.status==200){
+                alert(req.responseText);
+                ismember=req.responseText;
+            }
+        }
+        return false;
+    }
+
 
     //选择演出之后的js 包括跳出座位等级选择，显示演出信息等。
     var pnameSelect=document.getElementById("pname");
@@ -134,7 +180,7 @@
         var seatcanpickDiv=document.getElementById("seatcanpick");
         seatcanpickDiv.setAttribute("style","display:none");
 
-        var uname=document.getElementById("uname").innerText;
+        var uname=document.getElementById("unameinput").value;
         var link="/api/members/showtickets?uname="+uname;
         var req=new XMLHttpRequest();
         req.open("GET",link,true);
@@ -161,12 +207,9 @@
                     "                <div class=\"form-group\">\n" +
                     "                    <label for=\"pickseat\">是否选座</label>\n" +
                     "                    <select class=\"form-control\" id=\"pickseat\">\n" +
-                    "                        <option selected>不选座</option>\n" ;
-                if(snum<=7){
-                    html+="                        <option id='xuanzuo'>选座</option>\n";
-                }
+                    "                        <option selected>选座</option>\n" ;
                 html+= "                    </select>\n" +
-                    "<div class=\"form-group\" style='display: none' id='seatschosendiv'>\n" +
+                    "<div class=\"form-group\" id='seatschosendiv'>\n" +
                     "                    <label for=\"seatschosen\">选择的座位</label>\n" +
                     "                    <input type=\"text\" class=\"form-control\" id=\"seatschosen\" placeholder=\"请先点击“显示可选座位” 可以直接从左侧复制 比如 3-3,3-4,3-5,3-6 如超过所输座位数量则取前面的\">\n" +
                     "                </div>"+
@@ -177,7 +220,7 @@
                     "                </div>\n";
                 html+= "                <h3>售价共计 "+charge+"元，实际需要支付 <span id='topay'>"+charge+"</span>元</h3>\n" +
                     "            </form>\n" +
-                    "            <button type=\"submit\" id=\"pickseats\" class=\"btn btn-default\" style='display: none'>显示可选座位</button>"+
+                    "            <button type=\"submit\" id=\"pickseats\" class=\"btn btn-default\">显示可选座位</button>"+
                     "            <button type=\"submit\" id=\"pay\" class=\"btn btn-default\">确认支付</button>";
 
                 paydiv.innerHTML=html;
@@ -236,7 +279,7 @@
                     //要提交的信息：paykey uname pname seatnum charge pay ticketname seats paykey
 
                     var paykey=document.getElementById("paykey").value;
-                    var uname=document.getElementById("uname").innerText;
+                    var uname=document.getElementById("unameinput").value;
                     var pname=document.getElementById("pname").value;
                     var stype=document.getElementById('pseat').value;
                     var seatnum=document.getElementById('snum').value;
@@ -245,19 +288,22 @@
                     var pay=window.topay;
                     var ticketname=document.getElementById("ticket").value;
                     var seats=document.getElementById("seatschosen").value;
-                    var params="uname="+uname+"&paykey="+paykey+"&pname="+pname+"&stype="+stype+"&seatnum="+seatnum+"&pickseat="+pickseat+"&charge="+charge+"&pay="+pay+"&ticketname="+ticketname+"&seats="+seats;
-                    // alert(params);
+
 
                     var xmlhttp=new XMLHttpRequest();
-                    xmlhttp.open("POST","/api/members/order",true);
-                    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-                    xmlhttp.send(params);
 
-                    xmlhttp.onreadystatechange=function () {
-                        if (xmlhttp.readyState == 4 && this.status == 200) {
-                            alert(xmlhttp.responseText);
+                        var params="ismember="+ismember+"&uname="+uname+"&paykey="+paykey+"&pname="+pname+"&stype="+stype+"&seatnum="+seatnum+"&pickseat="+pickseat+"&charge="+charge+"&pay="+pay+"&ticketname="+ticketname+"&seats="+seats;
+
+
+                        xmlhttp.open("POST","/api/members/order",true);
+                        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                        xmlhttp.send(params);
+
+                        xmlhttp.onreadystatechange=function () {
+                            if (xmlhttp.readyState == 4 && this.status == 200) {
+                                alert(xmlhttp.responseText);
+                            }
                         }
-                    }
                     return false;
                 }
             }
