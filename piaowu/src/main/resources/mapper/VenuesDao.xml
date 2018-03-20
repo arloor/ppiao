@@ -31,4 +31,8 @@
     <insert id="insertNewPlan">
         INSERT INTO plays(pname, vname, hname, pdate, ptime, ptype, pinfo) VALUE (#{pname},#{vname},#{phname},#{pdate},#{ptime},#{ptype},#{pinfo});
     </insert>
+    <insert id="insertNewVenuesTemp">
+        INSERT INTO venues_temp(vname, vpasswd, vaddr, vinfo) VALUES (#{vname},#{vpasswd},#{vaddr},#{info})
+    </insert>
+
 </mapper>

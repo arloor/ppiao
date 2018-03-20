@@ -16,6 +16,43 @@ public class VenusController {
     @Autowired
     VenuesDao venuesDao;
 
+    @RequestMapping("/refactor")
+    public String venuesRefactor(
+            @RequestParam String vname,
+            @RequestParam String vpasswd,
+            @RequestParam String vaddr,
+            @RequestParam String seats,
+            @RequestParam String info
+    ){
+        try{
+            venuesDao.insertNewVenuesTemp(vname,vpasswd,vaddr,info);
+        }catch (Exception e){
+            e.printStackTrace();
+            return "false";
+        }
+        String[] entitys=seats.split(",");
+        String sql="INSERT INTO halls_temp(vname, hname, stype, rownum, colnum) VALUES ";
+        for (String entiry:entitys
+                ) {
+            sql+="('"+vname+"','"+entiry.split("-")[0]+"','"+entiry.split("-")[1]+"',"+entiry.split("-")[2]+","+entiry.split("-")[3]+"),";
+        }
+        sql=sql.substring(0,sql.length()-1)+";";
+        try{
+            venuesDao.updateBySql(sql);
+        }catch (Exception e){
+            e.printStackTrace();
+            return "false";
+        }
+
+        return "true";
+    }
+
+
+    @RequestMapping("/viewvenues")
+    public Venues viewVenues(@RequestParam String vname){
+        return venuesDao.searchVenuesByVname(vname);
+    }
+
     @RequestMapping("/signup")
     public String venuesSign(
             @RequestParam String vname,
