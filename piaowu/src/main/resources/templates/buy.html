@@ -245,8 +245,8 @@
                     var pay=window.topay;
                     var ticketname=document.getElementById("ticket").value;
                     var seats=document.getElementById("seatschosen").value;
-                    var params="uname="+uname+"&paykey="+paykey+"&pname="+pname+"&stype="+stype+"&seatnum="+seatnum+"&pickseat="+pickseat+"&charge="+charge+"&pay="+pay+"&ticketname="+ticketname+"&seats="+seats;
-                    // alert(params);
+                    var params="ismember=true&uname="+uname+"&paykey="+paykey+"&pname="+pname+"&stype="+stype+"&seatnum="+seatnum+"&pickseat="+pickseat+"&charge="+charge+"&pay="+pay+"&ticketname="+ticketname+"&seats="+seats;
+
 
                     var xmlhttp=new XMLHttpRequest();
                     xmlhttp.open("POST","/api/members/order",true);

@@ -5,6 +5,7 @@ import com.arloor.piaowu.dao.OrderDao;
 import com.arloor.piaowu.dao.PlayDao;
 import com.arloor.piaowu.domain.*;
 import com.arloor.piaowu.model.PinInfo;
+import com.arloor.piaowu.model.RowAndCol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -193,15 +194,43 @@ public class MemberController{
             int seatarranged=0;
             if(pickseat.equals("选座")&&seats.length()>0){
                 seatarranged=1;
+            }else{
+                List<RowAndCol> seatsSelected=orderDao.selectSeats("`"+pname+"_seats`",stype,seatnum);
+                if(seatsSelected.size()<Integer.parseInt(seatnum)){
+                    return "可选余票不足，下单失败";
+                }else{
+                    seats="";
+                    for (RowAndCol seat:seatsSelected
+                         ) {
+                        seats+=seat.getRow()+"-"+seat.getCol()+",";
+                    }
+                    seatarranged=1;
+                }
             }
             String status="未支付";
             if(member.getBalance()<Integer.parseInt(pay)){
                 status="未支付";
                 result= "余额不足，支付失败，请在订单管理中支付，超时将取消订单";
+
                 try {
                     orderDao.insertOrder(uname,pname,status,seatnum,seatarranged,charge,pay,ticketname);
                 }catch (Exception e){
                     return "您已经订购过本场演出，当前业务规则不允许多个订单";
+                }
+                //发送邮件
+                SimpleMailMessage msg=new SimpleMailMessage();
+                msg.setFrom("18762832143@163.com");
+                msg.setSubject("飘麦网——演出详情通知");
+                msg.setTo(member.getEmail());
+                Play play=playDao.viewPlayInfo(pname).get(0);
+                msg.setText("尊敬的"+member.getUname()+"用户您好：您的订单详情如下："+play.getPname()+"  未支付 "+play.getVname()+" "+play.getHname()+" "
+                        +play.getPdate()+" "+play.getPtime()+" "+stype+" "+seats);
+                try{
+                    this.mailSender.send(msg);
+                }
+                catch (MailException ex) {
+                    // simply log it and go on...
+                    System.err.println(ex.getMessage());
                 }
             }else{
                 status="已支付";
@@ -219,7 +248,7 @@ public class MemberController{
                 msg.setSubject("飘麦网——演出详情通知");
                 msg.setTo(member.getEmail());
                 Play play=playDao.viewPlayInfo(pname).get(0);
-                msg.setText("尊敬的"+member.getUname()+"用户您好：您的订单详情如下："+play.getPname()+" "+play.getVname()+" "+play.getHname()+" "
+                msg.setText("尊敬的"+member.getUname()+"用户您好：您的订单详情如下："+play.getPname()+" 已支付 "+play.getVname()+" "+play.getHname()+" "
                         +play.getPdate()+" "+play.getPtime()+" "+stype+" "+seats);
                 try{
                     this.mailSender.send(msg);

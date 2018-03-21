@@ -1,6 +1,7 @@
 package com.arloor.piaowu.dao;
 
 import com.arloor.piaowu.domain.Memberorder;
+import com.arloor.piaowu.model.RowAndCol;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.context.annotation.Bean;
@@ -33,4 +34,7 @@ public interface OrderDao {
     void updateOrder(Memberorder memberorder);
 
     void insertGuestOrder(@Param("pname") String pname,@Param("stype") String stype,@Param("seatnum") String seatnum,@Param("pay") String pay);
+
+    //SELECT row,col from 黑豹_seats where stype='A座'AND  status ="untaken" ORDER BY row, col  LIMIT 0,7
+    List<RowAndCol> selectSeats(@Param("table")String table, @Param("stype")String stype, @Param("seatnum")String seatnum);
 }

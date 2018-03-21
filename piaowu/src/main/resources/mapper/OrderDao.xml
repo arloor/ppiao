@@ -27,4 +27,8 @@
     <insert id="insertGuestOrder">
         INSERT INTO guestorder(pname, seatstype, seatnum, pay) VALUE (#{pname},#{stype},#{seatnum},#{pay});
     </insert>
+
+    <select id="selectSeats" resultType="com.arloor.piaowu.model.RowAndCol">
+        SELECT row,col from ${table} where stype=#{stype} AND  status ="untaken" ORDER BY row, col  LIMIT 0,${seatnum};
+    </select>
 </mapper>
