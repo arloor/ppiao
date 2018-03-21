@@ -44,4 +44,6 @@ public interface OrderDao {
     void checkSeats(@Param("sql") String sql);
 
     Memberorder getOrderByUnamePname(@Param("uname")String uname,@Param("pname")String pname);
+
+    List<Memberorder> selectOrdersByVname(@Param("vname") String vname);
 }

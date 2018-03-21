@@ -21,6 +21,9 @@
     <select id="selectOrders" resultType="com.arloor.piaowu.domain.Memberorder">
         SELECT * FROM memberorder WHERE uname=#{uname} order by state DESC,booktime DESC;
     </select>
+    <select id="selectOrdersByVname" resultType="com.arloor.piaowu.domain.Memberorder">
+        SELECT * FROM memberorder WHERE pname IN (SELECT pname FROM plays WHERE vname=#{vname}) order by state DESC,booktime DESC;
+    </select>
     <select id="selectOrdersbyStatus" resultType="com.arloor.piaowu.domain.Memberorder">
         SELECT * FROM memberorder WHERE state=#{status} order by booktime DESC;
     </select>

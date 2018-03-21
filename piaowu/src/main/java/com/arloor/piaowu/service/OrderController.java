@@ -79,4 +79,10 @@ public class OrderController {
        }
        return "检票成功";
    }
+
+   @RequestMapping("/listordersbyvenues")
+   public List<Memberorder> listordersbyvenues(@RequestParam String vname){
+       return orderDao.selectOrdersByVname(vname);
+
+   }
 }
