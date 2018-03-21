@@ -4,4 +4,7 @@
     <select id="searchAdmin" resultType="com.arloor.piaowu.domain.Admin">
         SELECT * FROM admin WHERE aname=#{aname};
     </select>
+    <select id="selectHallsbyVname" resultType="com.arloor.piaowu.domain.Halls">
+        SELECT * FROM halls WHERE vname=#{vname};
+    </select>
 </mapper>
