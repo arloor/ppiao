@@ -16,4 +16,7 @@ public interface PlayDao
     List<Play> viewPlayInfo(@Param("pname")String pname);
 
     List<Seat> leftSeats(@Param("pname") String pname,@Param("stype") String stype);
+
+    //pdate : "2018-03-30"  ptime : "16:24"  带双引号
+    List<Play> selectPlaysbyVenuesEarlierThan(@Param("vname")String vname,@Param("pdate")String pdate,@Param("ptime") String ptime);
 }

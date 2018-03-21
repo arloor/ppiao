@@ -31,4 +31,20 @@
     <select id="selectSeats" resultType="com.arloor.piaowu.model.RowAndCol">
         SELECT row,col from ${table} where stype=#{stype} AND  status ="untaken" ORDER BY row, col  LIMIT 0,${seatnum};
     </select>
+
+    <select id="countSeats" resultType="int">
+        ${sql}
+    </select>
+
+    <update id="checkSeats">
+        ${sql}
+    </update>
+
+    <select id="getOrderByUnamePname" resultType="com.arloor.piaowu.domain.Memberorder">
+      SELECT  * FROM memberorder WHERE uname=#{uname} AND pname=#{pname};
+    </select>
+
+    <update id="updateorder" parameterType="com.arloor.piaowu.domain.Memberorder">
+        UPDATE memberorder SET state=#{state} WHERE uname=#{uname} and pname=#{pname};
+    </update>
 </mapper>

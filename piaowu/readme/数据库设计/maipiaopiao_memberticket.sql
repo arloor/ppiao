@@ -1,2 +1,0 @@
-INSERT INTO maipiaopiao.memberticket (ticketid, uname, ticketname, used, gettime) VALUES (1, 'arloor', '3月新用户尊享', 0, '2018-03-12 05:20:32');
-INSERT INTO maipiaopiao.memberticket (ticketid, uname, ticketname, used, gettime) VALUES (2, 'arloor', '3月积分兑换', 0, '2018-03-12 13:23:14');

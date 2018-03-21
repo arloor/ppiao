@@ -11,4 +11,7 @@
         select *
         from ${pname} where status="untaken" AND stype=#{stype} order by row,col;
     </select>
+    <select id="selectPlaysbyVenuesEarlierThan" resultType="com.arloor.piaowu.domain.Play">
+        SELECT * FROM plays WHERE vname=#{vname} and pdate &lt;${pdate} UNION SELECT * FROM plays WHERE vname=#{vname} and pdate = ${pdate} AND ptime &lt;${ptime};
+    </select>
 </mapper>

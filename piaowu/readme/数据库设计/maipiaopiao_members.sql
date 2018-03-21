@@ -1,3 +1,0 @@
-INSERT INTO maipiaopiao.members (email, uname, passwd, role, paykey, balance, bonus, paynum, timesign, timecancel, pin, pinindex) VALUES ('1293181335@qq.com', 'arloor', 'arloor', 'ROLE_MEMBER', '123456', 80, 2620, 3620, '2018-02-02 05:29:47', null, '5666', 71);
-INSERT INTO maipiaopiao.members (email, uname, passwd, role, paykey, balance, bonus, paynum, timesign, timecancel, pin, pinindex) VALUES ('1293181335@qq.com', 'test1', '123456', 'ROLE_MEMBER', '123456', 665, 4435, 4435, '2018-03-17 19:20:45', null, '47032', 1);
-INSERT INTO maipiaopiao.members (email, uname, passwd, role, paykey, balance, bonus, paynum, timesign, timecancel, pin, pinindex) VALUES ('1293181335@qq.com', 'test2', '123456', 'ROLE_MEMBER', '123456', 0, 0, 0, '2018-03-17 19:21:28', null, '52706', 1);

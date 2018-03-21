@@ -5,6 +5,7 @@ import com.arloor.piaowu.model.RowAndCol;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -37,4 +38,10 @@ public interface OrderDao {
 
     //SELECT row,col from 黑豹_seats where stype='A座'AND  status ="untaken" ORDER BY row, col  LIMIT 0,7
     List<RowAndCol> selectSeats(@Param("table")String table, @Param("stype")String stype, @Param("seatnum")String seatnum);
+
+    int countSeats(@Param("sql") String sql);
+
+    void checkSeats(@Param("sql") String sql);
+
+    Memberorder getOrderByUnamePname(@Param("uname")String uname,@Param("pname")String pname);
 }

@@ -178,17 +178,17 @@
                             "                    <td></td>\n" +
                             "                </tr>";
                     }
-                    if(orders[i].state=="已完成"){
+                    if(orders[i].state.indexOf("已完成")>=0){
                         compeletedholder.innerHTML+="<tr>\n" +
                             "                    <td>"+orders[i].pname+"</td>\n" +
-                            "                    <td>"+orders[i].state+"</td>\n" +
+                            "                    <td>已完成</td>\n" +
                             "                    <td>"+orders[i].seatnum+"</td>\n" +
                             "                    <td>"+orders[i].seatarranged+"</td>\n" +
                             "                    <td>"+orders[i].booktime+"</td>\n" +
                             "                    <td>"+orders[i].charge+"</td>\n" +
                             "                    <td>"+orders[i].pay+"</td>\n" +
                             "                    <td>"+orders[i].ticketname+"</td>\n" +
-                            "                    <td><button><a href='/api/members/canelorder?uname="+uname+"+&pname="+orders[i].pname+"'>取消订单</a></button></td>\n" +
+                            "                    <td></td>\n" +
                             "                </tr>";
                     }
                 }

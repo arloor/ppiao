@@ -1,6 +1,0 @@
-INSERT INTO maipiaopiao.memberorder (uname, pname, state, seatnum, seatarranged, booktime, charge, pay, ticketname) VALUES ('arloor', '至暗时刻', '已取消', 20, 0, '2018-03-17 22:56:10', 1100, 1100, '不使用优惠卷');
-INSERT INTO maipiaopiao.memberorder (uname, pname, state, seatnum, seatarranged, booktime, charge, pay, ticketname) VALUES ('arloor', '黑豹', '已取消', 2, 1, '2018-03-17 21:41:13', 200, 200, '不使用优惠卷');
-INSERT INTO maipiaopiao.memberorder (uname, pname, state, seatnum, seatarranged, booktime, charge, pay, ticketname) VALUES ('test1', '至暗时刻', '已取消', 6, 1, '2018-03-17 19:22:35', 330, 330, '不使用优惠卷');
-INSERT INTO maipiaopiao.memberorder (uname, pname, state, seatnum, seatarranged, booktime, charge, pay, ticketname) VALUES ('test1', '黑豹', '已取消', 20, 0, '2018-03-17 21:46:33', 1700, 1700, '不使用优惠卷');
-INSERT INTO maipiaopiao.memberorder (uname, pname, state, seatnum, seatarranged, booktime, charge, pay, ticketname) VALUES ('test2', '至暗时刻', '已取消', 2, 1, '2018-03-17 19:23:16', 110, 110, '不使用优惠卷');
-INSERT INTO maipiaopiao.memberorder (uname, pname, state, seatnum, seatarranged, booktime, charge, pay, ticketname) VALUES ('test2', '黑豹', '已取消', 5, 1, '2018-03-17 19:27:23', 500, 500, '不使用优惠卷');

@@ -1,2 +1,0 @@
-INSERT INTO maipiaopiao.plays (pname, vname, hname, pdate, ptime, ptype, pinfo) VALUES ('至暗时刻', '幸福蓝海国际影城', '1厅', '2018-03-24', '10:25', '电影', '至暗时刻的小老头');
-INSERT INTO maipiaopiao.plays (pname, vname, hname, pdate, ptime, ptype, pinfo) VALUES ('黑豹', '幸福蓝海国际影城', '杜比厅', '2018-04-04', '17:12', '电影', '就是超级好看的电影');

@@ -45,7 +45,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/", "/home","/signup","/venuessignup").permitAll()
                 .antMatchers("/buy","/cancelmember","/modifymember","/ordermanage").hasRole("MEMBER")
-                .antMatchers("/newplan","/refactorvenues","/atscenebuy").hasRole("VENUES")
+                .antMatchers("/newplan","/refactorvenues","/atscenebuy","/check").hasRole("VENUES")
                 .anyRequest().authenticated() //任何请求,登录后可以访问
                 .and()
                 .formLogin()
