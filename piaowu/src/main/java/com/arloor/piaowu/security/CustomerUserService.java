@@ -1,8 +1,10 @@
 package com.arloor.piaowu.security;
 
 
+import com.arloor.piaowu.dao.AdminDao;
 import com.arloor.piaowu.dao.MembersDao;
 import com.arloor.piaowu.dao.VenuesDao;
+import com.arloor.piaowu.domain.Admin;
 import com.arloor.piaowu.domain.Member;
 import com.arloor.piaowu.domain.Venues;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +30,25 @@ public class CustomerUserService implements UserDetailsService {
     MembersDao membersDao;
     @Autowired
     VenuesDao venuesDao;
+    @Autowired
+    AdminDao adminDao;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+
+
         Member member=membersDao.searchByUname(s);
         if(member!=null&&member.getTimecancel()==null){
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(member.getRole()));
             User user=new User(member.getUname(),"{noop}"+member.getPasswd(),authorities);
+            return user;
+        }
+        Admin admin=adminDao.searchAdmin(s);
+        if(admin!=null){
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority(admin.getArole()));
+            User user=new User(admin.getAname(),"{noop}"+admin.getApasswd(),authorities);
             return user;
         }
         Venues venues=null;
@@ -44,12 +57,13 @@ public class CustomerUserService implements UserDetailsService {
         }catch (NumberFormatException e){
             return null;
         }
-        if(venues!=null){
+        if(venues!=null&&venues.getVstatus().equals("valid")){
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(venues.getRole()));
             User user=new User(venues.getVname(),"{noop}"+venues.getVpasswd(),authorities);
             return user;
         }
+
 
         return null;
 

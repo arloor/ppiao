@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>飘麦网--在线购票就选飘麦</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body background="image/bk1.png">
+
+<!--导航栏开始-->
+<nav th:replace="components/components :: header"></nav>
+<!--导航栏结束-->
+
+<!---->
+<div class="container-fluid">
+    <div class="row">
+        <br>
+        <br>
+        <br>
+        <div class="col-lg-6 col-lg-offset-3" style="background: #5bc0de;text-align: center">
+            <h3>场馆注册申请</h3>
+            <table class="table table-striped" >
+                <tr>
+                    <th>场馆名称</th>
+                    <th>场馆地址</th>
+                    <th>场馆简介</th>
+                    <th>座位信息</th>
+                    <th>通过</th>>
+                    <th>驳回</th>>
+                </tr>
+                <tbody id="sign">
+                </tbody>
+
+            </table>
+
+            <h3>场馆信息修改申请</h3>
+            <table class="table table-striped" >
+                <tr>
+                    <th>场馆名称</th>
+                    <th>场馆地址</th>
+                    <th>场馆简介</th>
+                    <th>座位信息</th>
+                    <th>通过</th>>
+                    <th>驳回</th>>
+                </tr>
+                <tbody id="modify">
+                </tbody>
+
+            </table>
+
+            <h1>也许是最好的票务网站</h1>
+            <h2>10家大型场馆</h2>
+            <h3>日均100<span style="font-weight: bolder">赛事、演唱会、电影</span></h3>
+            <hr/>
+            <h1>Maybe the best booking website</h1>
+            <h2>10 giant Venues</h2>
+            <h3>100<span style="font-weight: bolder">赛事、演唱会、电影</span> perday</h3>
+            <hr/>
+            <img src="image/pig.png" class="img-responsive">
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+    var sign=document.getElementById("sign");
+    sign.onload=function (ev) {
+        alert("sign");
+    }
+    var modify=document.getElementById("modify");
+    modify.onload=function (ev) {
+        alert("modify");
+    }
+</script>
+</body>
+</html>
