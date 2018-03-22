@@ -29,4 +29,6 @@ public interface VenuesDao {
     List<Halls> searchSeatInfo(@Param("vname") String vname,@Param("hname") String hname);
 
     void insertNewVenuesTemp(@Param("vname") String vname,@Param("vpasswd")String vpasswd,@Param("vaddr") String vaddr,@Param("info") String info);
+
+    List<String> listvenues();
 }

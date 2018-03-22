@@ -117,4 +117,15 @@ public class AdminController {
         }
         return "发布优惠券成功";
     }
+
+    @RequestMapping("/pay")
+    public String pay(
+            @RequestParam String uname,
+            @RequestParam String pay,
+            @RequestParam String pname,
+            @RequestParam String vname
+            ){
+        adminDao.updateOrderStatus(uname,pname);
+        return "<a href=\"http://piaomai.moontell.cn/viewstaticsvenues\">结算成功，返回</a>";
+    }
 }

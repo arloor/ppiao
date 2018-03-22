@@ -182,14 +182,14 @@ public class MemberController{
 
             Member member=membersDao.searchByUname(uname);
             long payNum=member.getPaynum();
-            if(payNum<=500){
+            if(payNum<=1000){
 
-            }else if (payNum<1000){
+            }else if (payNum<5000){
                 pay=String.valueOf((long)(Long.parseLong(pay)*0.95));
-            }else if (payNum<2000){
+            }else if (payNum<10000){
                 pay=String.valueOf((long)(Long.parseLong(pay)*0.9));
-            }else if (payNum<4000){
-                pay=String.valueOf((long)(Long.parseLong(pay)*0.8));
+            }else if (payNum<40000){
+                pay=String.valueOf((long)(Long.parseLong(pay)*0.85));
             }
             int seatarranged=0;
             if(pickseat.equals("选座")&&seats.length()>0){
@@ -319,7 +319,7 @@ public class MemberController{
 
     @RequestMapping("/listorders")
     public List<Memberorder> listOrders(@RequestParam String uname){
-        return orderDao.selectOrders(uname);
+        return orderDao.selectOrdersByUname(uname);
     }
 
     @RequestMapping("/listordersbystate")

@@ -27,7 +27,7 @@ public interface OrderDao {
 
     List<Memberorder> selectOrdersbyUnameState(@Param("uname") String uname, @Param("status") String status);
 
-    List<Memberorder> selectOrders(@Param("uname")String uname);
+    List<Memberorder> selectOrdersByUname(@Param("uname")String uname);
 
     List<Memberorder> selectOrdersbyStatus(@Param("status")String status);
 
@@ -45,4 +45,6 @@ public interface OrderDao {
     Memberorder getOrderByUnamePname(@Param("uname")String uname,@Param("pname")String pname);
 
     List<Memberorder> selectOrdersByVname(@Param("vname") String vname);
+
+    List<Memberorder> selectOrders();
 }

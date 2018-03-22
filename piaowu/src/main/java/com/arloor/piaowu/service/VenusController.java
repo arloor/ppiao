@@ -165,4 +165,9 @@ public class VenusController {
     public List<String> getHallsByVname(String vname){
         return venuesDao.getHallsByVname(vname);
     }
+
+    @RequestMapping("/listvenues")
+    public List<String> listvenues(){
+        return venuesDao.listvenues();
+    }
 }

@@ -27,6 +27,9 @@
     <select id="searchSeatInfo" resultType="com.arloor.piaowu.domain.Halls">
         SELECT * FROM halls WHERE vname=#{vname} and hname=#{hname};
     </select>
+    <select id="listvenues" resultType="java.lang.String">
+        SELECT vname FROM venues WHERE vstatus="valid";
+    </select>
 
     <insert id="insertNewPlan">
         INSERT INTO plays(pname, vname, hname, pdate, ptime, ptype, pinfo) VALUE (#{pname},#{vname},#{phname},#{pdate},#{ptime},#{ptype},#{pinfo});

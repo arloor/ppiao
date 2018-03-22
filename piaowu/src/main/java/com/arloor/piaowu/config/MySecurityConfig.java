@@ -40,7 +40,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/home","/signup","/venuessignup").permitAll()
                 .antMatchers("/buy","/cancelmember","/modifymember","/ordermanage","/selectticket").hasRole("MEMBER")
                 .antMatchers("/newplan","/refactorvenues","/atscenebuy","/check","/venuesstatics").hasRole("VENUES")
-                .antMatchers("/checkmodifyinfo","/newticket").hasRole("ADMIN")
+                .antMatchers("/checkmodifyinfo","/newticket","/viewstaticsvenues","/financestatics").hasRole("ADMIN")
                 .anyRequest().authenticated() //任何请求,登录后可以访问
                 .and()
                 .formLogin()

@@ -15,6 +15,9 @@
         set vaddr =#{vaddr},vinfo=#{vinfo},vpasswd=#{vpasswd}
         where vname=#{vname};
     </update>
+    <update id="updateOrderStatus">
+        UPDATE memberorder SET state="已完成&amp;pay" WHERE uname=#{uname} and pname=#{pname};
+    </update>
     <delete id="dispassSign">
         DELETE FROM venues WHERE vname=#{vname};
     </delete>

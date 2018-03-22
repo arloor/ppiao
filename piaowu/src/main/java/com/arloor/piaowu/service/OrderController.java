@@ -1,7 +1,6 @@
 package com.arloor.piaowu.service;
 
 
-import com.arloor.piaowu.dao.MembersDao;
 import com.arloor.piaowu.dao.OrderDao;
 import com.arloor.piaowu.dao.PlayDao;
 import com.arloor.piaowu.domain.Memberorder;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -48,7 +46,7 @@ public class OrderController {
             @RequestParam String seats
    ){
     String selectsql="SELECT count(*) FROM\n" +
-            "  (SELECT * FROM 至暗时刻_seats WHERE uname=\""+uname+"\" AND status=\"taken\") seats\n" +
+            "  (SELECT * FROM "+pname+"_seats WHERE uname=\""+uname+"\" AND status=\"taken\") seats\n" +
             "WHERE";
     String[] seatEntrys=seats.split(",");
        for (String seatentry:seatEntrys
@@ -57,7 +55,9 @@ public class OrderController {
            selectsql+="  seats.stype=\""+sinfo[0]+"\" AND seats.row="+sinfo[1]+" AND seats.col="+sinfo[2]+" OR\n";
        }
        selectsql=selectsql.substring(0,selectsql.length()-4)+";";
+//       System.out.println(selectsql);
        int count=orderDao.countSeats(selectsql);
+//       System.out.println(count+" "+seatEntrys.length);
        if(count!=seatEntrys.length){
            return "输入的座位信息不正确";
        }
@@ -83,6 +83,10 @@ public class OrderController {
    @RequestMapping("/listordersbyvenues")
    public List<Memberorder> listordersbyvenues(@RequestParam String vname){
        return orderDao.selectOrdersByVname(vname);
+   }
 
+   @RequestMapping("/listorders")
+   public List<Memberorder> listorders(){
+       return orderDao.selectOrders();
    }
 }

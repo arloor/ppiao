@@ -33,4 +33,6 @@ public interface AdminDao {
     void deleteVenuesTemp(@Param("vname")String vname);
 
     void insertTicket(Ticket ticket);
+
+    void updateOrderStatus(@Param("uname") String uname,@Param("pname") String pname);
 }
