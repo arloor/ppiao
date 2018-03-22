@@ -30,12 +30,6 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         //忽略bootsstrap静态资源
         web.ignoring().antMatchers("/bootstrap/**");
         web.ignoring().antMatchers("/image/**");
-//        以下是忽略由npm run build生成的静态资源
-//        web.ignoring().antMatchers("/static/**");
-//        web.ignoring().antMatchers("/asset-manifest.json");
-//        web.ignoring().antMatchers("/favicon.ico");
-//        web.ignoring().antMatchers("/manifest.json");
-//        web.ignoring().antMatchers("/service-worker.js");
     }
 
     @Override
@@ -44,7 +38,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         http.authorizeRequests()
                 .antMatchers("/", "/home","/signup","/venuessignup").permitAll()
-                .antMatchers("/buy","/cancelmember","/modifymember","/ordermanage").hasRole("MEMBER")
+                .antMatchers("/buy","/cancelmember","/modifymember","/ordermanage","/selectticket").hasRole("MEMBER")
                 .antMatchers("/newplan","/refactorvenues","/atscenebuy","/check","/venuesstatics").hasRole("VENUES")
                 .antMatchers("/checkmodifyinfo","/newticket").hasRole("ADMIN")
                 .anyRequest().authenticated() //任何请求,登录后可以访问

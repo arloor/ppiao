@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>飘麦网--兑换优惠券</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body background="image/bk1.png">
+<!--导航栏开始-->
+<nav th:replace="components/components :: header"></nav>
+<!--导航栏结束-->
+
+
+<!---->
+<div class="container-fluid">
+    <div class="row">
+        <h1 th:inline="text" style="text-align: center"><span id="vname">[[${#httpServletRequest.remoteUser}]]</span> 兑换优惠券</h1>
+        <br>
+        <br>
+        <br>
+        <div class="col-lg-6 col-lg-offset-3" style="background: #5bc0de;text-align: center">
+            <!--发布计划部分-->
+            <form>
+                <div class="form-group">
+                    <label for="ptype">优惠券</label>
+                    <select class="form-control" id="ptype">
+                        <option style="display: none">未选择</option>
+                    </select>
+                </div>
+            </form>
+            <button type="submit" id="submit" class="btn btn-default">确认兑换</button>
+            <div id="ticketinfodiv" style="display: none">
+                <h3>优惠券名称<span style='color: blueviolet' id="ticketname"></span></h3>
+                <h3>满<span style='color: blueviolet' id="param0">100</span><span style='color: blueviolet' id="type">折扣</span><span style='color: blueviolet' id="param1">0.8</span></h3>
+                <h3>需要<span style='color: blueviolet' id="param2">100</span>积分</h3>
+            </div>
+            <!--发布计划部分结束-->
+        </div>
+    </div>
+    <div class="row">
+        <br>
+        <br>
+        <br>
+        <div class="col-lg-6 col-lg-offset-3" style="background: #5bc0de;text-align: center">
+            <h1>也许是最好的票务网站</h1>
+            <h2>10家大型场馆</h2>
+            <h3>日均100<span style="font-weight: bolder">赛事、演唱会、电影</span></h3>
+            <hr/>
+            <h1>Maybe the best booking website</h1>
+            <h2>10 giant Venues</h2>
+            <h3>100<span style="font-weight: bolder">赛事、演唱会、电影</span> perday</h3>
+            <hr/>
+            <img src="image/pig.png" class="img-responsive" >
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+window.onload=function (ev) {
+    var link="/api/members/ungettickets?uname="+document.getElementById("unamespan").innerText;
+    var req=new XMLHttpRequest();
+    req.open("GET",link,true);
+    req.send();
+    req.onreadystatechange=function (ev2) {
+        if(req.readyState==4&&this.status==200){
+            tickets=eval("("+req.responseText+")");
+            var ptypeholder=document.getElementById("ptype");
+            for (var i=0;i<tickets.length;i++){
+                ptypeholder.innerHTML+="<option>"+tickets[i].ticketname+"</option>"
+            }
+        }
+    }
+}
+
+var ptypeholder=document.getElementById("ptype");
+ptypeholder.onchange=function (ev) {
+    var ticketname=ptypeholder.value;
+    for(var i=0;i<tickets.length;i++){
+        if(ticketname==tickets[i].ticketname){
+            document.getElementById("ticketinfodiv").setAttribute("style","display:block");
+            document.getElementById("param0").innerText=tickets[i].param0;
+            document.getElementById("param1").innerText=tickets[i].param1;
+            document.getElementById("param2").innerText=tickets[i].param2;
+            document.getElementById("type").innerText=tickets[i].type;
+            break;
+        }
+    }
+};
+
+var submit=document.getElementById("submit");
+submit.onclick=function (ev) {
+    var ticketname=ptypeholder.value;
+    var bonuscost=document.getElementById("param2").innerText;
+    if(ticketname=="未选择"){
+        alert("请选择优惠券");
+        return false;
+    }
+    var link="/api/members/getticket?uname="+document.getElementById("unamespan").innerText+"&ticketname="+ticketname+"&bonuscost="+bonuscost;
+    var req=new XMLHttpRequest();
+    req.open("GET",link,true);
+    req.send();
+
+    req.onreadystatechange=function (ev2) {
+        if(req.readyState==4&&this.status==200){
+            alert(req.responseText);
+            window.location.href="/";
+        }
+    }
+}
+
+</script>
+</body>
+</html>

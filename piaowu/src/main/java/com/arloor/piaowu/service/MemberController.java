@@ -353,4 +353,21 @@ public class MemberController{
             return false;
         }
     }
+
+    @RequestMapping("/ungettickets")
+    public List<Ticket> ungettickets(@RequestParam String uname){
+        return membersDao.ungettickets(uname);
+    }
+
+    @RequestMapping("/getticket")
+    public String getticket(@RequestParam String uname,@RequestParam String ticketname,@RequestParam String bonuscost){
+        if(membersDao.countUnusedTickets(uname)>2){
+            return "未使用的优惠券已有3张，不允许兑换新的优惠券";
+        }else {
+            membersDao.insertNewTicket(uname,ticketname);
+            membersDao.minusleft(ticketname);
+            membersDao.minusbonus(uname,bonuscost);
+        }
+        return "兑换成功";
+    }
 }

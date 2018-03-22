@@ -3,8 +3,10 @@ package com.arloor.piaowu.dao;
 import com.arloor.piaowu.domain.Member;
 import com.arloor.piaowu.domain.Memberorder;
 import com.arloor.piaowu.domain.Memberticket;
+import com.arloor.piaowu.domain.Ticket;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -31,4 +33,14 @@ public interface MembersDao {
     void updateMember( Member member);
 
     Memberorder getMemberOrder(@Param("uname") String uname,@Param("pname") String pname);
+
+    List<Ticket> ungettickets(@Param("uname") String uname);
+
+    int countUnusedTickets(@Param("uname")String uname);
+
+    void insertNewTicket(@Param("uname")String uname,@Param("ticketname")String ticketname);
+
+    void minusleft(@Param("ticketname") String ticketname);
+
+    void minusbonus(@Param("uname") String uname,@Param("bonuscost") String bonuscost);
 }

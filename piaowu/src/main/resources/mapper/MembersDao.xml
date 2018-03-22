@@ -18,6 +18,9 @@
     <insert id="insertEmptyMember">
         INSERT INTO members(uname) VALUE (#{uname});
     </insert>
+    <insert id="insertNewTicket">
+        INSERT INTO memberticket(uname, ticketname) VALUE (#{uname},#{ticketname});
+    </insert>
     <update id="updatePinByUname">
         UPDATE members SET pin=#{pin},pinindex=pinindex+1 where uname=#{uname};
     </update>
@@ -36,6 +39,12 @@
     <update id="updateMember" parameterType="com.arloor.piaowu.domain.Member">
         UPDATE members SET balance=#{balance},passwd=#{passwd},paykey=#{paykey},bonus=#{bonus},paynum=#{paynum} where uname=#{uname};
     </update>
+    <update id="minusleft">
+        UPDATE ticket SET `left`=`left`-1 WHERE ticketname=#{ticketname};
+    </update>
+    <update id="minusbonus">
+        UPDATE members SET bonus=bonus-#{bonuscost} where uname=#{uname};
+    </update>
     <select id="searchByUname" resultType="com.arloor.piaowu.domain.Member">
         SELECT * FROM members WHERE uname =#{uname}
     </select>
@@ -47,5 +56,12 @@
     </select>
     <select id="getMemberOrder" resultType="com.arloor.piaowu.domain.Memberorder">
         SELECT * FROM memberorder WHERE uname=#{uname} and pname=#{pname};
+    </select>
+    <select id="ungettickets" resultType="com.arloor.piaowu.domain.Ticket">
+        select *
+        from ticket WHERE `left`>0 and param2 &lt;(SELECT bonus FROM members WHERE uname=#{uname}) AND ticketname NOT IN (SELECT ticketname from memberticket WHERE uname=#{uname});
+    </select>
+    <select id="countUnusedTickets" resultType="java.lang.Integer">
+        SELECT count(*) FROM memberticket WHERE uname=#{uname} and used=0;
     </select>
 </mapper>
