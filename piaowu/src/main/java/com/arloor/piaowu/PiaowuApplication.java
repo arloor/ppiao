@@ -1,15 +1,10 @@
 package com.arloor.piaowu;
 
 import com.arloor.piaowu.dao.OrderDao;
-import com.arloor.piaowu.domain.Member;
 import com.arloor.piaowu.service.MemberController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.core.annotation.Order;
-
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;

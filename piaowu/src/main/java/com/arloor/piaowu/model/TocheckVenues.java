@@ -2,9 +2,27 @@ package com.arloor.piaowu.model;
 
 public class TocheckVenues {
     private String vname;
+    private String vpasswd;
+    private String vstatus;
     private String vaddr;
     private String vinfo;
     private String seats;
+
+    public String getVstatus() {
+        return vstatus;
+    }
+
+    public void setVstatus(String vstatus) {
+        this.vstatus = vstatus;
+    }
+
+    public String getVpasswd() {
+        return vpasswd;
+    }
+
+    public void setVpasswd(String vpasswd) {
+        this.vpasswd = vpasswd;
+    }
 
     public String getVname() {
         return vname;

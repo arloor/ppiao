@@ -35,7 +35,7 @@
         SELECT row,col from ${table} where stype=#{stype} AND  status ="untaken" ORDER BY row, col  LIMIT 0,${seatnum};
     </select>
 
-    <select id="countSeats" resultType="int">
+    <select id="countSeats" resultType="java.lang.Integer">
         ${sql}
     </select>
 

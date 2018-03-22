@@ -78,13 +78,39 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script>
-    var sign=document.getElementById("sign");
-    sign.onload=function (ev) {
-        alert("sign");
-    }
-    var modify=document.getElementById("modify");
-    modify.onload=function (ev) {
-        alert("modify");
+    window.onload=function (ev) {
+        var req=new XMLHttpRequest();
+        var link="/api/admin/showtocheck";
+
+        var signholder=document.getElementById("sign");
+        var modifyholder=document.getElementById("modify");
+
+        req.open("GET",link,true)
+        req.send();
+
+        req.onreadystatechange=function (ev2) {
+            if(req.readyState==4&&this.status==200){
+                var venueslist=eval("("+req.responseText+")");
+                for (var i=0;i<venueslist.length;i++){
+                    if(venueslist[i].vstatus=="sign"){
+                        signholder.innerHTML+="<td>"+venueslist[i].vname+"</td>\n" +
+                            "                    <td>"+venueslist[i].vaddr+"</td>\n" +
+                            "                    <td>"+venueslist[i].vinfo+"</td>\n" +
+                            "                    <td>"+venueslist[i].seats+"</td>\n" +
+                            "                    <td><a href='/api/admin/passsign?vname="+venueslist[i].vname+"'>通过</a></td>\n" +
+                            "                    <td><a href='/api/admin/dispasssign?vname="+venueslist[i].vname+"'>驳回</a></td>"
+                    }
+                    if(venueslist[i].vstatus=="tocheck"){
+                        modifyholder.innerHTML+="<td>"+venueslist[i].vname+"</td>\n" +
+                            "                    <td>"+venueslist[i].vaddr+"</td>\n" +
+                            "                    <td>"+venueslist[i].vinfo+"</td>\n" +
+                            "                    <td>"+venueslist[i].seats+"</td>\n" +
+                            "                    <td><a href='/api/admin/passmodify?vname="+venueslist[i].vname+"'>通过</a></td>\n" +
+                            "                    <td><a href='/api/admin/dispassmodify?vname="+venueslist[i].vname+"'>驳回</a></td>"
+                    }
+                }
+            }
+        }
     }
 </script>
 </body>

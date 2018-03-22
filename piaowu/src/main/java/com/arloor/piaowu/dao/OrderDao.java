@@ -10,7 +10,6 @@ import org.springframework.security.core.parameters.P;
 import java.util.List;
 
 @Mapper
-
 public interface OrderDao {
     void insertOrder(@Param("uname") String uname,
                      @Param("pname")String pname,

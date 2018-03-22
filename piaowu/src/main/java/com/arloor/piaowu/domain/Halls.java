@@ -8,7 +8,6 @@ public class Halls {
   private String stype;
   private long rownum;
   private long colnum;
-  private String status;
 
 
   public String getVname() {
@@ -55,11 +54,4 @@ public class Halls {
     this.colnum = colnum;
   }
 
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
 }
