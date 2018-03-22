@@ -2,10 +2,12 @@ package com.arloor.piaowu.service;
 
 import com.arloor.piaowu.dao.AdminDao;
 import com.arloor.piaowu.domain.Halls;
+import com.arloor.piaowu.domain.Ticket;
 import com.arloor.piaowu.domain.Venues;
 import com.arloor.piaowu.model.TocheckVenues;
 import com.arloor.piaowu.model.VenuesTemp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -102,5 +104,17 @@ public class AdminController {
         adminDao.deleteVenuesTemp(vname);
         adminDao.deleteTempHalls(vname);
         return "<a href=\"http://piaomai.moontell.cn/checkmodifyinfo\">驳回成功，返回</a>";
+    }
+
+    @RequestMapping("/newticket")
+    public String newticket(
+            @RequestBody Ticket ticket
+            ){
+        try {
+            adminDao.insertTicket(ticket);
+        }catch (Exception e){
+            return "发布优惠券失败,因为同名优惠券存在";
+        }
+        return "发布优惠券成功";
     }
 }

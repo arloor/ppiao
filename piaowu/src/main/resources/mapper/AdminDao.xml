@@ -4,6 +4,9 @@
     <insert id="insertHallsFromTemp">
         INSERT INTO halls SELECT * FROM halls_temp WHERE vname=#{vname};
     </insert>
+    <insert id="insertTicket" parameterType="com.arloor.piaowu.domain.Ticket">
+        INSERT INTO ticket VALUE (#{ticketname},#{type},#{param0},#{param1},#{param2},#{left});
+    </insert>
     <update id="passSign">
         UPDATE venues SET vstatus="valid" WHERE vname=#{vname};
     </update>

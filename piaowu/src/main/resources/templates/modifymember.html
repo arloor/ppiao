@@ -155,6 +155,7 @@
         req.open("POST",link,true);
         req.setRequestHeader("Content-type","application/json");
         req.send(JSON.stringify(member));
+        // alert(JSON.stringify(member));
 
         req.onreadystatechange=function (ev2) {
             if (req.readyState == 4 && this.status == 200){

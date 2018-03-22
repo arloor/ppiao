@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>飘麦网--在线购票</title>
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body background="image/bk1.png">
+<!--导航栏开始-->
+<nav th:replace="components/components :: header"></nav>
+<!--导航栏结束-->
+
+
+<!---->
+<div class="container-fluid">
+    <div class="row">
+        <h1 th:inline="text" style="text-align: center"><span id="vname">[[${#httpServletRequest.remoteUser}]]</span> 发布优惠券</h1>
+        <br>
+        <br>
+        <br>
+        <div class="col-lg-6 col-lg-offset-3" style="background: #5bc0de;text-align: center">
+            <!--发布计划部分-->
+            <form>t
+                <div class="form-group">
+                    <label for="ticketname">优惠券名称</label>
+                    <input type="text" class="form-control" id="ticketname" placeholder="优惠券名称">
+                </div>
+                <div class="form-group">
+                    <label for="type">优惠券类型</label>
+                    <select class="form-control" id="type">
+                        <option>折扣</option>
+                        <option>立减</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="param2">所需积分</label>
+                    <input type="text"  id="param2" class="form-control" placeholder="所需积分">
+                </div>
+                <div class="form-group">
+                    <label for="param0">使用条件</label>
+                    <input type="text"  id="param0" class="form-control" placeholder="填100，表示满100折扣/立减若干元">
+                </div>
+                <div class="form-group">
+                    <label for="param1">优惠</label>
+                    <input type="text"  id="param1" class="form-control" placeholder="填0.8/5，表示满若干元折扣8折/立减5元">
+                </div>
+                <div class="form-group">
+                    <label for="left">数量</label>
+                    <input type="text"  id="left" class="form-control" placeholder="优惠券发放数量">
+                </div>
+            </form>
+            <button type="submit" id="submit" class="btn btn-default">确认发布</button>
+            <!--发布计划部分结束-->
+        </div>
+    </div>
+    <div class="row">
+        <br>
+        <br>
+        <br>
+        <div class="col-lg-6 col-lg-offset-3" style="background: #5bc0de;text-align: center">
+            <h1>也许是最好的票务网站</h1>
+            <h2>10家大型场馆</h2>
+            <h3>日均100<span style="font-weight: bolder">赛事、演唱会、电影</span></h3>
+            <hr/>
+            <h1>Maybe the best booking website</h1>
+            <h2>10 giant Venues</h2>
+            <h3>100<span style="font-weight: bolder">赛事、演唱会、电影</span> perday</h3>
+            <hr/>
+            <img src="image/pig.png" class="img-responsive" >
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+  var submit=document.getElementById('submit');
+  submit.onclick=function (ev) {
+      var type=document.getElementById("type").value;
+      var ticketname=document.getElementById("ticketname").value;
+      var param0=document.getElementById("param0").value;
+      var param1=document.getElementById("param1").value;
+      var param2=document.getElementById("param2").value;
+      var left=document.getElementById("left").value;
+      var ticket=new Object();
+      ticket.ticketname=ticketname;
+      ticket.type=type;
+      ticket.param0=param0;
+      ticket.param1=param1;
+      ticket.param2=param2;
+      ticket.left=left;
+      // alert(JSON.stringify(ticket));
+      var link="/api/admin/newticket";
+      var req=new XMLHttpRequest();
+      req.open("POST",link,true);
+      req.setRequestHeader("Content-type","application/json");
+      req.send(JSON.stringify(ticket));
+
+
+      req.onreadystatechange=function (ev2) {
+          if(req.readyState==4&&this.status==200){
+              alert(req.responseText);
+              window.location.href="/";
+          }
+      }
+  }
+</script>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.arloor.piaowu.dao;
 
 import com.arloor.piaowu.domain.Admin;
 import com.arloor.piaowu.domain.Halls;
+import com.arloor.piaowu.domain.Ticket;
 import com.arloor.piaowu.domain.Venues;
 import com.arloor.piaowu.model.VenuesTemp;
 import org.apache.ibatis.annotations.Mapper;
@@ -30,4 +31,6 @@ public interface AdminDao {
     Venues selectVenues(@Param("vname")String vname);
     void updateVenus(Venues vname);
     void deleteVenuesTemp(@Param("vname")String vname);
+
+    void insertTicket(Ticket ticket);
 }

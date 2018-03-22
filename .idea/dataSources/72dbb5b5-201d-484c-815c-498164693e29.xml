@@ -1302,6 +1302,7 @@ stype</ColNames>
     </column>
     <column id="288" parent="216" name="param2">
       <Position>5</Position>
+      <Comment>&quot;兑换所需积分值&quot;</Comment>
       <DataType>varchar(10)|0</DataType>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
