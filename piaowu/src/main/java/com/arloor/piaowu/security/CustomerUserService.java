@@ -53,8 +53,10 @@ public class CustomerUserService implements UserDetailsService {
         }
         Venues venues=null;
         try {
+//            System.out.println(s);
             venues = venuesDao.searchVenuesByVid(Integer.parseInt(s));
         }catch (NumberFormatException e){
+            e.printStackTrace();
             return null;
         }
         if(venues!=null&&venues.getVstatus().equals("valid")){

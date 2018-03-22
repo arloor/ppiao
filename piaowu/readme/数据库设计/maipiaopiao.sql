@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 50556
 File Encoding         : 65001
 
-Date: 2018-03-22 12:29:22
+Date: 2018-03-22 16:38:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -47,12 +47,6 @@ CREATE TABLE `guestorder` (
 -- ----------------------------
 -- Records of guestorder
 -- ----------------------------
-INSERT INTO `guestorder` VALUES ('guest', 'A', '10', '2018-03-20 17:42:08', '100');
-INSERT INTO `guestorder` VALUES ('至暗时刻', 'A', '10', '2018-03-20 17:44:43', '100');
-INSERT INTO `guestorder` VALUES ('至暗时刻', 'A', '10', '2018-03-20 17:57:38', '550');
-INSERT INTO `guestorder` VALUES ('黑豹', 'A', '10', '2018-03-20 17:45:02', '100');
-INSERT INTO `guestorder` VALUES ('黑豹', 'A', '10', '2018-03-20 17:45:58', '100');
-INSERT INTO `guestorder` VALUES ('黑豹', 'A座', '10', '2018-03-20 17:46:32', '100');
 
 -- ----------------------------
 -- Table structure for halls
@@ -70,6 +64,8 @@ CREATE TABLE `halls` (
 -- ----------------------------
 -- Records of halls
 -- ----------------------------
+INSERT INTO `halls` VALUES ('幸福蓝海国际影城', '北京银行', 'A', '10', '0000010');
+INSERT INTO `halls` VALUES ('幸福蓝海国际影城', '北京银行', 'B', '10', '0000010');
 INSERT INTO `halls` VALUES ('幸福蓝海国际影城', '杜比厅', 'A', '10', '0000010');
 INSERT INTO `halls` VALUES ('幸福蓝海国际影城', '杜比厅', 'B', '10', '0000010');
 
@@ -110,12 +106,8 @@ CREATE TABLE `memberorder` (
 -- ----------------------------
 -- Records of memberorder
 -- ----------------------------
-INSERT INTO `memberorder` VALUES ('arloor', '至暗时刻', '已完成&pay', '1', '1', '2018-03-21 17:26:52', '55', '44', '不使用优惠卷');
-INSERT INTO `memberorder` VALUES ('arloor', '黑豹', '已取消', '10', '1', '2018-03-21 14:50:16', '1000', '800', '不使用优惠卷');
-INSERT INTO `memberorder` VALUES ('test1', '至暗时刻', '已取消', '6', '1', '2018-03-17 19:22:35', '330', '330', '不使用优惠卷');
-INSERT INTO `memberorder` VALUES ('test1', '黑豹', '已取消', '20', '0', '2018-03-17 21:46:33', '1700', '1700', '不使用优惠卷');
-INSERT INTO `memberorder` VALUES ('test2', '至暗时刻', '已取消', '2', '1', '2018-03-17 19:23:16', '110', '110', '不使用优惠卷');
-INSERT INTO `memberorder` VALUES ('test2', '黑豹', '已取消', '5', '1', '2018-03-17 19:27:23', '500', '500', '不使用优惠卷');
+INSERT INTO `memberorder` VALUES ('arloor', '大话西游', '已支付', '10', '1', '2018-03-22 16:35:55', '450', '360', '新用户优享');
+INSERT INTO `memberorder` VALUES ('arloor', '黑豹', '已支付', '7', '1', '2018-03-22 16:31:03', '385', '385', '不使用优惠卷');
 
 -- ----------------------------
 -- Table structure for members
@@ -140,9 +132,7 @@ CREATE TABLE `members` (
 -- ----------------------------
 -- Records of members
 -- ----------------------------
-INSERT INTO `members` VALUES ('1293181335@qq.com', 'arloor', 'arloor', 'ROLE_MEMBER', '123456', '992', '2708', '3708', '2018-02-02 05:29:47', null, '5666', '71');
-INSERT INTO `members` VALUES ('1293181335@qq.com', 'test1', '123456', 'ROLE_MEMBER', '123456', '665', '4435', '4435', '2018-03-17 19:20:45', null, '47032', '1');
-INSERT INTO `members` VALUES ('1293181335@qq.com', 'test2', '123456', 'ROLE_MEMBER', '123456', '0', '0', '0', '2018-03-17 19:21:28', null, '52706', '1');
+INSERT INTO `members` VALUES ('1293181335@qq.com', 'arloor', '123456', 'ROLE_MEMBER', '123456', '955', '745', '745', '2018-03-22 16:29:34', null, '40666', '2');
 
 -- ----------------------------
 -- Table structure for memberticket
@@ -155,13 +145,12 @@ CREATE TABLE `memberticket` (
   `used` int(11) DEFAULT '0' COMMENT '0未使用',
   `gettime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ticketid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户所有优惠券';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户所有优惠券';
 
 -- ----------------------------
 -- Records of memberticket
 -- ----------------------------
-INSERT INTO `memberticket` VALUES ('1', 'arloor', '3月新用户尊享', '0', '2018-03-12 05:20:32');
-INSERT INTO `memberticket` VALUES ('2', 'arloor', '3月积分兑换', '0', '2018-03-12 13:23:14');
+INSERT INTO `memberticket` VALUES ('9', 'arloor', '新用户优享', '1', '2018-03-22 16:35:22');
 
 -- ----------------------------
 -- Table structure for pfares
@@ -177,9 +166,12 @@ CREATE TABLE `pfares` (
 -- ----------------------------
 -- Records of pfares
 -- ----------------------------
-INSERT INTO `pfares` VALUES ('至暗时刻', 'A', '55.00');
-INSERT INTO `pfares` VALUES ('黑豹', 'A座', '100.00');
-INSERT INTO `pfares` VALUES ('黑豹', 'B座', '85.00');
+INSERT INTO `pfares` VALUES ('大话西游', 'A', '80.00');
+INSERT INTO `pfares` VALUES ('大话西游', 'B', '45.00');
+INSERT INTO `pfares` VALUES ('至暗时刻', 'A', '70.00');
+INSERT INTO `pfares` VALUES ('至暗时刻', 'B', '55.00');
+INSERT INTO `pfares` VALUES ('黑豹', 'A', '55.00');
+INSERT INTO `pfares` VALUES ('黑豹', 'B', '40.00');
 
 -- ----------------------------
 -- Table structure for plays
@@ -199,8 +191,9 @@ CREATE TABLE `plays` (
 -- ----------------------------
 -- Records of plays
 -- ----------------------------
-INSERT INTO `plays` VALUES ('至暗时刻', '幸福蓝海国际影城', '1厅', '2018-03-21', '18:25', '电影', '至暗时刻的小老头');
-INSERT INTO `plays` VALUES ('黑豹', '幸福蓝海国际影城', '杜比厅', '2018-04-04', '17:12', '电影', '就是超级好看的电影');
+INSERT INTO `plays` VALUES ('大话西游', '幸福蓝海国际影城', '北京银行', '2018-03-30', '15:33', '电影', '无');
+INSERT INTO `plays` VALUES ('至暗时刻', '幸福蓝海国际影城', '北京银行', '2018-03-22', '18:00', '电影', '无');
+INSERT INTO `plays` VALUES ('黑豹', '幸福蓝海国际影城', '杜比厅', '2018-03-23', '17:00', '电影', '无');
 
 -- ----------------------------
 -- Table structure for ticket
@@ -219,8 +212,7 @@ CREATE TABLE `ticket` (
 -- ----------------------------
 -- Records of ticket
 -- ----------------------------
-INSERT INTO `ticket` VALUES ('3月新用户尊享', '折扣', '300', '0.8', '0', '49');
-INSERT INTO `ticket` VALUES ('3月积分兑换', '立减', '100', '5', '100', '38');
+INSERT INTO `ticket` VALUES ('新用户优享', '折扣', '100', '0.8', '0', '999');
 
 -- ----------------------------
 -- Table structure for venues
@@ -236,12 +228,12 @@ CREATE TABLE `venues` (
   `role` varchar(255) DEFAULT 'ROLE_VENUES' COMMENT '用于spring security的字段',
   PRIMARY KEY (`vname`),
   UNIQUE KEY `venues_vid_uindex` (`vid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='场馆信息的表\r\n';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='场馆信息的表\r\n';
 
 -- ----------------------------
 -- Records of venues
 -- ----------------------------
-INSERT INTO `venues` VALUES ('1', '幸福蓝海国际影城', '123456', '汉口路22号', 'valid', '不知道啊', 'ROLE_VENUES');
+INSERT INTO `venues` VALUES ('6', '幸福蓝海国际影城', '123456', '汉口路22号', 'valid', '以后修改简介', 'ROLE_VENUES');
 
 -- ----------------------------
 -- Table structure for venues_temp
@@ -261,6 +253,224 @@ CREATE TABLE `venues_temp` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for 大话西游_seats
+-- ----------------------------
+DROP TABLE IF EXISTS `大话西游_seats`;
+CREATE TABLE `大话西游_seats` (
+  `pname` varchar(255) NOT NULL,
+  `stype` varchar(255) NOT NULL,
+  `row` int(10) NOT NULL,
+  `col` int(10) NOT NULL,
+  `uname` varchar(255) NOT NULL DEFAULT 'untaken',
+  `status` varchar(255) NOT NULL DEFAULT 'untaken',
+  PRIMARY KEY (`pname`,`stype`,`row`,`col`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of 大话西游_seats
+-- ----------------------------
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '1', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '1', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '1', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '1', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '1', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '1', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '1', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '1', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '1', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '1', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '2', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '2', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '2', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '2', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '2', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '2', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '2', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '2', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '2', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '2', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '3', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '3', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '3', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '3', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '3', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '3', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '3', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '3', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '3', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '3', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '4', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '4', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '4', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '4', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '4', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '4', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '4', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '4', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '4', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '4', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '5', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '5', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '5', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '5', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '5', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '5', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '5', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '5', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '5', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '5', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '6', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '6', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '6', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '6', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '6', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '6', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '6', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '6', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '6', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '6', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '7', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '7', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '7', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '7', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '7', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '7', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '7', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '7', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '7', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '7', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '8', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '8', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '8', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '8', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '8', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '8', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '8', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '8', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '8', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '8', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '9', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '9', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '9', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '9', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '9', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '9', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '9', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '9', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '9', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '9', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '10', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '10', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '10', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '10', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '10', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '10', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '10', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '10', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '10', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'A', '10', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '1', '1', 'arloor', 'taken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '1', '2', 'arloor', 'taken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '1', '3', 'arloor', 'taken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '1', '4', 'arloor', 'taken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '1', '5', 'arloor', 'taken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '1', '6', 'arloor', 'taken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '1', '7', 'arloor', 'taken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '1', '8', 'arloor', 'taken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '1', '9', 'arloor', 'taken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '1', '10', 'arloor', 'taken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '2', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '2', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '2', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '2', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '2', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '2', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '2', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '2', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '2', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '2', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '3', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '3', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '3', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '3', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '3', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '3', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '3', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '3', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '3', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '3', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '4', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '4', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '4', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '4', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '4', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '4', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '4', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '4', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '4', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '4', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '5', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '5', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '5', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '5', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '5', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '5', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '5', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '5', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '5', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '5', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '6', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '6', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '6', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '6', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '6', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '6', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '6', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '6', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '6', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '6', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '7', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '7', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '7', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '7', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '7', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '7', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '7', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '7', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '7', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '7', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '8', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '8', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '8', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '8', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '8', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '8', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '8', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '8', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '8', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '8', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '9', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '9', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '9', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '9', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '9', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '9', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '9', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '9', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '9', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '9', '10', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '10', '1', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '10', '2', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '10', '3', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '10', '4', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '10', '5', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '10', '6', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '10', '7', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '10', '8', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '10', '9', 'untaken', 'untaken');
+INSERT INTO `大话西游_seats` VALUES ('大话西游', 'B', '10', '10', 'untaken', 'untaken');
+
+-- ----------------------------
 -- Table structure for 黑豹_seats
 -- ----------------------------
 DROP TABLE IF EXISTS `黑豹_seats`;
@@ -277,206 +487,206 @@ CREATE TABLE `黑豹_seats` (
 -- ----------------------------
 -- Records of 黑豹_seats
 -- ----------------------------
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '1', '1', 'guestorder', 'taken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '1', '2', 'guestorder', 'taken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '1', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '1', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '1', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '1', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '1', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '1', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '1', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '1', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '2', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '2', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '2', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '2', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '2', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '2', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '2', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '2', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '2', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '2', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '3', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '3', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '3', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '3', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '3', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '3', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '3', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '3', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '3', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '3', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '4', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '4', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '4', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '4', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '4', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '4', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '4', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '4', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '4', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '4', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '5', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '5', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '5', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '5', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '5', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '5', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '5', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '5', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '5', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '5', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '6', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '6', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '6', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '6', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '6', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '6', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '6', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '6', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '6', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '6', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '7', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '7', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '7', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '7', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '7', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '7', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '7', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '7', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '7', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '7', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '8', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '8', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '8', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '8', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '8', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '8', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '8', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '8', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '8', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '8', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '9', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '9', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '9', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '9', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '9', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '9', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '9', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '9', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '9', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '9', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '10', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '10', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '10', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '10', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '10', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '10', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '10', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '10', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '10', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A座', '10', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '1', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '1', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '1', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '1', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '1', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '1', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '1', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '1', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '1', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '1', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '2', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '2', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '2', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '2', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '2', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '2', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '2', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '2', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '2', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '2', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '3', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '3', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '3', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '3', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '3', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '3', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '3', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '3', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '3', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '3', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '4', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '4', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '4', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '4', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '4', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '4', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '4', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '4', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '4', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '4', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '5', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '5', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '5', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '5', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '5', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '5', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '5', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '5', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '5', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '5', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '6', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '6', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '6', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '6', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '6', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '6', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '6', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '6', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '6', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '6', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '7', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '7', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '7', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '7', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '7', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '7', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '7', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '7', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '7', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '7', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '8', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '8', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '8', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '8', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '8', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '8', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '8', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '8', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '8', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '8', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '9', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '9', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '9', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '9', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '9', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '9', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '9', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '9', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '9', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '9', '10', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '10', '1', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '10', '2', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '10', '3', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '10', '4', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '10', '5', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '10', '6', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '10', '7', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '10', '8', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '10', '9', 'untaken', 'untaken');
-INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B座', '10', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '1', '1', 'guestorder', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '1', '2', 'guestorder', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '1', '3', 'guestorder', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '1', '4', 'guestorder', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '1', '5', 'guestorder', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '1', '6', 'guestorder', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '1', '7', 'guestorder', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '1', '8', 'guestorder', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '1', '9', 'guestorder', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '1', '10', 'guestorder', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '2', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '2', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '2', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '2', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '2', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '2', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '2', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '2', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '2', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '2', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '3', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '3', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '3', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '3', '4', 'arloor', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '3', '5', 'arloor', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '3', '6', 'arloor', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '3', '7', 'arloor', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '3', '8', 'arloor', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '3', '9', 'arloor', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '3', '10', 'arloor', 'taken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '4', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '4', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '4', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '4', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '4', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '4', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '4', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '4', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '4', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '4', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '5', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '5', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '5', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '5', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '5', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '5', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '5', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '5', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '5', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '5', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '6', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '6', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '6', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '6', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '6', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '6', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '6', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '6', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '6', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '6', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '7', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '7', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '7', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '7', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '7', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '7', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '7', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '7', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '7', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '7', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '8', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '8', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '8', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '8', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '8', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '8', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '8', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '8', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '8', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '8', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '9', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '9', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '9', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '9', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '9', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '9', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '9', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '9', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '9', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '9', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '10', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '10', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '10', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '10', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '10', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '10', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '10', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '10', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '10', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'A', '10', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '1', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '1', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '1', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '1', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '1', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '1', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '1', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '1', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '1', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '1', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '2', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '2', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '2', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '2', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '2', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '2', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '2', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '2', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '2', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '2', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '3', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '3', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '3', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '3', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '3', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '3', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '3', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '3', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '3', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '3', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '4', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '4', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '4', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '4', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '4', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '4', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '4', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '4', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '4', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '4', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '5', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '5', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '5', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '5', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '5', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '5', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '5', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '5', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '5', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '5', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '6', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '6', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '6', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '6', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '6', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '6', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '6', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '6', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '6', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '6', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '7', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '7', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '7', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '7', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '7', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '7', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '7', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '7', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '7', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '7', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '8', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '8', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '8', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '8', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '8', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '8', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '8', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '8', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '8', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '8', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '9', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '9', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '9', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '9', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '9', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '9', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '9', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '9', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '9', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '9', '10', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '10', '1', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '10', '2', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '10', '3', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '10', '4', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '10', '5', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '10', '6', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '10', '7', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '10', '8', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '10', '9', 'untaken', 'untaken');
+INSERT INTO `黑豹_seats` VALUES ('黑豹', 'B', '10', '10', 'untaken', 'untaken');
 
 -- ----------------------------
 -- Table structure for 至暗时刻_seats
@@ -495,104 +705,204 @@ CREATE TABLE `至暗时刻_seats` (
 -- ----------------------------
 -- Records of 至暗时刻_seats
 -- ----------------------------
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '1', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '2', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '3', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '4', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '5', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '6', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '7', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '8', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '9', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '10', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '1', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '2', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '3', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '4', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '5', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '6', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '7', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '8', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '9', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '10', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '1', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '2', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '3', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '4', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '5', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '6', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '7', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '8', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '9', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '10', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '1', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '2', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '3', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '4', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '5', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '6', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '7', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '8', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '9', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '10', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '1', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '2', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '3', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '4', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '5', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '6', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '7', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '8', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '9', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '10', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '1', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '2', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '3', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '4', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '5', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '6', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '7', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '8', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '9', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '10', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '1', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '2', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '3', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '4', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '5', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '6', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '7', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '8', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '9', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '10', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '1', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '2', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '3', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '4', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '5', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '6', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '7', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '8', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '9', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '10', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '1', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '2', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '3', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '4', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '5', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '6', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '7', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '8', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '9', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '10', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '1', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '2', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '3', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '4', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '5', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '6', 'guestorder', 'taken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '1', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '2', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '3', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '4', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '5', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '6', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '7', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '8', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '9', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '6', 'untaken', 'untaken');
 INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '7', 'untaken', 'untaken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '8', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '9', 'guestorder', 'taken');
-INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '10', 'guestorder', 'taken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'A', '10', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '1', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '1', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '1', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '1', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '1', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '1', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '1', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '1', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '1', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '1', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '2', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '2', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '2', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '2', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '2', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '2', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '2', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '2', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '2', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '2', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '3', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '3', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '3', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '3', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '3', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '3', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '3', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '3', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '3', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '3', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '4', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '4', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '4', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '4', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '4', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '4', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '4', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '4', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '4', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '4', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '5', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '5', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '5', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '5', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '5', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '5', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '5', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '5', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '5', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '5', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '6', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '6', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '6', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '6', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '6', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '6', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '6', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '6', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '6', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '6', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '7', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '7', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '7', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '7', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '7', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '7', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '7', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '7', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '7', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '7', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '8', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '8', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '8', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '8', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '8', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '8', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '8', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '8', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '8', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '8', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '9', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '9', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '9', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '9', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '9', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '9', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '9', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '9', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '9', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '9', '10', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '10', '1', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '10', '2', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '10', '3', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '10', '4', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '10', '5', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '10', '6', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '10', '7', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '10', '8', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '10', '9', 'untaken', 'untaken');
+INSERT INTO `至暗时刻_seats` VALUES ('至暗时刻', 'B', '10', '10', 'untaken', 'untaken');
 SET FOREIGN_KEY_CHECKS=1;
