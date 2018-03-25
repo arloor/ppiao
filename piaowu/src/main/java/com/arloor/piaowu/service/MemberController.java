@@ -7,6 +7,7 @@ import com.arloor.piaowu.domain.*;
 import com.arloor.piaowu.model.PinInfo;
 import com.arloor.piaowu.model.RowAndCol;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,6 +20,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/members")
 public class MemberController{
+
+    @Value("${spring.mail.properties.from}")
+    private String mailfrom;
     @Autowired
     private MembersDao membersDao;
     @Autowired
@@ -48,7 +52,7 @@ public class MemberController{
         pinInfo.setPinIndex(pinIndex);
 
         SimpleMailMessage msg=new SimpleMailMessage();
-        msg.setFrom("18762832143@163.com");
+        msg.setFrom(mailfrom);
         msg.setSubject("飘麦网——邮箱验证码");
         if(member.getEmail()!=null){
             msg.setTo(member.getEmail());
@@ -219,7 +223,7 @@ public class MemberController{
                 }
                 //发送邮件
                 SimpleMailMessage msg=new SimpleMailMessage();
-                msg.setFrom("18762832143@163.com");
+                msg.setFrom(mailfrom);
                 msg.setSubject("飘麦网——演出详情通知");
                 msg.setTo(member.getEmail());
                 Play play=playDao.viewPlayInfo(pname).get(0);
