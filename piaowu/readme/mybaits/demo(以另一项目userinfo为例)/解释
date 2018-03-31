@@ -1,3 +1,0 @@
-UserInfo.java 定义UserInfo的domain对象
-UserInfomapper.xml 放在resources/mapper 下
-UserInfoDao.java 定义了数据库访问的接口
